@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SiDag — Sistem Informasi Asesmen Diagnostik Tiga Tingkat</title>
+  <meta name="title" content="SiDag — Sistem Informasi Asesmen Diagnostik Tiga Tingkat">
+  <meta name="description" content="Aplikasi web asesmen diagnostik tiga tingkat (three-tier) untuk memetakan pemahaman dan miskonsepsi siswa secara akurat dan objektif.">
+  <meta name="keywords" content="SiDag, asesmen diagnostik, three tier, miskonsepsi, analisis butir soal, kurikulum merdeka">
+  <meta name="author" content="SiDag">
+  <meta name="robots" content="index, follow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234f46e5'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+  <!-- Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for Math Formula Rendering (Digunakan pada bagian analisis butir & rumus) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Header / Navigation Formal -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-wrap">
+      <a href="#" class="brand-logo" aria-label="SiDag Beranda">
+        <div class="brand-badge-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="brand-text-block">
+          <span class="brand-title">SiDag</span>
+          <span class="brand-sub">Asesmen Diagnostik</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#metode" class="nav-link">Metode 3-Tingkat</a>
+        <a href="#analisis-butir" class="nav-link">Analisis Butir Soal</a>
+        <a href="#fitur" class="nav-link">Fitur</a>
+        <a href="#alur" class="nav-link">Alur Kerja</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle Clean SVG -->
+        <button type="button" class="theme-toggle-btn" id="themeToggleBtn" aria-label="Ganti Tema">
+          <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <button type="button" class="btn btn-primary btn-sm open-teacher-modal" id="navTeacherBtn">
+          Portal Guru
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm open-admin-modal" id="navAdminBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:2px;">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Portal Admin
+        </button>
+
+        <button type="button" class="mobile-toggle" id="mobileToggle" aria-label="Menu Navigasi">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#metode">Metode 3-Tingkat</a>
+    <a href="#analisis-butir">Analisis Butir Soal</a>
+    <a href="#fitur">Fitur</a>
+    <a href="#alur">Alur Kerja</a>
+    <a href="#faq">FAQ</a>
+    <div class="mobile-cta-row">
+      <button type="button" class="btn btn-primary btn-sm open-teacher-modal">Portal Guru</button>
+      <button type="button" class="btn btn-secondary btn-sm open-admin-modal">Portal Admin</button>
+    </div>
+  </div>
+
+  <main>
+    <!-- ==================================================================
+         Hero Section Formal & Simpel
+         ================================================================== -->
+    <section class="hero-section">
+      <div class="container hero-container">
+        
+        <div class="formal-pill">
+          <span>Aplikasi Web Asesmen Diagnostik Tiga Tingkat (Three-Tier)</span>
+        </div>
+
+        <h1 class="hero-title">
+          Pemetaan Miskonsepsi dan Pemahaman Siswa Secara Akurat
+        </h1>
+
+        <p class="hero-subtitle">
+          Membantu guru mengidentifikasi akar pemahaman konsep siswa melalui instrumen soal tiga tingkat. Mengelompokkan hasil secara otomatis ke dalam profil <strong>Paham</strong>, <strong>Miskonsepsi</strong>, dan <strong>Tidak Paham</strong>, dilengkapi analisis kualitas butir soal.
+        </p>
+
+        <!-- Gateway Asesmen Siswa (Token-First Flow) -->
+        <div class="token-gateway-box" id="token-gateway">
+          <div class="gateway-header">
+            <span class="gateway-tag">Akses Pengerjaan Siswa</span>
+            <h3 class="gateway-title" id="gatewayTitle">Masukkan Token Asesmen</h3>
+            <p class="gateway-desc" id="gatewayDesc">Siswa harus memasukkan token asesmen yang valid dari guru sebelum dapat mengisi identitas diri.</p>
+          </div>
+
+          <!-- Tahap 1: Verifikasi Token -->
+          <form class="token-step-form" id="tokenVerifyForm">
+            <div class="token-input-row">
+              <input type="text" class="token-field" id="heroTokenInput" placeholder="Ketik token (mis: DIAGNO-2026)..." autocomplete="off" required>
+              <button type="submit" class="btn btn-primary btn-sm" id="btnVerifyToken">
+                Verifikasi Token &rarr;
+              </button>
+            </div>
+            
+            <div class="token-chips-bar">
+              <span class="token-chips-label">Pilihan token aktif:</span>
+              <button type="button" class="sample-token-chip">DIAGNO-2026</button>
+              <button type="button" class="sample-token-chip">FISIKA-XI</button>
+            </div>
+          </form>
+
+          <!-- Tahap 2: Pengisian Informasi Diri (Hanya muncul jika token lolos verifikasi) -->
+          <div class="student-info-section" id="studentInfoSection" style="display: none;">
+            <div class="token-verified-card">
+              <div class="verified-left">
+                <span class="verified-badge">&check; Token Terverifikasi</span>
+                <span class="verified-token-code" id="verifiedTokenDisplay">DIAGNO-2026</span>
+                <span class="verified-exam-title" id="verifiedExamTitle">Asesmen Diagnostik Fisika &mdash; Kinematika & Gravitasi</span>
+              </div>
+              <button type="button" class="btn-cancel-token" id="btnChangeToken" title="Ganti token asesmen">&times; Ganti</button>
+            </div>
+
+            <form id="studentStartExamForm" class="student-details-form">
+              <div class="input-group-formal">
+                <label class="input-label" for="examStudentName">Nama Lengkap Siswa</label>
+                <input type="text" class="input-control" id="examStudentName" placeholder="Contoh: Ahmad Fauzan" required>
+              </div>
+
+              <div class="input-grid-2">
+                <div class="input-group-formal">
+                  <label class="input-label" for="examStudentClass">Kelas / Rombel</label>
+                  <input type="text" class="input-control" id="examStudentClass" placeholder="Contoh: XI IPA 2" required>
+                </div>
+                <div class="input-group-formal">
+                  <label class="input-label" for="examStudentRoll">Nomor Absen</label>
+                  <input type="text" class="input-control" id="examStudentRoll" placeholder="Contoh: 14">
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                Mulai Pengerjaan Ujian &rarr;
+              </button>
+            </form>
+          </div>
+
+          <!-- Tindakan Lain untuk Guru -->
+          <div class="gateway-footer-links">
+            <span style="font-size: 0.85rem; color: var(--text-dim);">Bukan siswa?</span>
+            <button type="button" class="btn-link-action open-teacher-modal">Pendaftaran Guru</button>
+            <span style="color: var(--border-color);">&bull;</span>
+            <button type="button" class="btn-link-action open-admin-modal">Portal Admin</button>
+          </div>
+        </div>
+
+        <!-- 3 Indikator Ringkas -->
+        <div class="hero-points-row">
+          <div class="point-item">
+            <span class="point-bullet">&bull;</span>
+            <span>Deteksi Otomatis 3 Profil Pemahaman</span>
+          </div>
+          <div class="point-item">
+            <span class="point-bullet">&bull;</span>
+            <span>Siswa Masuk dengan Token (Tanpa Akun)</span>
+          </div>
+          <div class="point-item">
+            <span class="point-bullet">&bull;</span>
+            <span>Analisis Psikometrik Kualitas Butir Soal</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Section: Metode Tiga Tingkat (Three-Tier)
+         ================================================================== -->
+    <section class="section" id="metode">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Instrumen Asesmen</span>
+          <h2 class="section-heading">Konsep Soal Tiga Tingkat (Three-Tier)</h2>
+          <p class="section-subtext">
+            Soal pilihan ganda konvensional seringkali tidak dapat membedakan antara siswa yang benar karena memahami konsep dengan siswa yang beruntung menebak. Instrumen tiga tingkat mengatasi kelemahan tersebut:
+          </p>
+        </div>
+
+        <!-- 3 Tingkat Soal -->
+        <div class="formal-grid-3">
+          <div class="tier-card">
+            <div class="tier-badge">Tingkat 1</div>
+            <h3 class="tier-title">Jawaban Utama</h3>
+            <p class="tier-desc">
+              Pertanyaan pilihan ganda konseptual yang memuat pilihan jawaban atas materi yang diujikan. Mendukung penulisan rumus matematika dan sains (LaTeX).
+            </p>
+          </div>
+
+          <div class="tier-card">
+            <div class="tier-badge">Tingkat 2</div>
+            <h3 class="tier-title">Alasan Ilmiah</h3>
+            <p class="tier-desc">
+              Pilihan argumentasi atau alasan yang mendasari jawaban pada Tingkat 1. Berfungsi untuk mendeteksi apakah konsep berpikir siswa sudah benar atau keliru.
+            </p>
+          </div>
+
+          <div class="tier-card">
+            <div class="tier-badge">Tingkat 3</div>
+            <h3 class="tier-title">Tingkat Keyakinan</h3>
+            <p class="tier-desc">
+              Pernyataan kepastian siswa terhadap jawabannya (Yakin atau Tidak Yakin). Berfungsi memisahkan pemahaman sejati dari dugaan atau tebakan acak.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Profil Hasil Diagnostik -->
+        <div class="profiles-card">
+          <h3 class="profiles-card-heading">Klasifikasi Profil Pemahaman Siswa</h3>
+          <p class="profiles-card-sub">
+            Kombinasi respons dari ketiga tingkat dipetakan secara otomatis oleh sistem ke dalam tiga kategori:
+          </p>
+
+          <div class="profiles-list-3">
+            <div class="profile-item paham">
+              <div class="profile-header">
+                <span class="profile-label">Paham Konsep</span>
+                <span class="profile-condition">Jawaban Benar + Alasan Benar</span>
+              </div>
+              <p class="profile-desc">
+                Siswa menguasai kompetensi dasar dan memiliki argumentasi ilmiah yang tepat.
+              </p>
+            </div>
+
+            <div class="profile-item miskonsepsi">
+              <div class="profile-header">
+                <span class="profile-label">Miskonsepsi</span>
+                <span class="profile-condition">Respons Keliru + Yakin</span>
+              </div>
+              <p class="profile-desc">
+                Siswa memiliki keyakinan teguh atas konsep yang sebenarnya salah. Merupakan kelompok prioritas untuk kegiatan remedial.
+              </p>
+            </div>
+
+            <div class="profile-item tidak-paham">
+              <div class="profile-header">
+                <span class="profile-label">Tidak Paham</span>
+                <span class="profile-condition">Respons Keliru + Tidak Yakin</span>
+              </div>
+              <p class="profile-desc">
+                Siswa menjawab secara ragu atau menebak karena belum memiliki penguasaan materi dasar.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Section: Analisis Butir Soal (Tempat Rumus Matematika yang Relevan)
+         ================================================================== -->
+    <section class="section alt-section" id="analisis-butir">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Evaluasi Ilmiah</span>
+          <h2 class="section-heading">Analisis Kualitas Butir Soal</h2>
+          <p class="section-subtext">
+            SiDag menyajikan data statistik kualitas soal berdasarkan parameter psikometrik baku untuk membantu guru mengevaluasi dan menyempurnakan bank soal:
+          </p>
+        </div>
+
+        <div class="analysis-grid-2">
+          <!-- Tingkat Kesukaran -->
+          <div class="analysis-box">
+            <div class="analysis-top">
+              <span class="analysis-code">P</span>
+              <h3 class="analysis-title">Tingkat Kesukaran</h3>
+            </div>
+            <div class="formula-box">
+              $P = \frac{B}{N}$
+            </div>
+            <p class="analysis-explanation">
+              Menghitung proporsi siswa yang menjawab benar ($B$) terhadap jumlah total peserta asesmen ($N$). Mengelompokkan butir ke dalam kategori: Sukar ($P &lt; 0{,}30$), Sedang ($0{,}30 \le P \le 0{,}70$), atau Mudah ($P &gt; 0{,}70$).
+            </p>
+          </div>
+
+          <!-- Daya Pembeda -->
+          <div class="analysis-box">
+            <div class="analysis-top">
+              <span class="analysis-code">D</span>
+              <h3 class="analysis-title">Indeks Daya Pembeda</h3>
+            </div>
+            <div class="formula-box">
+              $D = P_A - P_B$
+            </div>
+            <p class="analysis-explanation">
+              Mengukur kemampuan butir soal dalam membedakan siswa kelompok berkemampuan tinggi ($P_A$) dari kelompok berkemampuan rendah ($P_B$). Butir dengan nilai negatif ($D \le 0$) ditandai agar segera diperbaiki atau diganti.
+            </p>
+          </div>
+
+          <!-- Uji Validitas -->
+          <div class="analysis-box">
+            <div class="analysis-top">
+              <span class="analysis-code">r_{xy}</span>
+              <h3 class="analysis-title">Uji Validitas Butir</h3>
+            </div>
+            <div class="formula-box">
+              $r_{xy} = \frac{N\sum XY - \sum X \sum Y}{\sqrt{[N\sum X^2 - (\sum X)^2][N\sum Y^2 - (\sum Y)^2]}}$
+            </div>
+            <p class="analysis-explanation">
+              Korelasi skor butir soal ($X$) terhadap skor total asesmen ($Y$). Menentukan apakah suatu butir soal sahih (valid) untuk mengukur capaian pembelajaran siswa.
+            </p>
+          </div>
+
+          <!-- Reliabilitas -->
+          <div class="analysis-box">
+            <div class="analysis-top">
+              <span class="analysis-code">\alpha</span>
+              <h3 class="analysis-title">Reliabilitas Instrumen</h3>
+            </div>
+            <div class="formula-box">
+              $\alpha = \frac{k}{k-1} \left(1 - \frac{\sum \sigma_i^2}{\sigma_t^2}\right)$
+            </div>
+            <p class="analysis-explanation">
+              Uji konsistensi internal instrumen asesmen menggunakan rumus koefisien Cronbach's Alpha, memastikan keandalan hasil asesmen secara menyeluruh.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Section: Fitur Utama
+         ================================================================== -->
+    <section class="section" id="fitur">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Fungsionalitas</span>
+          <h2 class="section-heading">Fitur Utama Aplikasi</h2>
+          <p class="section-subtext">
+            Dirancang praktis untuk mendukung pembelajaran Kurikulum Merdeka di sekolah dasar maupun menengah.
+          </p>
+        </div>
+
+        <div class="formal-grid-3">
+          <div class="feature-card">
+            <h3 class="feature-title">Penulisan Rumus LaTeX & Media</h3>
+            <p class="feature-desc">
+              Mendukung rumus matematika, fisika, dan kimia berstandar KaTeX LaTeX, serta penyisipan media gambar, grafik, audio, dan video pembelajaran.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3 class="feature-title">Peta Miskonsepsi Kelas</h3>
+            <p class="feature-desc">
+              Menampilkan daftar konsep materi yang paling banyak keliru dipahami dalam satu kelas, sehingga guru tahu materi mana yang harus dibahas ulang.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3 class="feature-title">Pengawasan Ujian (Anti-Cheat)</h3>
+            <p class="feature-desc">
+              Mencatat riwayat aktivitas siswa yang berpindah tab atau meninggalkan jendela peramban selama ujian berlangsung secara otomatis.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3 class="feature-title">Masuk Token Tanpa Akun</h3>
+            <p class="feature-desc">
+              Siswa cukup memasukkan token acak dari guru. Tanpa memerlukan registrasi akun atau kata sandi yang sering menghambat di kelas.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3 class="feature-title">Penyimpanan Otomatis (Autosave)</h3>
+            <p class="feature-desc">
+              Jawaban tersimpan berkala di perangkat dan server. Siswa dapat melanjutkan pengerjaan tanpa kehilangan data saat koneksi terputus.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <h3 class="feature-title">Rekap Laporan & Kirim Email</h3>
+            <p class="feature-desc">
+              Unduh rekapitulasi penilaian satu kelas untuk arsip administrasi atau kirimkan rangkuman langsung ke alamat email guru pengampu.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Section: Alur Pelaksanaan
+         ================================================================== -->
+    <section class="section alt-section" id="alur">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Prosedur</span>
+          <h2 class="section-heading">Alur Pelaksanaan Asesmen</h2>
+          <p class="section-subtext">Langkah penggunaan yang sederhana dan mudah diaplikasikan guru:</p>
+        </div>
+
+        <div class="steps-container">
+          <div class="step-formal">
+            <div class="step-index">1</div>
+            <div class="step-content">
+              <h3 class="step-head">Penyusunan Asesmen oleh Guru</h3>
+              <p class="step-body">
+                Guru menyusun butir soal tiga tingkat, menetapkan durasi pengerjaan, dan menerbitkan token akses untuk kelas yang dituju.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-formal">
+            <div class="step-index">2</div>
+            <div class="step-content">
+              <h3 class="step-head">Pengerjaan Mandiri oleh Siswa</h3>
+              <p class="step-body">
+                Siswa membuka tautan SiDag melalui laptop atau smartphone, memasukkan token, dan menjawab soal dalam mode ujian terkunci.
+              </p>
+            </div>
+          </div>
+
+          <div class="step-formal">
+            <div class="step-index">3</div>
+            <div class="step-content">
+              <h3 class="step-head">Pengolahan Data & Tindak Lanjut</h3>
+              <p class="step-body">
+                Sistem mengolah kombinasi jawaban menjadi profil pemahaman, menyusun peta miskonsepsi, dan menghitung analisis butir soal untuk panduan remedial guru.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Section: FAQ Formal
+         ================================================================== -->
+    <section class="section" id="faq">
+      <div class="container" style="max-width: 760px;">
+        <div class="section-header">
+          <span class="section-tag">Informasi</span>
+          <h2 class="section-heading">Pertanyaan yang Sering Diajukan</h2>
+          <p class="section-subtext">Pertanyaan umum seputar penggunaan aplikasi SiDag.</p>
+        </div>
+
+        <div class="faq-accordion">
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Apakah siswa perlu membuat akun terlebih dahulu?</span>
+              <span class="faq-arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              Tidak perlu. Siswa cukup mengakses halaman asesmen menggunakan token yang diberikan guru. Hal ini mempermudah pelaksanaan asesmen di ruang kelas tanpa hambatan teknis akun.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Apa perbedaan mendasar antara Miskonsepsi dan Tidak Paham?</span>
+              <span class="faq-arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              Siswa miskonsepsi meyakini konsep yang keliru secara kuat (disertai tingkat keyakinan tinggi), sehingga penanganannya membutuhkan rekonstruksi konsep. Sedangkan siswa tidak paham menjawab dengan ragu-ragu karena belum memahami materi dasar.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Bagaimana jika koneksi internet terputus saat asesmen berlangsung?</span>
+              <span class="faq-arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              Aplikasi dilengkapi mekanisme autosave lokal. Jawaban tersimpan otomatis di perangkat siswa sehingga pengerjaan dapat langsung dilanjutkan kembali setelah koneksi pulih tanpa mengulang dari awal.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Apakah SiDag mendukung rumus matematika dan fisika yang rumit?</span>
+              <span class="faq-arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              Ya, SiDag mendukung format penulisan rumus KaTeX LaTeX baku untuk persamaan aljabar, pecahan, integral, matriks, serta simbol kimia dan fisika.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question">
+              <span>Di mana letak Portal Admin dan apa saja wewenangnya?</span>
+              <span class="faq-arrow">+</span>
+            </button>
+            <div class="faq-answer">
+              Portal Admin dapat diakses melalui tombol <strong>Portal Admin</strong> di bilah navigasi atas maupun tautan di bagian bawah halaman. Administrator memiliki kendali penuh atas sistem: mengaktifkan atau menonaktifkan akun guru (PRD F-05), memantau seluruh aktivitas asesmen sekolah, serta mengakses rekapitulasi audit log kecurangan ujian (PRD F-06 & F-27).
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Section: Call to Action Formal
+         ================================================================== -->
+    <section class="section cta-formal-section">
+      <div class="container cta-formal-box">
+        <h2 class="cta-title">Terapkan Asesmen Diagnostik Berbasis Data</h2>
+        <p class="cta-desc">
+          Bantu siswa mengatasi kesalahpahaman konsep sedini mungkin melalui instrumen diagnostik yang objektif dan terstandar.
+        </p>
+        <div class="cta-actions">
+          <button type="button" class="btn btn-primary open-teacher-modal">
+            Daftar Akun Guru
+          </button>
+          <a href="#token-gateway" class="btn btn-outline">
+            Masukkan Token Siswa &uarr;
+          </a>
+          <button type="button" class="btn btn-secondary open-admin-modal">
+            Portal Administrator
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Formal -->
+  <footer class="footer-formal">
+    <div class="container footer-wrap">
+      <div class="footer-brand">
+        <strong>SiDag</strong> &mdash; Sistem Informasi Asesmen Diagnostik Tiga Tingkat
+      </div>
+      <div class="footer-links-row">
+        <a href="#token-gateway">Akses Token Siswa</a> &bull;
+        <a href="#" class="open-teacher-modal">Portal Guru</a> &bull;
+        <a href="#" class="open-admin-modal">Portal Administrator</a>
+      </div>
+      <div class="footer-notes">
+        &copy; 2026 SiDag. Dirancang sesuai Panduan Asesmen Diagnostik Kemendikbudristek.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal: Portal Guru (Login / Registrasi) -->
+  <div class="modal-backdrop" id="teacherModal" role="dialog" aria-modal="true" aria-labelledby="modalTeacherTitle">
+    <div class="modal-formal-card">
+      <button type="button" class="modal-close-btn" id="closeTeacherModal" aria-label="Tutup">&times;</button>
+      
+      <div class="auth-tabs-formal">
+        <button type="button" class="auth-tab-btn active" data-mode="register">Daftar Akun Baru</button>
+        <button type="button" class="auth-tab-btn" data-mode="login">Masuk ke Portal</button>
+      </div>
+
+      <h3 class="modal-card-title" id="modalTeacherTitle">Portal Guru SiDag</h3>
+      <p class="modal-card-sub">Kelola asesmen diagnostik dan akses laporan analisis butir soal kelas.</p>
+
+      <form id="teacherAuthForm">
+        <div class="input-group-formal" id="teacherNameGroup">
+          <label class="input-label" for="tName">Nama Lengkap & Gelar</label>
+          <input type="text" class="input-control" id="tName" placeholder="Contoh: Dra. Siti Rahmawati, M.Pd.">
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="tEmail">Alamat Email</label>
+          <input type="email" class="input-control" id="tEmail" placeholder="nama@sekolah.sch.id" required>
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="tPass">Kata Sandi</label>
+          <input type="password" class="input-control" id="tPass" placeholder="Minimal 8 karakter" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="authSubmitBtn" style="width:100%; margin-top:16px;">
+          Buat Akun Guru
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Portal Administrator SiDag (Pembuat Website & Pengelola Sistem) -->
+  <div class="modal-backdrop" id="adminModal" role="dialog" aria-modal="true" aria-labelledby="modalAdminTitle">
+    <div class="modal-formal-card">
+      <button type="button" class="modal-close-btn" id="closeAdminModal" aria-label="Tutup">&times;</button>
+      
+      <div class="admin-badge-formal">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        <span>Pembuat Website & Pengelola Sistem</span>
+      </div>
+
+      <h3 class="modal-card-title" id="modalAdminTitle">Portal Administrator SiDag</h3>
+      <p class="modal-card-sub">Masuk menggunakan email dan kata sandi administrator untuk mengelola sistem dan akun pengguna.</p>
+
+      <form id="adminAuthForm">
+        <div class="input-group-formal">
+          <label class="input-label" for="adminEmailField">Email Administrator</label>
+          <input type="email" class="input-control" id="adminEmailField" placeholder="admin@sidag.id" required>
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="adminPassField">Kata Sandi</label>
+          <input type="password" class="input-control" id="adminPassField" placeholder="Masukkan kata sandi administrator" required>
+        </div>
+
+        <div class="admin-features-box">
+          <span class="admin-feature-item">&check; Kendali Penuh Sistem & Manajemen Akun Guru</span>
+          <span class="admin-feature-item">&check; Pemantauan Semua Sesi Asesmen</span>
+          <span class="admin-feature-item">&check; Akses Seluruh Laporan Audit & Integritas</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:16px;">
+          Masuk sebagai Administrator &rarr;
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="app.js"></script>
+</body>
+</html>
