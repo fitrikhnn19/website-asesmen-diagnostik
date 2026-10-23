@@ -72,10 +72,10 @@ function initMobileNav() {
 
 /* --- Student Token-First Gateway Engine --- */
 const VALID_EXAM_TOKENS = {
-  'DIAGNO-2026': 'Asesmen Diagnostik Fisika — Kinematika & Gravitasi (XI IPA)',
-  'FISIKA-XI': 'Asesmen Diagnostik Fisika — Dinamika Gerak & Hukum Newton (XI IPA)',
-  'MAT-X': 'Asesmen Diagnostik Matematika — Persamaan & Pertidaksamaan (X)',
-  'KIMIA-XII': 'Asesmen Diagnostik Kimia — Redoks & Elektrokimia (XII IPA)'
+  'DIAGNO-2026': 'Asesmen Diagnostik Matematika — Transformasi Geometri (Fase F / Kelas XI)',
+  'TRANS-GEO': 'Asesmen Diagnostik Matematika — Komposisi Matriks & Transformasi (XI)',
+  'MAT-XI': 'Asesmen Diagnostik Matematika — Transformasi Geometri Lanjutan (XI)',
+  'MAT-X': 'Asesmen Diagnostik Matematika — Fungsi & Persamaan Aljabar (X)'
 };
 
 function initStudentTokenGateway() {
@@ -158,13 +158,20 @@ function initStudentTokenGateway() {
       e.preventDefault();
       const studentName = document.getElementById('examStudentName')?.value.trim();
       const studentClass = document.getElementById('examStudentClass')?.value.trim();
-      const activeToken = verifiedTokenDisplay ? verifiedTokenDisplay.textContent : 'DIAGNO-2026';
+      const studentRoll = document.getElementById('examStudentRoll')?.value.trim() || '';
+      const activeToken = verifiedTokenDisplay ? verifiedTokenDisplay.textContent.trim() : 'DIAGNO-2026';
 
       if (studentName && studentClass) {
-        notify(`Sesi ujian dimulai untuk ${studentName} (${studentClass}) — Mode fokus aktif!`);
-        // Reset or redirect simulation
+        notify(`Menyiapkan lembar ujian untuk ${studentName} (${studentClass})...`);
+        const sessionData = {
+          token: activeToken,
+          name: studentName,
+          class: studentClass,
+          roll: studentRoll
+        };
+        sessionStorage.setItem('sidag_active_session', JSON.stringify(sessionData));
         setTimeout(() => {
-          alert(`[SIMULASI MEMULAI UJIAN]\n\nSiswa: ${studentName}\nKelas: ${studentClass}\nToken: ${activeToken}\n\nSistem mengunci layar penuh dan mengaktifkan deteksi anti-cheat.`);
+          window.location.href = `student-exam.html?token=${encodeURIComponent(activeToken)}&name=${encodeURIComponent(studentName)}&class=${encodeURIComponent(studentClass)}&roll=${encodeURIComponent(studentRoll)}`;
         }, 300);
       }
     });
@@ -212,8 +219,11 @@ function initModals() {
     tForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const email = document.getElementById('tEmail')?.value;
-      notify(`Simulasi autentikasi guru berhasil untuk: ${email}`);
+      notify(`Autentikasi Guru berhasil untuk: ${email}. Mengalihkan ke Dasbor Guru...`);
       tModal.classList.remove('open');
+      setTimeout(() => {
+        window.location.href = 'teacher-dashboard.html';
+      }, 700);
     });
   }
 
@@ -239,8 +249,11 @@ function initModals() {
     aForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const adminEmail = document.getElementById('adminEmailField')?.value;
-      notify(`Selamat datang, Administrator (${adminEmail})! Membuka akses kontrol sistem...`);
+      notify(`Autentikasi Administrator berhasil (${adminEmail}). Mengalihkan ke Dasbor Admin...`);
       aModal.classList.remove('open');
+      setTimeout(() => {
+        window.location.href = 'admin-dashboard.html';
+      }, 700);
     });
   }
 

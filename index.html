@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SiDag — Sistem Informasi Asesmen Diagnostik Tiga Tingkat</title>
-  <meta name="title" content="SiDag — Sistem Informasi Asesmen Diagnostik Tiga Tingkat">
-  <meta name="description" content="Aplikasi web asesmen diagnostik tiga tingkat (three-tier) untuk memetakan pemahaman dan miskonsepsi siswa secara akurat dan objektif.">
-  <meta name="keywords" content="SiDag, asesmen diagnostik, three tier, miskonsepsi, analisis butir soal, kurikulum merdeka">
+  <title>SiDag — Asesmen Diagnostik Tiga Tingkat Matematika (Transformasi Geometri)</title>
+  <meta name="title" content="SiDag — Asesmen Diagnostik Tiga Tingkat Matematika (Transformasi Geometri)">
+  <meta name="description" content="Aplikasi web asesmen diagnostik tiga tingkat (three-tier) khusus mata pelajaran Matematika untuk memetakan pemahaman dan miskonsepsi siswa secara akurat. Demo aktif: Transformasi Geometri.">
+  <meta name="keywords" content="SiDag, asesmen diagnostik matematika, transformasi geometri, translasi, refleksi, rotasi, dilatasi, three tier, miskonsepsi, analisis butir soal">
   <meta name="author" content="SiDag">
   <meta name="robots" content="index, follow">
 
@@ -70,6 +70,13 @@
           </svg>
         </button>
 
+        <a href="student-exam.html" class="btn btn-outline btn-sm" id="navStudentBtn" style="color:var(--text-main); border-color:var(--primary);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:2px;">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          Portal Siswa
+        </a>
         <button type="button" class="btn btn-primary btn-sm open-teacher-modal" id="navTeacherBtn">
           Portal Guru
         </button>
@@ -100,6 +107,7 @@
     <a href="#alur">Alur Kerja</a>
     <a href="#faq">FAQ</a>
     <div class="mobile-cta-row">
+      <a href="student-exam.html" class="btn btn-outline btn-sm">Portal Siswa</a>
       <button type="button" class="btn btn-primary btn-sm open-teacher-modal">Portal Guru</button>
       <button type="button" class="btn btn-secondary btn-sm open-admin-modal">Portal Admin</button>
     </div>
@@ -113,15 +121,15 @@
       <div class="container hero-container">
         
         <div class="formal-pill">
-          <span>Aplikasi Web Asesmen Diagnostik Tiga Tingkat (Three-Tier)</span>
+          <span>Aplikasi Web Asesmen Diagnostik Tiga Tingkat (Three-Tier) Matematika</span>
         </div>
 
         <h1 class="hero-title">
-          Pemetaan Miskonsepsi dan Pemahaman Siswa Secara Akurat
+          Pemetaan Miskonsepsi dan Diagnostik Konsep Matematika Secara Akurat
         </h1>
 
         <p class="hero-subtitle">
-          Membantu guru mengidentifikasi akar pemahaman konsep siswa melalui instrumen soal tiga tingkat. Mengelompokkan hasil secara otomatis ke dalam profil <strong>Paham</strong>, <strong>Miskonsepsi</strong>, dan <strong>Tidak Paham</strong>, dilengkapi analisis kualitas butir soal.
+          Membantu guru Matematika mengidentifikasi akar miskonsepsi siswa melalui instrumen soal tiga tingkat. Mengelompokkan hasil secara otomatis ke dalam profil <strong>Paham</strong>, <strong>Miskonsepsi</strong>, dan <strong>Tidak Paham</strong>. Demo materi aktif: <strong>Transformasi Geometri (Translasi, Refleksi, Rotasi, Dilatasi)</strong>.
         </p>
 
         <!-- Gateway Asesmen Siswa (Token-First Flow) -->
@@ -144,7 +152,8 @@
             <div class="token-chips-bar">
               <span class="token-chips-label">Pilihan token aktif:</span>
               <button type="button" class="sample-token-chip">DIAGNO-2026</button>
-              <button type="button" class="sample-token-chip">FISIKA-XI</button>
+              <button type="button" class="sample-token-chip">TRANS-GEO</button>
+              <button type="button" class="sample-token-chip">MAT-XI</button>
             </div>
           </form>
 
@@ -154,7 +163,7 @@
               <div class="verified-left">
                 <span class="verified-badge">&check; Token Terverifikasi</span>
                 <span class="verified-token-code" id="verifiedTokenDisplay">DIAGNO-2026</span>
-                <span class="verified-exam-title" id="verifiedExamTitle">Asesmen Diagnostik Fisika &mdash; Kinematika & Gravitasi</span>
+                <span class="verified-exam-title" id="verifiedExamTitle">Asesmen Diagnostik Matematika &mdash; Transformasi Geometri (Fase F)</span>
               </div>
               <button type="button" class="btn-cancel-token" id="btnChangeToken" title="Ganti token asesmen">&times; Ganti</button>
             </div>
@@ -168,7 +177,7 @@
               <div class="input-grid-2">
                 <div class="input-group-formal">
                   <label class="input-label" for="examStudentClass">Kelas / Rombel</label>
-                  <input type="text" class="input-control" id="examStudentClass" placeholder="Contoh: XI IPA 2" required>
+                  <input type="text" class="input-control" id="examStudentClass" placeholder="Contoh: XI MIPA 2" required>
                 </div>
                 <div class="input-group-formal">
                   <label class="input-label" for="examStudentRoll">Nomor Absen</label>
@@ -382,9 +391,9 @@
 
         <div class="formal-grid-3">
           <div class="feature-card">
-            <h3 class="feature-title">Penulisan Rumus LaTeX & Media</h3>
+            <h3 class="feature-title">Penulisan KaTeX & Diagram Cartesius</h3>
             <p class="feature-desc">
-              Mendukung rumus matematika, fisika, dan kimia berstandar KaTeX LaTeX, serta penyisipan media gambar, grafik, audio, dan video pembelajaran.
+              Mendukung notasi matematika KaTeX LaTeX baku (matriks transformasi, koordinat titik, vektor aljabar), serta diagram bidang koordinat Cartesius beresolusi tinggi.
             </p>
           </div>
 
@@ -517,11 +526,11 @@
 
           <div class="faq-item">
             <button type="button" class="faq-question">
-              <span>Apakah SiDag mendukung rumus matematika dan fisika yang rumit?</span>
+              <span>Apakah SiDag mendukung rumus matematika rumit dan diagram koordinat Cartesius?</span>
               <span class="faq-arrow">+</span>
             </button>
             <div class="faq-answer">
-              Ya, SiDag mendukung format penulisan rumus KaTeX LaTeX baku untuk persamaan aljabar, pecahan, integral, matriks, serta simbol kimia dan fisika.
+              Ya, SiDag mendukung format penulisan rumus KaTeX LaTeX baku untuk matriks transformasi geometri, koordinat titik, vektor translasi, integral, aljabar, serta diagram bidang geometri resolusi tinggi.
             </div>
           </div>
 
@@ -570,7 +579,8 @@
         <strong>SiDag</strong> &mdash; Sistem Informasi Asesmen Diagnostik Tiga Tingkat
       </div>
       <div class="footer-links-row">
-        <a href="#token-gateway">Akses Token Siswa</a> &bull;
+        <a href="student-exam.html"><strong>Lembar Asesmen Siswa</strong></a> &bull;
+        <a href="#token-gateway">Akses Token</a> &bull;
         <a href="#" class="open-teacher-modal">Portal Guru</a> &bull;
         <a href="#" class="open-admin-modal">Portal Administrator</a>
       </div>
@@ -612,6 +622,11 @@
         <button type="submit" class="btn btn-primary" id="authSubmitBtn" style="width:100%; margin-top:16px;">
           Buat Akun Guru
         </button>
+        <div style="margin-top: 12px; text-align: center;">
+          <a href="teacher-dashboard.html" class="btn btn-outline" style="width: 100%;">
+            Buka Dasbor Guru &rarr;
+          </a>
+        </div>
       </form>
     </div>
   </div>
@@ -652,6 +667,11 @@
         <button type="submit" class="btn btn-primary" style="width:100%; margin-top:16px;">
           Masuk sebagai Administrator &rarr;
         </button>
+        <div style="margin-top: 12px; text-align: center;">
+          <a href="admin-dashboard.html" class="btn btn-outline" style="width: 100%;">
+            Buka Dasbor Administrator &rarr;
+          </a>
+        </div>
       </form>
     </div>
   </div>

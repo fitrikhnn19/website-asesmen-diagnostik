@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dasbor Guru — SiDag Asesmen Diagnostik Tiga Tingkat</title>
+  <meta name="description" content="Portal Guru SiDag — Penyusunan asesmen tiga tingkat, pemetaan miskonsepsi siswa, analisis psikometrik butir soal, pemantauan remedial, dan pengawasan integritas ujian.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234f46e5'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+  <!-- Fonts: Plus Jakarta Sans, Outfit, & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for Mathematics & Physics LaTeX rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Core & Dashboard Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+  <div class="dash-layout">
+    
+    <!-- Sidebar Dasbor Guru -->
+    <aside class="dash-sidebar" id="dashSidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo" aria-label="Ke Beranda SiDag">
+          <div class="brand-badge-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <div class="brand-text-block">
+            <span class="brand-title">SiDag</span>
+            <span class="brand-sub">Portal Guru</span>
+          </div>
+        </a>
+        <span class="portal-role-pill teacher">Pengajar</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-section-title">Menu Utama</span>
+        
+        <a href="#overview" class="dash-nav-item active" data-view="view-overview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Ikhtisar Dasbor</span>
+        </a>
+
+        <a href="#assessments" class="dash-nav-item" data-view="view-assessments">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Kelola & Susun Asesmen</span>
+        </a>
+
+        <span class="nav-section-title">Diagnostik 3-Tingkat</span>
+
+        <a href="#profiles" class="dash-nav-item" data-view="view-profiles">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Profil & Miskonsepsi</span>
+          <span class="nav-item-badge">34 Siswa</span>
+        </a>
+
+        <a href="#item-analysis" class="dash-nav-item" data-view="view-item-analysis">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>Analisis Butir Soal</span>
+        </a>
+
+        <a href="#progress" class="dash-nav-item" data-view="view-progress">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+          <span>Progress & Remedial</span>
+          <span class="nav-item-badge warning" id="sidebarAttentionBadge">5 Perhatian</span>
+        </a>
+
+        <span class="nav-section-title">Integritas & Distribusi</span>
+
+        <a href="#proctoring" class="dash-nav-item" data-view="view-proctoring">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Pengawasan Ujian</span>
+          <span class="nav-item-badge alert">Anti-Cheat</span>
+        </a>
+
+        <a href="#recap" class="dash-nav-item" data-view="view-recap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          <span>Rekap Hasil & Email</span>
+        </a>
+
+        <span class="nav-section-title">Navigasi Lintas Portal</span>
+
+        <a href="student-exam.html" class="dash-nav-item" target="_blank" title="Coba Lembar Pengerjaan Siswa">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          <span>Buka Portal Siswa &nearr;</span>
+        </a>
+
+        <a href="admin-dashboard.html" class="dash-nav-item" title="Ke Dasbor Administrator">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Portal Administrator</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <div class="user-avatar" title="Dra. Siti Rahmawati, M.Pd.">SR</div>
+          <div class="user-info">
+            <span class="user-name">Dra. Siti Rahmawati</span>
+            <span class="user-role-label">Guru Fisika — XI IPA</span>
+          </div>
+        </div>
+        <a href="index.html" class="btn-sidebar-icon" title="Keluar ke Landing Page" aria-label="Keluar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="dash-main">
+      
+      <!-- Topbar -->
+      <header class="dash-topbar">
+        <div class="topbar-left">
+          <button type="button" class="mobile-menu-trigger" id="mobileMenuBtn" aria-label="Buka Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          
+          <div class="dash-breadcrumb">
+            <h1 class="dash-breadcrumb-title" id="breadcrumbTitle">Ikhtisar Dasbor Guru</h1>
+            <span class="dash-breadcrumb-sub">Asesmen Diagnostik Tiga Tingkat (Three-Tier) &bull; SMA Negeri 1</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Active Assessment Dropdown -->
+          <div class="topbar-select-wrap">
+            <select class="topbar-select" id="activeAssessmentSelect" aria-label="Pilih Asesmen Aktif">
+              <option value="diagno-2026" selected>Asesmen Fisika: Kinematika & Gravitasi (XI IPA 2)</option>
+              <option value="fisika-xi">Asesmen Fisika: Dinamika Gerak & Newton (XI IPA 1)</option>
+              <option value="termo-xi">Draf Asesmen: Termodinamika & Gas Ideal (XI IPA 3)</option>
+            </select>
+          </div>
+
+          <!-- Active Token Indicator Chip -->
+          <div class="token-indicator-chip" title="Token Akses Siswa untuk Asesmen Terpilih">
+            <span>Token:</span>
+            <strong id="activeTokenText">DIAGNO-2026</strong>
+            <button type="button" class="btn-text" id="copyTokenBtn" title="Salin Token ke Clipboard" style="font-size:0.75rem; padding:1px 4px; color:var(--primary);">
+              Salin
+            </button>
+          </div>
+
+          <!-- Theme Toggle Button -->
+          <button type="button" class="theme-toggle-btn" id="dashThemeBtn" aria-label="Ubah Tema Tampilan">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+
+          <!-- Quick Create Action Button -->
+          <button type="button" class="btn btn-primary btn-sm" id="btnOpenCreateAssessmentModal">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Susun Soal
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard Body Container -->
+      <div class="dash-body">
+
+        <!-- ==============================================================
+             VIEW 1: IKHTISAR DASBOR GURU (OVERVIEW)
+             ============================================================== -->
+        <section class="dash-view-section active" id="view-overview">
+          
+          <!-- Banner Pengajar & Quick Context -->
+          <div class="dash-card" style="background: linear-gradient(135deg, rgba(79, 70, 229, 0.1) 0%, rgba(30, 41, 59, 0.4) 100%); border-color: rgba(79, 70, 229, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+              <div>
+                <span class="portal-role-pill teacher" style="margin-bottom: 8px;">Asesmen Selesai Dikoreksi Otomatis</span>
+                <h2 style="font-size: 1.45rem; margin-top: 4px;">Selamat Datang, Dra. Siti Rahmawati, M.Pd.</h2>
+                <p style="font-size: 0.9rem; max-width: 760px; margin-top: 6px; color:var(--text-muted);">
+                  Asesmen Diagnostik Fisika (Kinematika & Gravitasi) pada kelas <strong>XI IPA 2</strong> telah selesai dikerjakan oleh <strong>34 siswa</strong>. Sistem three-tier telah memisahkan antara siswa paham konsep, siswa yang memiliki miskonsepsi, dan siswa yang memang belum paham.
+                </p>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button type="button" class="btn btn-primary btn-sm" id="btnQuickCreate">
+                  Susun Asesmen Baru &rarr;
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="switchView('view-profiles')">
+                  Lihat Profil Siswa
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="downloadRecapFile()">
+                  Unduh Rekap CSV
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI Diagnostic Stat Cards -->
+          <div class="stat-grid-4">
+            <div class="stat-card">
+              <div class="stat-card-top">
+                <div class="stat-icon-box primary">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <span class="stat-trend positive">100% Mengumpulkan</span>
+              </div>
+              <div class="stat-value">34 Siswa</div>
+              <div class="stat-label">Total Peserta Selesai Mengerjakan</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-top">
+                <div class="stat-icon-box paham">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+                <span class="stat-trend positive">52.9% dari Kelas</span>
+              </div>
+              <div class="stat-value" style="color:var(--status-paham);">18 Siswa</div>
+              <div class="stat-label">Profil Paham Konsep Utuh</div>
+            </div>
+
+            <div class="stat-card" style="border-color: rgba(217, 119, 6, 0.4);">
+              <div class="stat-card-top">
+                <div class="stat-icon-box miskonsepsi">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                </div>
+                <span class="stat-trend warning">32.4% Butuh Remedial</span>
+              </div>
+              <div class="stat-value" style="color:var(--status-miskonsepsi);">11 Siswa</div>
+              <div class="stat-label">Profil Miskonsepsi (Yakin tapi Salah Alasan)</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-top">
+                <div class="stat-icon-box tidak-paham">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                  </svg>
+                </div>
+                <span class="stat-trend neutral">14.7% Belum Menguasai</span>
+              </div>
+              <div class="stat-value" style="color:var(--status-tidak-paham);">5 Siswa</div>
+              <div class="stat-label">Profil Tidak Paham (Tidak Yakin)</div>
+            </div>
+          </div>
+
+          <!-- Bilah Proporsi Diagnostik Tiga Tingkat (PRD 3.1 & 4.4) -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h3 class="dash-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                  Distribusi Pemahaman Kelas XI IPA 2
+                </h3>
+                <span class="dash-card-subtitle">Visualisasi proporsi agregat hasil pengerjaan 10 butir soal three-tier</span>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-profiles')">
+                Detail Lengkap Siswa &rarr;
+              </button>
+            </div>
+
+            <div class="diagnostic-bar-wrapper">
+              <div class="diagnostic-proportion-bar">
+                <div class="prop-segment paham" style="width: 52.9%;" title="Paham: 18 Siswa (52.9%)">
+                  Paham 52.9% (18 Siswa)
+                </div>
+                <div class="prop-segment miskonsepsi" style="width: 32.4%;" title="Miskonsepsi: 11 Siswa (32.4%)">
+                  Miskonsepsi 32.4% (11)
+                </div>
+                <div class="prop-segment tidak-paham" style="width: 14.7%;" title="Tidak Paham: 5 Siswa (14.7%)">
+                  14.7% (5)
+                </div>
+              </div>
+
+              <div class="diagnostic-legend-row">
+                <div class="legend-item">
+                  <span class="legend-dot paham"></span>
+                  <span><strong>Paham:</strong> Jawaban Benar, Alasan Ilmiah Benar, Yakin (18 Siswa / 52.9%)</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot miskonsepsi"></span>
+                  <span><strong>Miskonsepsi:</strong> Jawaban/Alasan Keliru namun Siswa Yakin (11 Siswa / 32.4%)</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot tidak-paham"></span>
+                  <span><strong>Tidak Paham:</strong> Jawaban Salah dan Siswa Menyatakan Tidak Yakin (5 Siswa / 14.7%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two-column Section: Prioritas Miskonsepsi & Siswa Perlu Perhatian -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            
+            <!-- Left: Miskonsepsi Utama Terdeteksi -->
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title-group">
+                  <h3 class="dash-card-title" style="color:var(--status-miskonsepsi);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    Miskonsepsi Terbesar di Kelas
+                  </h3>
+                  <span class="dash-card-subtitle">Konsep yang paling mendesak membutuhkan intervensi</span>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-profiles')">
+                  Buka Peta Miskonsepsi
+                </button>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="misconception-card priority-high" style="margin: 0;">
+                  <div class="misconception-header">
+                    <h4 class="misconception-title">Percepatan di Titik Puncak Gerak Vertikal</h4>
+                    <span class="status-badge miskonsepsi">32.4% (11 Siswa)</span>
+                  </div>
+                  <p class="misconception-desc">
+                    Siswa meyakini saat kecepatan benda bernilai $v = 0$ di titik tertinggi, percepatan gravitasi ($g$) juga otomatis menjadi nol.
+                  </p>
+                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;">
+                    <span style="color: var(--text-dim);">Ref: Butir Soal No. 1 &amp; 4</span>
+                    <button type="button" class="btn btn-outline btn-sm" onclick="quickRemedial('Percepatan di Titik Puncak Gerak Vertikal')">
+                      Rencana Bimbingan &rarr;
+                    </button>
+                  </div>
+                </div>
+
+                <div class="misconception-card priority-medium" style="margin: 0;">
+                  <div class="misconception-header">
+                    <h4 class="misconception-title">Gaya Gesek Selalu Menghambat Gerak</h4>
+                    <span class="status-badge miskonsepsi">23.5% (8 Siswa)</span>
+                  </div>
+                  <p class="misconception-desc">
+                    Siswa tidak membedakan fungsi gaya gesek statis pada roda yang menggelinding atau saat manusia melangkah maju ke depan.
+                  </p>
+                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;">
+                    <span style="color: var(--text-dim);">Ref: Butir Soal No. 2</span>
+                    <button type="button" class="btn btn-outline btn-sm" onclick="quickRemedial('Gaya Gesek Selalu Menghambat Gerak')">
+                      Rencana Bimbingan &rarr;
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Siswa Perlu Perhatian Segera & Proctoring Snippet -->
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title-group">
+                  <h3 class="dash-card-title" style="color:var(--status-tidak-paham);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    Siswa Memerlukan Perhatian
+                  </h3>
+                  <span class="dash-card-subtitle">Siswa dengan miskonsepsi persisten atau skor rendah</span>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-progress')">
+                  Lihat Semua
+                </button>
+              </div>
+
+              <!-- Grid injected by teacher.js -->
+              <div id="attentionStudentsGrid" style="display: flex; flex-direction: column; gap: 8px;">
+                <!-- Dynamically rendered -->
+              </div>
+
+              <!-- Ringkasan Integritas Proctoring -->
+              <div style="background: var(--bg-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 12px; margin-top: 8px; display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <div style="width: 32px; height: 32px; border-radius: 50%; background: var(--status-paham-bg); color: var(--status-paham); display: flex; align-items: center; justify-content: center; font-weight: 700;">
+                    ✓
+                  </div>
+                  <div>
+                    <strong style="font-size: 0.88rem; color: var(--text-main); display: block;">Integritas Sesi: 91.2% Bersih</strong>
+                    <span style="font-size: 0.74rem; color: var(--text-muted);">31 Siswa tertib &bull; 3 Sesi terdeteksi pindah tab</span>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-proctoring')">
+                  Log Integritas &rarr;
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             VIEW 2: KELOLA & SUSUN ASESMEN (ASSESSMENTS & 3-TIER BUILDER)
+             ============================================================== -->
+        <section class="dash-view-section" id="view-assessments" style="display: none;">
+          
+          <!-- Header Kelola Asesmen -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <span class="portal-role-pill teacher" style="margin-bottom: 4px;">Penyusunan Butir Soal 3-Tingkat</span>
+                <h2 style="font-size: 1.35rem;">Kelola &amp; Susun Instrumen Asesmen Diagnostik</h2>
+                <span class="dash-card-subtitle">Format Three-Tier: Tier 1 (Jawaban Pilihan Ganda + LaTeX/Media), Tier 2 (Pilihan Alasan Ilmiah &amp; Miskonsepsi), Tier 3 (Certainty of Response Index - CRI)</span>
+              </div>
+              <div class="dash-card-actions">
+                <button type="button" class="btn btn-outline btn-sm" id="btnPreviewCurrentAssessment">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  Pratinjau Mode Siswa
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="btnSaveDraft">
+                  Simpan Draf
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" id="btnPublishAssessment">
+                  Terbitkan Asesmen
+                </button>
+              </div>
+            </div>
+
+            <!-- Metadata & Setting Panel -->
+            <div style="background: var(--bg-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 16px;">
+              <div class="form-row-3">
+                <div class="input-group-formal">
+                  <label class="input-label" for="assessTitleInput">Judul Asesmen</label>
+                  <input type="text" class="input-control" id="assessTitleInput" value="Asesmen Diagnostik Fisika — Kinematika &amp; Gravitasi" required>
+                </div>
+
+                <div class="input-group-formal">
+                  <label class="input-label" for="assessClassTarget">Kelas Sasaran &amp; Peserta</label>
+                  <select class="input-control" id="assessClassTarget">
+                    <option value="XI IPA 2" selected>XI IPA 2 (34 Siswa)</option>
+                    <option value="XI IPA 1">XI IPA 1 (36 Siswa)</option>
+                    <option value="XI IPA 3">XI IPA 3 (32 Siswa)</option>
+                  </select>
+                </div>
+
+                <div class="form-row-2">
+                  <div class="input-group-formal">
+                    <label class="input-label" for="assessDuration">Durasi Pengerjaan</label>
+                    <input type="number" class="input-control" id="assessDuration" value="60" min="15" max="180">
+                  </div>
+                  <div class="input-group-formal">
+                    <label class="input-label" for="assessTokenInput">Token Masuk</label>
+                    <input type="text" class="input-control" id="assessTokenInput" value="DIAGNO-2026" style="font-family:var(--font-mono); text-transform:uppercase;">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interactive 3-Tier Question Builder & Editor -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h3 class="dash-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                  Editor Butir Soal Baru (Three-Tier)
+                </h3>
+                <span class="dash-card-subtitle">Mendukung formula matematika/fisika LaTeX dan lampiran media (gambar, grafik, video, audio)</span>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" id="btnAddNewQuestion">
+                + Simpan ke Antrian Soal
+              </button>
+            </div>
+
+            <div class="editor-section-box">
+              
+              <!-- Tier 1: Question Stem -->
+              <div>
+                <div class="editor-tier-title">
+                  <span class="status-badge paham" style="padding:2px 7px;">Tier 1</span>
+                  Pertanyaan Pilihan Ganda &amp; Stimulus Soal
+                </div>
+                <div class="input-group-formal" style="margin-top: 8px;">
+                  <label class="input-label">Teks Pertanyaan (Gunakan $...$ untuk LaTeX inline atau $$...$$ untuk display):</label>
+                  <textarea class="input-control" rows="3" placeholder="Contoh: Sebuah benda bermassa $m = 2\text{ kg}$ dilempar vertikal ke atas dengan kecepatan awal $v_0 = 20\text{ m/s}$. Pada saat mencapai titik tertinggi...">Sebuah bola dilemparkan vertikal ke atas. Pada saat mencapai titik tertinggi lintasannya, percepatan bola bernilai...</textarea>
+                </div>
+
+                <!-- LaTeX Chips Helper -->
+                <div style="margin-bottom: 12px;">
+                  <span style="font-size:0.75rem; color:var(--text-dim); margin-right:6px;">Sisipkan Simbol/Rumus Cepat:</span>
+                  <div class="latex-helper-chips">
+                    <span class="latex-chip" onclick="insertLatex('$\\sum F = m \\cdot a$')">$\sum F = ma$</span>
+                    <span class="latex-chip" onclick="insertLatex('$v_t = v_0 + a t$')">$v_t = v_0 + at$</span>
+                    <span class="latex-chip" onclick="insertLatex('$g = 9.8\\text{ m/s}^2$')">$g = 9.8\text{ m/s}^2$</span>
+                    <span class="latex-chip" onclick="insertLatex('$E_k = \\frac{1}{2}mv^2$')">$E_k = \frac{1}{2}mv^2$</span>
+                    <span class="latex-chip" onclick="insertLatex('$W = mg$')">$W = mg$</span>
+                    <span class="latex-chip" onclick="insertLatex('$\\mu_s \\ge \\mu_k$')">$\mu_s \ge \mu_k$</span>
+                  </div>
+                </div>
+
+                <!-- Media Attachment Row -->
+                <div class="form-row-2">
+                  <div class="input-group-formal">
+                    <label class="input-label">Tipe Media Stimulus (Opsional)</label>
+                    <select class="input-control" id="stimulusMediaType">
+                      <option value="none">Tidak ada media (Teks/Formula murni)</option>
+                      <option value="gambar" selected>Gambar / Diagram Soal</option>
+                      <option value="grafik">Grafik Interaktif ($v-t$ / $s-t$)</option>
+                      <option value="video">Video Demonstrasi Gerak</option>
+                      <option value="audio">Audio Panduan</option>
+                    </select>
+                  </div>
+                  <div class="input-group-formal">
+                    <label class="input-label">Tautan / URL Berkas Media</label>
+                    <input type="text" class="input-control" value="assets/diagram-gerak-vertikal.svg" placeholder="https://... atau path berkas">
+                  </div>
+                </div>
+
+                <!-- Tier 1 Options -->
+                <div style="margin-top: 10px;">
+                  <label class="input-label">Pilihan Jawaban Tier 1 (Tandai Radio untuk Kunci Jawaban Benar):</label>
+                  <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey" checked title="Kunci Jawaban Benar">
+                      <span style="font-weight:700; font-size:0.85rem; width:20px;">A.</span>
+                      <input type="text" class="input-control" style="flex:1;" value="$9.8\text{ m/s}^2$ ke arah bawah menuju pusat bumi">
+                      <span class="status-badge paham">Kunci Benar</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey">
+                      <span style="font-weight:700; font-size:0.85rem; width:20px;">B.</span>
+                      <input type="text" class="input-control" style="flex:1;" value="$0\text{ m/s}^2$ karena bola diam sesaat di puncak">
+                      <span class="status-badge miskonsepsi">Distraktor</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey">
+                      <span style="font-weight:700; font-size:0.85rem; width:20px;">C.</span>
+                      <input type="text" class="input-control" style="flex:1;" value="$9.8\text{ m/s}^2$ ke arah atas melawan gravitasi">
+                      <span class="status-badge miskonsepsi">Distraktor</span>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey">
+                      <span style="font-weight:700; font-size:0.85rem; width:20px;">D.</span>
+                      <input type="text" class="input-control" style="flex:1;" value="Berubah-ubah tergantung massa bola">
+                      <span class="status-badge miskonsepsi">Distraktor</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tier 2: Scientific Reasoning vs Misconception Distractor -->
+              <div style="border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 12px;">
+                <div class="editor-tier-title">
+                  <span class="status-badge miskonsepsi" style="padding:2px 7px;">Tier 2</span>
+                  Pilihan Alasan (Reasoning) &amp; Pemetaan Miskonsepsi
+                </div>
+                <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="radio" name="tier2CorrectKey" checked title="Kunci Alasan Ilmiah Benar">
+                    <span style="font-weight:700; font-size:0.85rem; width:20px;">A.</span>
+                    <input type="text" class="input-control" style="flex:1;" value="Gaya gravitasi bumi tetap bekerja konstan pada benda selama berada di udara">
+                    <span class="status-badge paham">Alasan Ilmiah</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="radio" name="tier2CorrectKey">
+                    <span style="font-weight:700; font-size:0.85rem; width:20px;">B.</span>
+                    <input type="text" class="input-control" style="flex:1;" value="Karena kecepatan benda nol di puncak, maka resultan gaya juga harus nol">
+                    <span class="status-badge miskonsepsi">Miskonsepsi M01</span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <input type="radio" name="tier2CorrectKey">
+                    <span style="font-weight:700; font-size:0.85rem; width:20px;">C.</span>
+                    <input type="text" class="input-control" style="flex:1;" value="Gaya dorong ke atas masih tersisa sedikit sehingga mengimbangi gravitasi">
+                    <span class="status-badge miskonsepsi">Miskonsepsi M02</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tier 3: Certainty of Response Index (CRI) -->
+              <div style="border-top: 1px solid var(--border-color); padding-top: 16px; margin-top: 12px;">
+                <div class="editor-tier-title">
+                  <span class="status-badge tidak-paham" style="padding:2px 7px;">Tier 3</span>
+                  Certainty of Response Index (CRI) — Tingkat Keyakinan Siswa
+                </div>
+                <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">
+                  Tingkat keyakinan dijawab langsung oleh siswa saat pengerjaan: <strong>Yakin</strong> (Menunjukkan konsepsi yang kokoh / miskonsepsi bila keliru) atau <strong>Tidak Yakin</strong> (Menunjukkan tebakan / belum paham konsep).
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Question Items Table Already in Assessment -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h3 class="dash-card-title">Daftar Butir Soal Terpasang (10 Butir Three-Tier)</h3>
+                <span class="dash-card-subtitle">Urutan soal asesmen aktif DIAGNO-2026</span>
+              </div>
+              <span class="status-badge paham">Status: Terbit &amp; Terkunci</span>
+            </div>
+
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th style="width: 50px;">No</th>
+                    <th>Konsep yang Diuji</th>
+                    <th>Tier 1 (Pertanyaan Utama)</th>
+                    <th>Tier 2 (Kunci Alasan Ilmiah)</th>
+                    <th>Media</th>
+                    <th>Tingkat Kesukaran</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>1</strong></td>
+                    <td>Kecepatan &amp; Percepatan Titik Tertinggi</td>
+                    <td>Percepatan bola saat $v = 0$ di titik puncak</td>
+                    <td>Gaya gravitasi tetap konstan bekerja ke bawah</td>
+                    <td><span class="status-badge paham">Diagram</span></td>
+                    <td><span class="status-badge paham">0.52 (Sedang)</span></td>
+                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>2</strong></td>
+                    <td>Hukum I &amp; II Newton Kecepatan Konstan</td>
+                    <td>Resultan gaya $\sum F$ benda bergerak lurus beraturan</td>
+                    <td>Percepatan $a = 0$ menurut Hukum I Newton</td>
+                    <td><span class="status-badge inactive-status">Teks</span></td>
+                    <td><span class="status-badge paham">0.64 (Sedang)</span></td>
+                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>3</strong></td>
+                    <td>Gaya Gesek Statis vs Kinetis Bidang Miring</td>
+                    <td>Arah dan nilai gaya gesek sebelum balok meluncur</td>
+                    <td>Gaya gesek statis mengimbangi komponen $mg \sin \theta$</td>
+                    <td><span class="status-badge paham">Gambar</span></td>
+                    <td><span class="status-badge tidak-paham">0.38 (Sukar)</span></td>
+                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>4</strong></td>
+                    <td>Vektor Posisi dan Perpindahan Gerak Melingkar</td>
+                    <td>Perpindahan satu putaran penuh lintasan melingkar</td>
+                    <td>Titik awal dan akhir berimpit sehingga $\Delta \vec{r} = 0$</td>
+                    <td><span class="status-badge miskonsepsi">Grafik</span></td>
+                    <td><span class="status-badge miskonsepsi">0.78 (Mudah)</span></td>
+                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
+                  </tr>
+                  <tr>
+                    <td><strong>5</strong></td>
+                    <td>Gaya Gravitasi Newton Antara Dua Massa</td>
+                    <td>Besar gaya tarik jika jarak dilipatgandakan ($2r$)</td>
+                    <td>Berbanding terbalik dengan kuadrat jarak ($F \propto 1/r^2$)</td>
+                    <td><span class="status-badge inactive-status">Teks</span></td>
+                    <td><span class="status-badge paham">0.55 (Sedang)</span></td>
+                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             VIEW 3: PROFIL PEMAHAMAN & PETA MISKONSEPSI (PRD F-18 - F-20, F-23)
+             ============================================================== -->
+        <section class="dash-view-section" id="view-profiles" style="display: none;">
+          
+          <!-- Engine Classification Matrix Explainer Card -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <span class="portal-role-pill teacher" style="margin-bottom: 4px;">Mesin Analisis Otomatis SiDag</span>
+                <h2 style="font-size: 1.35rem;">Aturan Pemetaan Profil Pemahaman Tiga Tingkat (PRD 4.4)</h2>
+                <span class="dash-card-subtitle">Kombinasi Tier 1 (Jawaban) + Tier 2 (Alasan) + Tier 3 (Keyakinan CRI) dipetakan secara otomatis:</span>
+              </div>
+            </div>
+
+            <div class="matrix-container">
+              <div class="matrix-card" style="border-left: 4px solid var(--status-paham);">
+                <div class="matrix-header">
+                  <strong style="color:var(--status-paham);">Profil: Paham Konsep</strong>
+                  <span class="status-badge paham">18 Siswa (52.9%)</span>
+                </div>
+                <div class="matrix-tiers-combo">
+                  <div class="matrix-tier-row"><span>Tier 1 (Jawaban):</span> <strong>Benar</strong></div>
+                  <div class="matrix-tier-row"><span>Tier 2 (Alasan):</span> <strong>Benar</strong></div>
+                  <div class="matrix-tier-row"><span>Tier 3 (Keyakinan):</span> <strong>Yakin / Tidak Yakin</strong></div>
+                </div>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">
+                  Siswa menguasai konsep secara ilmiah dengan penalaran yang benar.
+                </p>
+              </div>
+
+              <div class="matrix-card" style="border-left: 4px solid var(--status-miskonsepsi);">
+                <div class="matrix-header">
+                  <strong style="color:var(--status-miskonsepsi);">Profil: Miskonsepsi</strong>
+                  <span class="status-badge miskonsepsi">11 Siswa (32.4%)</span>
+                </div>
+                <div class="matrix-tiers-combo">
+                  <div class="matrix-tier-row"><span>Tier 1 &amp; Tier 2:</span> <strong>Salah satu/keduanya Salah</strong></div>
+                  <div class="matrix-tier-row"><span>Tier 3 (Keyakinan):</span> <strong>Yakin (CRI Tinggi)</strong></div>
+                </div>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">
+                  Siswa yakin dengan konsepsi intuitif yang keliru secara ilmiah. Perlu perlakuan konseptual.
+                </p>
+              </div>
+
+              <div class="matrix-card" style="border-left: 4px solid var(--status-tidak-paham);">
+                <div class="matrix-header">
+                  <strong style="color:var(--status-tidak-paham);">Profil: Tidak Paham</strong>
+                  <span class="status-badge tidak-paham">5 Siswa (14.7%)</span>
+                </div>
+                <div class="matrix-tiers-combo">
+                  <div class="matrix-tier-row"><span>Tier 1 &amp; Tier 2:</span> <strong>Salah satu/keduanya Salah</strong></div>
+                  <div class="matrix-tier-row"><span>Tier 3 (Keyakinan):</span> <strong>Tidak Yakin (CRI Rendah)</strong></div>
+                </div>
+                <p style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">
+                  Siswa menyadari ketidaktahuannya atau menebak jawaban secara spekulatif.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filter & Search Toolbar -->
+          <div class="filter-bar">
+            <div class="filter-group">
+              <div class="search-input-wrap">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="input-control" id="searchStudentInput" placeholder="Cari nama atau NIS siswa...">
+              </div>
+
+              <select class="input-control" id="filterProfileSelect" style="max-width:200px;">
+                <option value="all">Semua Profil Pemahaman</option>
+                <option value="paham">Profil: Paham Konsep</option>
+                <option value="miskonsepsi">Profil: Miskonsepsi</option>
+                <option value="tidak-paham">Profil: Tidak Paham</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <span id="filteredCountText" style="font-size:0.82rem; color:var(--text-muted);">Menampilkan 34 dari 34 siswa</span>
+              <button type="button" class="btn btn-outline btn-sm" onclick="exportStudentProfiles()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Ekspor CSV
+              </button>
+            </div>
+          </div>
+
+          <!-- Students Diagnostic Profile Table -->
+          <div class="dash-card">
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th style="width: 45px;">No</th>
+                    <th>Nama Siswa &amp; NIS</th>
+                    <th>Kelas</th>
+                    <th>Skor Akhir</th>
+                    <th>Profil Dominan</th>
+                    <th>Rincian (P / M / T)</th>
+                    <th>Catatan Integritas</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="studentProfilesBody">
+                  <!-- Dynamically rendered by teacher.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section: Peta Miskonsepsi Kelas (PRD F-23) -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h3 class="dash-card-title" style="color:var(--status-miskonsepsi);">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                  Peta Miskonsepsi Siswa Kelas XI IPA 2
+                </h3>
+                <span class="dash-card-subtitle">Konsep-konsep yang paling sering salah dipahami secara sistematis oleh siswa</span>
+              </div>
+            </div>
+
+            <!-- Injected by teacher.js -->
+            <div id="misconceptionsContainer" class="misconception-grid">
+              <!-- Cards rendered dynamically -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             VIEW 4: ANALISIS PSIKOMETRIK BUTIR SOAL (PRD F-21 & F-22)
+             ============================================================== -->
+        <section class="dash-view-section" id="view-item-analysis" style="display: none;">
+          
+          <!-- Banner Psikometrik -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <span class="portal-role-pill teacher" style="margin-bottom: 4px;">Uji Kualitas Instrumen Soal (CTT)</span>
+                <h2 style="font-size: 1.35rem;">Analisis Psikometrik Kualitas Butir Soal</h2>
+                <span class="dash-card-subtitle">Dihitung otomatis dari pola jawaban 34 siswa pada Tier 1 dan Tier 2 berdasarkan Classical Test Theory (CTT)</span>
+              </div>
+              <button type="button" class="btn btn-outline btn-sm" onclick="window.print()">
+                Cetak Hasil Uji Soal
+              </button>
+            </div>
+
+            <!-- 4 Metric Cards -->
+            <div class="stat-grid-4">
+              <div class="psychometric-metric-card">
+                <div>
+                  <span style="font-size:0.75rem; color:var(--text-muted); display:block;">Tingkat Kesukaran ($P$)</span>
+                  <span class="psychometric-val">0.59</span>
+                  <span style="font-size:0.72rem; color:var(--status-paham); font-weight:600; display:block;">Kategori Sedang (Ideal)</span>
+                </div>
+                <div class="stat-icon-box primary">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="psychometric-metric-card">
+                <div>
+                  <span style="font-size:0.75rem; color:var(--text-muted); display:block;">Daya Pembeda ($D$)</span>
+                  <span class="psychometric-val" style="color:var(--status-paham);">0.41</span>
+                  <span style="font-size:0.72rem; color:var(--status-paham); font-weight:600; display:block;">Kategori Sangat Baik</span>
+                </div>
+                <div class="stat-icon-box paham">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="psychometric-metric-card">
+                <div>
+                  <span style="font-size:0.75rem; color:var(--text-muted); display:block;">Reliabilitas Cronbach's Alpha ($r_{11}$)</span>
+                  <span class="psychometric-val">0.84</span>
+                  <span style="font-size:0.72rem; color:var(--status-paham); font-weight:600; display:block;">Konsistensi Tinggi</span>
+                </div>
+                <div class="stat-icon-box primary">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="psychometric-metric-card">
+                <div>
+                  <span style="font-size:0.75rem; color:var(--text-muted); display:block;">Status Kelayakan Butir</span>
+                  <span class="psychometric-val" style="color:var(--text-main); font-size:1rem;">8 Baik &bull; 1 Revisi &bull; 1 Ganti</span>
+                  <span style="font-size:0.72rem; color:var(--status-miskonsepsi); font-weight:600; display:block;">2 Butir Perlu Ditinjau</span>
+                </div>
+                <div class="stat-icon-box miskonsepsi">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Psychometric Item Analysis Table (PRD F-21 & F-22) -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h3 class="dash-card-title">Tabel Evaluasi Kualitas Psikometrik per Butir Soal</h3>
+                <span class="dash-card-subtitle">Termasuk rekomendasi perbaikan berbasis data respon</span>
+              </div>
+            </div>
+
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th style="width: 70px;">Butir</th>
+                    <th>Konsep Materi yang Diuji</th>
+                    <th>Tingkat Kesukaran ($P$)</th>
+                    <th>Daya Pembeda ($D$)</th>
+                    <th>Uji Validitas ($r_{xy}$)</th>
+                    <th>Kategori Kualitas</th>
+                    <th>Rekomendasi Tindakan Guru</th>
+                  </tr>
+                </thead>
+                <tbody id="itemAnalysisBody">
+                  <!-- Rendered dynamically by teacher.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Panduan Interpretasi Indeks Psikometrik -->
+          <div class="dash-card" style="background:var(--bg-subtle);">
+            <h4 style="font-size:0.95rem; font-weight:700; margin-bottom:10px;">
+              Pedoman Standar Interpretasi Psikometrik Klasik (SiDag):
+            </h4>
+            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; font-size:0.8rem; color:var(--text-muted);">
+              <div style="background:var(--bg-elevated); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+                <strong style="color:var(--text-main); display:block; margin-bottom:4px;">Tingkat Kesukaran ($P$):</strong>
+                <div>&bull; $P &lt; 0.30$: Butir Soal Sukar</div>
+                <div>&bull; $0.30 \le P \le 0.70$: Butir Soal Sedang (Direkomendasikan)</div>
+                <div>&bull; $P &gt; 0.70$: Butir Soal Terlalu Mudah</div>
+              </div>
+              <div style="background:var(--bg-elevated); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+                <strong style="color:var(--text-main); display:block; margin-bottom:4px;">Indeks Daya Pembeda ($D$):</strong>
+                <div>&bull; $D \ge 0.40$: Sangat Baik (Mampu membedakan)</div>
+                <div>&bull; $0.30 \le D &lt; 0.40$: Baik (Dapat dipertahankan)</div>
+                <div>&bull; $0.20 \le D &lt; 0.30$: Cukup (Perlu revisi distraktor)</div>
+                <div>&bull; $D &lt; 0.20$: Jelek / Ditolak (Harus diganti)</div>
+              </div>
+              <div style="background:var(--bg-elevated); padding:10px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+                <strong style="color:var(--text-main); display:block; margin-bottom:4px;">Uji Validitas &amp; Reliabilitas:</strong>
+                <div>&bull; Validitas Pearson ($r_{xy} &gt; r_{\text{tabel}} = 0.338$ untuk $N=34$)</div>
+                <div>&bull; Reliabilitas Alpha ($r_{11} \ge 0.70$): Soal konsisten dan layak untuk evaluasi diagnostik</div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             VIEW 5: PROGRESS SISWA & REMEDIAL (PRD F-28 - F-31)
+             ============================================================== -->
+        <section class="dash-view-section" id="view-progress" style="display: none;">
+          
+          <!-- Banner Progress & Timeline -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <span class="portal-role-pill teacher" style="margin-bottom: 4px;">Pemantauan Perkembangan Longitudinal</span>
+                <h2 style="font-size: 1.35rem;">Progress Pemahaman Siswa &amp; Tindak Lanjut Remedial</h2>
+                <span class="dash-card-subtitle">Perbandingan hasil asesmen awal (pre-test) vs pasca remedial (post-test) untuk mengukur resolusi miskonsepsi</span>
+              </div>
+              <button type="button" class="btn btn-primary btn-sm" id="btnOpenNewRemedialNote">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Tulis Catatan Remedial
+              </button>
+            </div>
+
+            <!-- Comparison Progress Visual Cards -->
+            <div class="stat-grid-4">
+              <div class="stat-card">
+                <div class="stat-card-top">
+                  <div class="stat-icon-box paham">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                      <polyline points="17 6 23 6 23 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="stat-trend positive">+23.5% Meningkat</span>
+                </div>
+                <div class="stat-value" style="color:var(--status-paham);">52.9%</div>
+                <div class="stat-label">Persentase Siswa Paham Saat Ini (Awal: 29.4%)</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-top">
+                  <div class="stat-icon-box miskonsepsi">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+                      <polyline points="17 18 23 18 23 12"></polyline>
+                    </svg>
+                  </div>
+                  <span class="stat-trend positive">-16.2% Berkurang</span>
+                </div>
+                <div class="stat-value" style="color:var(--status-miskonsepsi);">32.4%</div>
+                <div class="stat-label">Penurunan Miskonsepsi Siswa (Awal: 48.6%)</div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-card-top">
+                  <div class="stat-icon-box primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                  </div>
+                  <span class="stat-trend neutral">2 Siklus Asesmen</span>
+                </div>
+                <div class="stat-value">3 Catatan</div>
+                <div class="stat-label">Rencana Remedial Terdokumentasi</div>
+              </div>
+
+              <div class="stat-card" style="border-color: rgba(220, 38, 38, 0.4);">
+                <div class="stat-card-top">
+                  <div class="stat-icon-box tidak-paham">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                  </div>
+                  <span class="stat-trend warning">Perlu Remedial Intensif</span>
+                </div>
+                <div class="stat-value" style="color:var(--status-tidak-paham);">5 Siswa</div>
+                <div class="stat-label">Siswa dengan Miskonsepsi Persisten</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section: Timeline Catatan Remedial -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h3 class="dash-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                  </svg>
+                  Riwayat &amp; Catatan Tindak Lanjut Remedial Guru (PRD F-31)
+                </h3>
+                <span class="dash-card-subtitle">Rencana intervensi individual dan bimbingan sebaya per siswa</span>
+              </div>
+            </div>
+
+            <!-- Injected by teacher.js -->
+            <div id="remedialTimelineContainer" class="remedial-timeline">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             VIEW 6: PENGAWASAN UJIAN & INTEGRITAS (PRD F-24 - F-27)
+             ============================================================== -->
+        <section class="dash-view-section" id="view-proctoring" style="display: none;">
+          
+          <!-- Proctoring Overview Banner -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <span class="portal-role-pill teacher" style="margin-bottom: 4px;">Sistem Pengawasan Daring Klien (Anti-Cheat)</span>
+                <h2 style="font-size: 1.35rem;">Log Pengawasan Integritas Ujian Siswa</h2>
+                <span class="dash-card-subtitle">Merekam riwayat keluar jendela, perpindahan tab (Page Visibility API), keluar mode fullscreen, dan upaya salin-tempel</span>
+              </div>
+              <div class="token-indicator-chip" style="color:var(--status-paham);">
+                <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--status-paham); margin-right:4px;"></span>
+                Sensor Anti-Cheat Aktif
+              </div>
+            </div>
+
+            <!-- 4 Security Status Indicators -->
+            <div class="stat-grid-4">
+              <div style="background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:14px; display:flex; align-items:center; gap:12px;">
+                <div style="width:36px; height:36px; border-radius:var(--radius-sm); background:var(--status-paham-bg); color:var(--status-paham); display:flex; align-items:center; justify-content:center;">
+                  ✓
+                </div>
+                <div>
+                  <strong style="font-size:0.86rem; color:var(--text-main); display:block;">Page Visibility API</strong>
+                  <span style="font-size:0.74rem; color:var(--text-muted);">Mendeteksi Pindah Tab &bull; Aktif</span>
+                </div>
+              </div>
+
+              <div style="background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:14px; display:flex; align-items:center; gap:12px;">
+                <div style="width:36px; height:36px; border-radius:var(--radius-sm); background:var(--status-paham-bg); color:var(--status-paham); display:flex; align-items:center; justify-content:center;">
+                  ✓
+                </div>
+                <div>
+                  <strong style="font-size:0.86rem; color:var(--text-main); display:block;">Fullscreen Lock Mode</strong>
+                  <span style="font-size:0.74rem; color:var(--text-muted);">Kunci Layar Penuh Ujian &bull; Aktif</span>
+                </div>
+              </div>
+
+              <div style="background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:14px; display:flex; align-items:center; gap:12px;">
+                <div style="width:36px; height:36px; border-radius:var(--radius-sm); background:var(--status-paham-bg); color:var(--status-paham); display:flex; align-items:center; justify-content:center;">
+                  ✓
+                </div>
+                <div>
+                  <strong style="font-size:0.86rem; color:var(--text-main); display:block;">Clipboard Guard</strong>
+                  <span style="font-size:0.74rem; color:var(--text-muted);">Blokir Copy-Paste &bull; Aktif</span>
+                </div>
+              </div>
+
+              <div style="background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:14px; display:flex; align-items:center; gap:12px;">
+                <div style="width:36px; height:36px; border-radius:var(--radius-sm); background:var(--status-paham-bg); color:var(--status-paham); display:flex; align-items:center; justify-content:center;">
+                  ✓
+                </div>
+                <div>
+                  <strong style="font-size:0.86rem; color:var(--text-main); display:block;">Peringatan Berjenjang</strong>
+                  <span style="font-size:0.74rem; color:var(--text-muted);">Modal Peringatan Otomatis &bull; Aktif</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proctoring Event Logs Table -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h3 class="dash-card-title">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  Catatan Kejadian Integritas Pengerjaan (Real-Time Proctoring Log)
+                </h3>
+                <span class="dash-card-subtitle">Semua kejadian tercatat otomatis lengkap dengan timestamp dan tingkat keparahan</span>
+              </div>
+            </div>
+
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Waktu Kejadian</th>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                    <th>Jenis Pelanggaran</th>
+                    <th>Keparahan</th>
+                    <th>Tindakan Sistem</th>
+                    <th>Tindakan Pengawas</th>
+                  </tr>
+                </thead>
+                <tbody id="proctoringLogBody">
+                  <!-- Rendered dynamically by teacher.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             VIEW 7: REKAP HASIL & DISTRIBUSI EMAIL (PRD F-32 - F-34)
+             ============================================================== -->
+        <section class="dash-view-section" id="view-recap" style="display: none;">
+          
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <span class="portal-role-pill teacher" style="margin-bottom: 4px;">Arsip &amp; Distribusi Laporan</span>
+                <h2 style="font-size: 1.35rem;">Rekapitulasi Hasil Asesmen &amp; Kirim Email</h2>
+                <span class="dash-card-subtitle">Unduh berkas rekap hasil satu kelas atau kirim rangkuman lengkap langsung ke email guru</span>
+              </div>
+              <div class="dash-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" onclick="downloadRecapFile()">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Unduh Berkas CSV
+                </button>
+                <button type="button" class="btn btn-outline btn-sm" onclick="window.print()">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                    <rect x="6" y="14" width="12" height="8"></rect>
+                  </svg>
+                  Cetak / PDF
+                </button>
+              </div>
+            </div>
+
+            <!-- Class Recap Summary Overview Box -->
+            <div style="background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:20px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+                <div>
+                  <h3 style="font-size:1.15rem; color:var(--text-main);">Rekapitulasi Kelas: XI IPA 2 — Fisika</h3>
+                  <p style="font-size:0.86rem; color:var(--text-muted); margin-top:4px;">
+                    Materi: Kinematika Gerak Lurus &amp; Gaya Gravitasi Newton &bull; Token: <strong>DIAGNO-2026</strong>
+                  </p>
+                  <div style="display:flex; gap:12px; margin-top:10px; font-size:0.82rem;">
+                    <span>Total Siswa: <strong>34</strong></span> &bull;
+                    <span>Rata-rata Skor: <strong>72.4/100</strong></span> &bull;
+                    <span>Tingkat Paham: <strong style="color:var(--status-paham);">52.9%</strong></span> &bull;
+                    <span>Tingkat Miskonsepsi: <strong style="color:var(--status-miskonsepsi);">32.4%</strong></span>
+                  </div>
+                </div>
+                <div class="status-badge paham" style="font-size:0.85rem; padding:6px 12px;">
+                  Status: Siap Diarsipkan
+                </div>
+              </div>
+            </div>
+
+            <!-- Kirim ke Email Section (PRD F-34) -->
+            <div style="border-top:1px solid var(--border-color); padding-top:20px; margin-top:10px;">
+              <h3 style="font-size:1.05rem; font-weight:700; margin-bottom:6px;">
+                Kirim Rangkuman Hasil Langsung ke Email Guru (PRD F-34)
+              </h3>
+              <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:14px;">
+                Sistem akan menyusun berkas rekapitulasi nilai, peta miskonsepsi, dan catatan tindak lanjut lalu mengirimkannya ke alamat email Anda.
+              </p>
+
+              <form id="sendEmailForm" style="display:flex; gap:10px; flex-wrap:wrap; max-width:600px;">
+                <input type="email" class="input-control" id="teacherRecapEmail" value="siti.rahmawati@sman1.sch.id" placeholder="Masukkan alamat email guru..." style="flex:1; min-width:260px;" required>
+                <button type="submit" class="btn btn-primary btn-sm">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                  Kirim Rekapitulasi &rarr;
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Email Dispatch Log History -->
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h3 class="dash-card-title">Riwayat Pengiriman Email Rekap (Email Logs)</h3>
+                <span class="dash-card-subtitle">Log riwayat pengiriman berkas rekapitulasi ke email</span>
+              </div>
+            </div>
+
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Waktu Pengiriman</th>
+                    <th>Penerima</th>
+                    <th>Asesmen Terkait</th>
+                    <th>Lampiran Berkas</th>
+                    <th>Status Pengiriman</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">23 Okt 2026, 16:15</td>
+                    <td>siti.rahmawati@sman1.sch.id</td>
+                    <td>Asesmen Fisika Kinematika (XI IPA 2)</td>
+                    <td><code>Rekap_Diagnostik_XI_IPA_2.pdf</code></td>
+                    <td><span class="status-badge paham">&bull; Terkirim (Resend API)</span></td>
+                  </tr>
+                  <tr>
+                    <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">15 Okt 2026, 11:30</td>
+                    <td>siti.rahmawati@sman1.sch.id</td>
+                    <td>Asesmen Diagnostik Awal Gerak Lurus (XI IPA 2)</td>
+                    <td><code>Rekap_Awal_Fisika_XI.pdf</code></td>
+                    <td><span class="status-badge paham">&bull; Terkirim</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ==============================================================
+       MODALS
+       ============================================================== -->
+
+  <!-- Modal 1: Rincian Jawaban 3-Tier Siswa (Response Explorer) -->
+  <div class="modal-backdrop" id="studentDetailModal" role="dialog" aria-modal="true" aria-labelledby="studentDetailTitle">
+    <div class="modal-formal-card modal-lg">
+      <button type="button" class="modal-close-btn" id="closeStudentDetailModal" aria-label="Tutup">&times;</button>
+      
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; padding-right:30px;">
+        <div>
+          <h3 class="modal-card-title" id="studentDetailTitle">Rincian Jawaban Siswa</h3>
+          <p class="modal-card-sub" id="studentDetailSub" style="margin-bottom:0;">Analisis kombinasi jawaban Tier 1 + Tier 2 + Tier 3 CRI</p>
+        </div>
+        <span id="modalStudentProfilePill" class="status-badge paham">Profil: PAHAM</span>
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:12px; max-height:480px; overflow-y:auto; padding-right:4px;" id="studentDetailItemsContainer">
+        <!-- Injected dynamically by teacher.js -->
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px; border-top:1px solid var(--border-color); padding-top:12px;">
+        <button type="button" class="btn btn-secondary btn-sm" id="btnCloseStudentDetailModalBottom">Tutup Rincian</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Form Catatan Tindak Lanjut & Remedial -->
+  <div class="modal-backdrop" id="remedialNoteModal" role="dialog" aria-modal="true" aria-labelledby="remedialModalTitle">
+    <div class="modal-formal-card">
+      <button type="button" class="modal-close-btn" id="closeRemedialModal" aria-label="Tutup">&times;</button>
+      
+      <span class="portal-role-pill teacher" style="margin-bottom:8px;">Tindak Lanjut Remedial</span>
+      <h3 class="modal-card-title" id="remedialModalTitle">Catatan Remedial &amp; Rencana Intervensi</h3>
+      <p class="modal-card-sub">Simpan rencana penanganan miskonsepsi atau bimbingan individual untuk siswa.</p>
+
+      <form id="remedialNoteForm">
+        <div class="input-group-formal">
+          <label class="input-label" for="remedialStudentSelect">Pilih Siswa</label>
+          <select class="input-control" id="remedialStudentSelect" required>
+            <option value="Budi Pratama (XI IPA 2)">Budi Pratama (XI IPA 2) — 5 Butir Miskonsepsi</option>
+            <option value="Citra Lestari (XI IPA 2)">Citra Lestari (XI IPA 2) — 6 Butir Tidak Paham</option>
+            <option value="Eko Prasetyo (XI IPA 2)">Eko Prasetyo (XI IPA 2) — 7 Butir Tidak Paham</option>
+            <option value="Ahmad Dahlan (XI IPA 2)">Ahmad Dahlan (XI IPA 2) — 4 Butir Miskonsepsi</option>
+            <option value="Bagas Firmansyah (XI IPA 2)">Bagas Firmansyah (XI IPA 2) — 4 Butir Miskonsepsi</option>
+            <option value="Dian Anggraini (XI IPA 2)">Dian Anggraini (XI IPA 2) — 4 Butir Miskonsepsi</option>
+          </select>
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="remedialFocusConcept">Fokus Konsep yang Diintervensi</label>
+          <input type="text" class="input-control" id="remedialFocusConcept" value="Percepatan di Titik Puncak Gerak Vertikal" required>
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="remedialNoteContent">Rencana Intervensi / Bimbingan Konseptual</label>
+          <textarea class="input-control" id="remedialNoteContent" rows="4" placeholder="Tuliskan rencana penugasan mandiri, demonstrasi simulasi PhET, atau bimbingan sebaya..." required>Diberikan lembar kerja mandiri interaktif menggunakan simulasi PhET projectile motion. Ditekankan bahwa percepatan gravitasi tidak pernah bernilai nol selama masih di medan gravitasi bumi.</textarea>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCancelRemedialModal">Batal</button>
+          <button type="submit" class="btn btn-primary btn-sm">Simpan Catatan &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Pratinjau Tampilan Siswa (Preview Modal) -->
+  <div class="modal-backdrop" id="previewModal" role="dialog" aria-modal="true" aria-labelledby="previewModalTitle">
+    <div class="modal-formal-card modal-lg">
+      <button type="button" class="modal-close-btn" id="closePreviewModal" aria-label="Tutup">&times;</button>
+      
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+        <div>
+          <span class="status-badge draft-status">Mode Pratinjau Guru</span>
+          <h3 class="modal-card-title" id="previewModalTitle" style="margin-top:4px;">Pratinjau Lembar Soal Siswa (Three-Tier)</h3>
+        </div>
+        <div class="token-indicator-chip">
+          <span>Token: <strong>DIAGNO-2026</strong></span>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-weight:700; font-size:0.9rem; color:var(--primary);">Butir Soal No. 1 dari 10</span>
+          <span style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">Sisa Waktu: 58:20</span>
+        </div>
+
+        <!-- Tier 1 Preview -->
+        <p style="font-size:0.95rem; font-weight:600; color:var(--text-main); margin-bottom:10px;">
+          Sebuah bola dilemparkan vertikal ke atas. Pada saat mencapai titik tertinggi lintasannya, percepatan bola bernilai...
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:14px;">
+          <label style="display:flex; align-items:center; gap:8px; font-size:0.86rem; padding:6px 10px; background:var(--bg-surface); border-radius:4px; border:1px solid var(--border-color); cursor:pointer;">
+            <input type="radio" name="previewTier1" checked> A. $9.8\text{ m/s}^2$ ke arah bawah menuju pusat bumi
+          </label>
+          <label style="display:flex; align-items:center; gap:8px; font-size:0.86rem; padding:6px 10px; background:var(--bg-surface); border-radius:4px; border:1px solid var(--border-color); cursor:pointer;">
+            <input type="radio" name="previewTier1"> B. $0\text{ m/s}^2$ karena bola diam sesaat di puncak
+          </label>
+        </div>
+
+        <!-- Tier 2 Preview -->
+        <div style="border-top:1px dashed var(--border-color); padding-top:10px; margin-bottom:14px;">
+          <strong style="font-size:0.84rem; color:var(--primary); display:block; margin-bottom:6px;">Alasan atas pilihan jawaban Anda:</strong>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.86rem; padding:6px 10px; background:var(--bg-surface); border-radius:4px; border:1px solid var(--border-color); cursor:pointer;">
+              <input type="radio" name="previewTier2" checked> A. Gaya gravitasi bumi tetap bekerja konstan pada benda selama berada di udara
+            </label>
+            <label style="display:flex; align-items:center; gap:8px; font-size:0.86rem; padding:6px 10px; background:var(--bg-surface); border-radius:4px; border:1px solid var(--border-color); cursor:pointer;">
+              <input type="radio" name="previewTier2"> B. Karena kecepatan benda nol di puncak, maka resultan gaya juga harus nol
+            </label>
+          </div>
+        </div>
+
+        <!-- Tier 3 Preview -->
+        <div style="border-top:1px dashed var(--border-color); padding-top:10px;">
+          <strong style="font-size:0.84rem; color:var(--text-main); display:block; margin-bottom:6px;">Seberapa yakin Anda dengan kombinasi jawaban &amp; alasan di atas?</strong>
+          <div style="display:flex; gap:16px;">
+            <label style="display:flex; align-items:center; gap:6px; font-size:0.86rem; cursor:pointer;">
+              <input type="radio" name="previewTier3" checked> <strong>Yakin</strong> (CRI Tinggi)
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; font-size:0.86rem; cursor:pointer;">
+              <input type="radio" name="previewTier3"> <strong>Tidak Yakin</strong> (CRI Rendah / Spekulasi)
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px;">
+        <button type="button" class="btn btn-secondary btn-sm" id="btnClosePreviewModalBottom">Tutup Pratinjau</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Bar -->
+  <div class="toast-bar" id="sidagToast"></div>
+
+  <!-- Teacher Dashboard Controller -->
+  <script src="teacher.js"></script>
+
+  <!-- Formula insert helper -->
+  <script>
+    function insertLatex(code) {
+      const textarea = document.querySelector('.editor-section-box textarea');
+      if (textarea) {
+        textarea.value += ' ' + code;
+        textarea.focus();
+      }
+    }
+  </script>
+</body>
+</html>

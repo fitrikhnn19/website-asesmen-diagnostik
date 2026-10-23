@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Lembar Pengerjaan Asesmen Siswa (Three-Tier) — SiDag</title>
+  <meta name="title" content="Lembar Pengerjaan Asesmen Siswa (Three-Tier) — SiDag">
+  <meta name="description" content="Portal pengerjaan asesmen diagnostik tiga tingkat siswa dengan sistem simpan otomatis, anti-cheat, dan refleksi pemahaman konsep instan.">
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234f46e5'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+  <!-- Google Fonts: Plus Jakarta Sans, Outfit, & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for Mathematics & Physics LaTeX rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Core & Student-specific Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="student-exam.css">
+</head>
+<body class="student-page-body">
+
+  <!-- Root mount point for Student App (Gateway -> Briefing -> Exam -> Results) -->
+  <div id="studentAppRoot"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="sidagStudentToast" class="toast-bar"></div>
+
+  <!-- Application Engine Script -->
+  <script src="student-exam.js"></script>
+</body>
+</html>

@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dasbor Administrator — SiDag Asesmen Diagnostik</title>
+  <meta name="description" content="Portal Administrator SiDag — Manajemen akun guru, kontrol integritas anti-cheat, pemantauan seluruh sesi asesmen, dan konfigurasi sistem.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234f46e5'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+
+  <!-- Fonts: Plus Jakarta Sans & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- KaTeX for formula rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+  <!-- Core & Dashboard Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+  <div class="dash-layout">
+    
+    <!-- Sidebar Admin -->
+    <aside class="dash-sidebar" id="adminSidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo" aria-label="Ke Beranda SiDag">
+          <div class="brand-badge-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <div class="brand-text-block">
+            <span class="brand-title">SiDag</span>
+            <span class="brand-sub">Portal Admin</span>
+          </div>
+        </a>
+        <span class="portal-role-pill admin">Super Admin</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <span class="nav-section-title">Kendali Sistem</span>
+        <a href="#overview" class="dash-nav-item active" data-view="admin-view-overview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Ikhtisar Sistem</span>
+        </a>
+
+        <a href="#teachers" class="dash-nav-item" data-view="admin-view-teachers">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Manajemen Akun Guru</span>
+          <span class="nav-item-badge" id="sidebarTeachersCount">28</span>
+        </a>
+
+        <a href="#master" class="dash-nav-item" data-view="admin-view-master">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Data Kelas & Siswa</span>
+        </a>
+
+        <span class="nav-section-title">Audit & Integritas</span>
+        <a href="#proctoring" class="dash-nav-item" data-view="admin-view-proctoring">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Log Anti-Cheat Global</span>
+          <span class="nav-item-badge alert">18 Kejadian</span>
+        </a>
+
+        <a href="#audit" class="dash-nav-item" data-view="admin-view-audit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <span>Log Aktivitas Sistem</span>
+        </a>
+
+        <span class="nav-section-title">Navigasi Lintas Portal</span>
+        <a href="teacher-dashboard.html" class="dash-nav-item" title="Buka Dasbor Guru">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <span>Dasbor Guru</span>
+        </a>
+
+        <a href="student-exam.html" class="dash-nav-item" target="_blank" title="Coba Lembar Pengerjaan Siswa">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          <span>Portal Siswa &nearr;</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-snippet">
+          <div class="user-avatar" style="background: rgba(217, 119, 6, 0.12); color:#f59e0b; border-color: rgba(217,119,6,0.3);">AD</div>
+          <div class="user-info">
+            <span class="user-name">Administrator SiDag</span>
+            <span class="user-role-label">Pengelola Sistem Utama</span>
+          </div>
+        </div>
+        <a href="index.html" class="btn-sidebar-icon" title="Keluar ke Landing Page" aria-label="Keluar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dash-main">
+      
+      <!-- Topbar -->
+      <header class="dash-topbar">
+        <div class="topbar-left">
+          <button type="button" class="mobile-menu-trigger" id="adminMobileBtn" aria-label="Buka Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          
+          <div class="dash-breadcrumb">
+            <h1 class="dash-breadcrumb-title" id="adminBreadcrumb">Ikhtisar Sistem Administrator</h1>
+            <span class="dash-breadcrumb-sub">SiDag v2.4 &bull; Status Server: Operasional Normal (99.98% Uptime)</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- Server Status Indicator -->
+          <div class="token-indicator-chip" style="color: var(--status-paham);">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--status-paham); margin-right:2px;"></span>
+            <strong>Server Aktif</strong>
+          </div>
+
+          <!-- Theme Toggle -->
+          <button type="button" class="theme-toggle-btn" id="adminThemeBtn" aria-label="Ubah Tema">
+            <svg id="adminThemeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+
+          <!-- Add Teacher Quick Button -->
+          <button type="button" class="btn btn-primary btn-sm" id="btnOpenAddTeacherModal">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Tambah Akun Guru
+          </button>
+        </div>
+      </header>
+
+      <!-- Dashboard Body -->
+      <div class="dash-body">
+
+        <!-- ==============================================================
+             ADMIN VIEW 1: IKHTISAR SISTEM (OVERVIEW)
+             ============================================================== -->
+        <section class="dash-view-section active" id="admin-view-overview">
+          
+          <!-- Banner Pengelola -->
+          <div class="dash-card" style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.1) 0%, rgba(30, 41, 59, 0.5) 100%); border-color: rgba(217, 119, 6, 0.3);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+              <div>
+                <span class="portal-role-pill admin" style="margin-bottom: 8px;">Kendali Penuh Sistem & Keamanan</span>
+                <h2 style="font-size: 1.4rem; margin-top: 4px;">Pusat Kontrol Administrator SiDag</h2>
+                <p style="font-size: 0.9rem; max-width: 720px; margin-top: 4px;">
+                  Mengelola seluruh akun guru, hak akses, validitas token asesmen, pemantauan kejadian kecurangan, dan integritas basis data asesmen diagnostik.
+                </p>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button type="button" class="btn btn-primary btn-sm" onclick="adminSwitchView('admin-view-teachers')">
+                  Kelola Akun Guru &rarr;
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="adminSwitchView('admin-view-proctoring')">
+                  Lihat Log Anti-Cheat
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- KPI Admin Cards -->
+          <div class="stat-grid-4">
+            <div class="stat-card">
+              <div class="stat-card-top">
+                <div class="stat-icon-box primary">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                  </svg>
+                </div>
+                <span class="stat-trend positive">26 Aktif &bull; 2 Nonaktif</span>
+              </div>
+              <div class="stat-value" id="kpiTotalTeachers">28 Guru</div>
+              <div class="stat-label">Total Akun Guru Terdaftar</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-top">
+                <div class="stat-icon-box paham">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                </div>
+                <span class="stat-trend positive">14 Kelas Aktif</span>
+              </div>
+              <div class="stat-value">640 Siswa</div>
+              <div class="stat-label">Siswa Terdaftar dalam Sistem</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-top">
+                <div class="stat-icon-box miskonsepsi">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                  </svg>
+                </div>
+                <span class="stat-trend warning">7 Sesi Sedang Berjalan</span>
+              </div>
+              <div class="stat-value">42 Asesmen</div>
+              <div class="stat-label">Total Asesmen Dibuat Guru</div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-top">
+                <div class="stat-icon-box tidak-paham">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  </svg>
+                </div>
+                <span class="stat-trend neutral">Tercatat di Audit</span>
+              </div>
+              <div class="stat-value" style="color: var(--status-tidak-paham);">18 Insiden</div>
+              <div class="stat-label">Insiden Pindah Tab Terdeteksi</div>
+            </div>
+          </div>
+
+          <!-- Quick Two Column Overview -->
+          <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px;">
+            
+            <!-- Akun Guru Terbaru -->
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title-group">
+                  <h3 class="dash-card-title">Akun Guru Terdaftar Terkini</h3>
+                  <span class="dash-card-subtitle">Pengajar yang baru bergabung dan status aktivasinya</span>
+                </div>
+                <button type="button" class="btn btn-outline btn-sm" onclick="adminSwitchView('admin-view-teachers')">
+                  Lihat Semua
+                </button>
+              </div>
+
+              <div class="dash-table-wrap">
+                <table class="dash-table">
+                  <thead>
+                    <tr>
+                      <th>Nama Guru</th>
+                      <th>Mata Pelajaran</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="overviewTeachersTbody">
+                    <!-- Populated via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Server & Security Status -->
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title-group">
+                  <h3 class="dash-card-title">Integritas Infrastruktur SiDag</h3>
+                  <span class="dash-card-subtitle">Pemeriksaan komponen server, basis data, dan layanan</span>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-elevated); border-radius: var(--radius-sm);">
+                  <div>
+                    <strong style="font-size: 0.85rem; color: var(--text-main); display:block;">PostgreSQL Main Database</strong>
+                    <span style="font-size: 0.74rem; color: var(--text-muted);">Koneksi Latensi: 14ms &bull; 15 Tabel Skema</span>
+                  </div>
+                  <span class="status-badge active-status">&check; Terhubung</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-elevated); border-radius: var(--radius-sm);">
+                  <div>
+                    <strong style="font-size: 0.85rem; color: var(--text-main); display:block;">KaTeX Math Engine</strong>
+                    <span style="font-size: 0.74rem; color: var(--text-muted);">Rendering Formula LaTeX di Klien & Server</span>
+                  </div>
+                  <span class="status-badge active-status">&check; Normal</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-elevated); border-radius: var(--radius-sm);">
+                  <div>
+                    <strong style="font-size: 0.85rem; color: var(--text-main); display:block;">Anti-Cheat Proctoring Socket</strong>
+                    <span style="font-size: 0.74rem; color: var(--text-muted);">Deteksi Tab Visibility & Fullscreen Lock</span>
+                  </div>
+                  <span class="status-badge active-status">&check; Aktif</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--bg-elevated); border-radius: var(--radius-sm);">
+                  <div>
+                    <strong style="font-size: 0.85rem; color: var(--text-main); display:block;">Layanan Pengiriman Email Rekap</strong>
+                    <span style="font-size: 0.74rem; color: var(--text-muted);">SMTP Resend / Nodemailer Gateway</span>
+                  </div>
+                  <span class="status-badge active-status">&check; Siap</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             ADMIN VIEW 2: MANAJEMEN AKUN GURU (CRUD & STATUS AKTIF/NONAKTIF)
+             ============================================================== -->
+        <section class="dash-view-section" id="admin-view-teachers" style="display: none;">
+          
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h2 class="dash-card-title">Manajemen Akun Guru SiDag (Feature F-05, F-06)</h2>
+                <span class="dash-card-subtitle">Tambah akun guru baru, ubah rincian, aktifkan/nonaktifkan akun, atau reset password pengajar</span>
+              </div>
+              <div class="dash-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" id="btnAddNewTeacherTable">
+                  + Tambah Akun Guru Baru
+                </button>
+              </div>
+            </div>
+
+            <!-- Filter & Pencarian Guru -->
+            <div class="filter-bar">
+              <div class="filter-group">
+                <div class="search-input-wrap">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  <input type="text" class="input-control" id="searchTeacherInput" placeholder="Cari nama guru, email, atau NIP..." style="padding-top:7px; padding-bottom:7px;">
+                </div>
+
+                <select class="input-control" id="filterTeacherStatus" style="padding-top:7px; padding-bottom:7px;">
+                  <option value="all">Semua Status (28 Akun)</option>
+                  <option value="aktif">Hanya Status Aktif</option>
+                  <option value="nonaktif">Hanya Status Nonaktif</option>
+                </select>
+
+                <select class="input-control" id="filterTeacherSubject" style="padding-top:7px; padding-bottom:7px;">
+                  <option value="all">Semua Mata Pelajaran</option>
+                  <option value="Fisika">Fisika</option>
+                  <option value="Matematika">Matematika</option>
+                  <option value="Kimia">Kimia</option>
+                  <option value="Biologi">Biologi</option>
+                </select>
+              </div>
+
+              <div class="filter-group">
+                <span style="font-size: 0.8rem; color: var(--text-muted);" id="teachersCountBadge">Menampilkan 28 akun</span>
+              </div>
+            </div>
+
+            <!-- Tabel Akun Guru -->
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>Nama Lengkap & NIP</th>
+                    <th>Alamat Email</th>
+                    <th>Mata Pelajaran</th>
+                    <th>Kelas Diampu</th>
+                    <th>Asesmen Dibuat</th>
+                    <th>Status Akun</th>
+                    <th>Aksi Pengelola</th>
+                  </tr>
+                </thead>
+                <tbody id="teachersTableBody">
+                  <!-- Injected via admin.js -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             ADMIN VIEW 3: DATA MASTER (KELAS & SISWA)
+             ============================================================== -->
+        <section class="dash-view-section" id="admin-view-master" style="display: none;">
+          
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h2 class="dash-card-title">Data Master Kelas & Siswa</h2>
+                <span class="dash-card-subtitle">Pengorganisasian kelas, jumlah siswa, dan guru pengampu</span>
+              </div>
+            </div>
+
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Kode Kelas</th>
+                    <th>Nama Rombel / Kelas</th>
+                    <th>Tingkat</th>
+                    <th>Guru Pengampu Utama</th>
+                    <th>Jumlah Siswa</th>
+                    <th>Asesmen Aktif</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong style="font-family: var(--font-mono);">CLS-XI-IPA-1</strong></td>
+                    <td>Kelas XI IPA 1</td>
+                    <td>Fase F (Kelas XI)</td>
+                    <td>Dra. Siti Rahmawati, M.Pd.</td>
+                    <td>35 Siswa</td>
+                    <td><span class="status-badge paham">1 Aktif</span></td>
+                    <td><span class="status-badge active-status">&bull; Aktif</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong style="font-family: var(--font-mono);">CLS-XI-IPA-2</strong></td>
+                    <td>Kelas XI IPA 2</td>
+                    <td>Fase F (Kelas XI)</td>
+                    <td>Dra. Siti Rahmawati, M.Pd.</td>
+                    <td>36 Siswa</td>
+                    <td><span class="status-badge paham">1 Aktif (DIAGNO-2026)</span></td>
+                    <td><span class="status-badge active-status">&bull; Aktif</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong style="font-family: var(--font-mono);">CLS-X-A</strong></td>
+                    <td>Kelas X-A</td>
+                    <td>Fase E (Kelas X)</td>
+                    <td>Bambang Hermanto, S.Pd.</td>
+                    <td>36 Siswa</td>
+                    <td><span class="status-badge paham">1 Aktif</span></td>
+                    <td><span class="status-badge active-status">&bull; Aktif</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong style="font-family: var(--font-mono);">CLS-XII-MIPA-1</strong></td>
+                    <td>Kelas XII MIPA 1</td>
+                    <td>Fase F (Kelas XII)</td>
+                    <td>Dr. Hendra Gunawan, M.Si.</td>
+                    <td>34 Siswa</td>
+                    <td><span class="status-badge draft-status">0 Aktif</span></td>
+                    <td><span class="status-badge active-status">&bull; Aktif</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             ADMIN VIEW 4: LOG ANTI-CHEAT GLOBAL
+             ============================================================== -->
+        <section class="dash-view-section" id="admin-view-proctoring" style="display: none;">
+          
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h2 class="dash-card-title">Log Anti-Cheat & Integritas Ujian Global</h2>
+                <span class="dash-card-subtitle">Seluruh rekaman peristiwa mencurigakan selama ujian di semua sesi asesmen aktif</span>
+              </div>
+              <div class="dash-card-actions">
+                <button type="button" class="btn btn-outline btn-sm" onclick="exportAdminProctoringLogs()">
+                  Ekspor Log Integritas (CSV)
+                </button>
+              </div>
+            </div>
+
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Waktu Kejadian</th>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                    <th>Guru Pengawas</th>
+                    <th>Jenis Pelanggaran</th>
+                    <th>Tingkat Keparahan</th>
+                    <th>Tindakan Sistem</th>
+                  </tr>
+                </thead>
+                <tbody id="adminProctoringTbody">
+                  <!-- Populated via admin.js -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             ADMIN VIEW 5: AUDIT LOG AKTIVITAS SISTEM
+             ============================================================== -->
+        <section class="dash-view-section" id="admin-view-audit" style="display: none;">
+          
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h2 class="dash-card-title">Log Audit Aktivitas Sistem (System Audit Trail)</h2>
+                <span class="dash-card-subtitle">Pencatatan setiap operasi penambahan, perubahan, dan autentikasi pengguna secara kronologis</span>
+              </div>
+            </div>
+
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th>Aktor Pengguna</th>
+                    <th>Peran</th>
+                    <th>Aktivitas Operasi</th>
+                    <th>Alamat IP / Klien</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="systemAuditTbody">
+                  <!-- Populated via admin.js -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- ==============================================================
+             ADMIN VIEW 6: PENGATURAN & KONFIGURASI SISTEM
+             ============================================================== -->
+        <section class="dash-view-section" id="admin-view-settings" style="display: none;">
+          
+          <div class="dash-card">
+            <div class="dash-card-header">
+              <div class="dash-card-title-group">
+                <h2 class="dash-card-title">Pengaturan & Konfigurasi Global SiDag</h2>
+                <span class="dash-card-subtitle">Pengaturan kebijakan anti-cheat, batasan sesi ujian, dan konfigurasi pengiriman email</span>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+              <!-- Anti Cheat Policy -->
+              <div style="background: var(--bg-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 18px;">
+                <h3 style="font-size: 0.95rem; margin-bottom: 6px;">Kebijakan Pengawasan Ujian (Anti-Cheat Policy)</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">Toleransi insiden pindah tab sebelum sistem otomatis mengunci lembar soal.</p>
+
+                <div class="form-row-2">
+                  <div class="input-group-formal">
+                    <label class="input-label">Maksimal Toleransi Pindah Tab</label>
+                    <select class="input-control" id="settingMaxTabSwitch">
+                      <option value="2">2 Kali Pindah Tab</option>
+                      <option value="3" selected>3 Kali Pindah Tab (Standar)</option>
+                      <option value="5">5 Kali Pindah Tab (Longgar)</option>
+                    </select>
+                  </div>
+                  <div class="input-group-formal">
+                    <label class="input-label">Aksi saat Melebihi Batas Toleransi</label>
+                    <select class="input-control" id="settingOverLimitAction">
+                      <option value="lock">Kunci Layar & Memerlukan Kode Verifikasi Guru</option>
+                      <option value="submit">Kumpulkan Lembar Soal Otomatis (Submit Paksa)</option>
+                      <option value="warn">Hanya Tampilkan Peringatan Keras</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Database Backup -->
+              <div style="background: var(--bg-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 18px;">
+                <h3 style="font-size: 0.95rem; margin-bottom: 6px;">Pencadangan & Pemulihan Basis Data</h3>
+                <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">Cadangkan seluruh tabel akun, asesmen, respon tiga tingkat, dan analisis butir soal.</p>
+                <div style="display: flex; gap: 10px;">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="notify('Membuat cadangan data SiDag (backup_20261023.sql)... Berhasil!')">
+                    Buat Cadangan Database Sekarang
+                  </button>
+                  <button type="button" class="btn btn-secondary btn-sm" onclick="notify('Pengecekan integritas tabel: 15 tabel lulus verifikasi tanpa kerusakan.')">
+                    Uji Integritas Data
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Modal: Tambah Akun Guru Baru -->
+  <div class="modal-backdrop" id="addTeacherModal" role="dialog" aria-modal="true" aria-labelledby="addTeacherTitle">
+    <div class="modal-formal-card">
+      <button type="button" class="modal-close-btn" id="closeAddTeacherModal" aria-label="Tutup">&times;</button>
+      
+      <div class="admin-badge-formal">
+        <span>Pengelolaan Akun</span>
+      </div>
+
+      <h3 class="modal-card-title" id="addTeacherTitle">Tambah Akun Guru Baru</h3>
+      <p class="modal-card-sub">Daftarkan akun pengajar agar guru dapat login dan menyusun asesmen diagnostik.</p>
+
+      <form id="addTeacherForm">
+        <div class="input-group-formal">
+          <label class="input-label" for="addTName">Nama Lengkap & Gelar</label>
+          <input type="text" class="input-control" id="addTName" placeholder="Contoh: Dra. Rahma Dewi, M.Pd." required>
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="addTNIP">NIP / Identitas Pegawai</label>
+          <input type="text" class="input-control" id="addTNIP" placeholder="19850115 201001 2 008" required>
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="addTEmail">Alamat Email Guru</label>
+          <input type="email" class="input-control" id="addTEmail" placeholder="guru@sekolah.sch.id" required>
+        </div>
+
+        <div class="form-row-2">
+          <div class="input-group-formal">
+            <label class="input-label" for="addTSubject">Mata Pelajaran</label>
+            <select class="input-control" id="addTSubject" required>
+              <option value="Fisika">Fisika</option>
+              <option value="Matematika">Matematika</option>
+              <option value="Kimia">Kimia</option>
+              <option value="Biologi">Biologi</option>
+              <option value="Informatika">Informatika</option>
+            </select>
+          </div>
+
+          <div class="input-group-formal">
+            <label class="input-label" for="addTStatus">Status Akun Awal</label>
+            <select class="input-control" id="addTStatus">
+              <option value="aktif" selected>Aktif (Dapat Langsung Login)</option>
+              <option value="nonaktif">Nonaktif (Tertunda)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="addTPass">Kata Sandi Awal</label>
+          <input type="password" class="input-control" id="addTPass" value="SiDag2026!" required>
+          <span style="font-size: 0.74rem; color: var(--text-dim);">Guru akan diminta mengganti kata sandi pada login pertama.</span>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCancelAddTeacher">Batal</button>
+          <button type="submit" class="btn btn-primary btn-sm">Simpan Akun Guru &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Akun Guru -->
+  <div class="modal-backdrop" id="editTeacherModal" role="dialog" aria-modal="true" aria-labelledby="editTeacherTitle">
+    <div class="modal-formal-card">
+      <button type="button" class="modal-close-btn" id="closeEditTeacherModal" aria-label="Tutup">&times;</button>
+      
+      <div class="admin-badge-formal">
+        <span>Perbarui Data Guru</span>
+      </div>
+
+      <h3 class="modal-card-title" id="editTeacherTitle">Ubah Data Akun Guru</h3>
+      <p class="modal-card-sub" id="editTeacherSub">Perbarui nama, email, mata pelajaran, atau status akses pengajar.</p>
+
+      <form id="editTeacherForm">
+        <input type="hidden" id="editTeacherId">
+
+        <div class="input-group-formal">
+          <label class="input-label" for="editTName">Nama Lengkap & Gelar</label>
+          <input type="text" class="input-control" id="editTName" required>
+        </div>
+
+        <div class="input-group-formal">
+          <label class="input-label" for="editTEmail">Alamat Email</label>
+          <input type="email" class="input-control" id="editTEmail" required>
+        </div>
+
+        <div class="form-row-2">
+          <div class="input-group-formal">
+            <label class="input-label" for="editTSubject">Mata Pelajaran</label>
+            <select class="input-control" id="editTSubject">
+              <option value="Fisika">Fisika</option>
+              <option value="Matematika">Matematika</option>
+              <option value="Kimia">Kimia</option>
+              <option value="Biologi">Biologi</option>
+            </select>
+          </div>
+
+          <div class="input-group-formal">
+            <label class="input-label" for="editTStatus">Status Akun</label>
+            <select class="input-control" id="editTStatus">
+              <option value="aktif">Aktif</option>
+              <option value="nonaktif">Nonaktif</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCancelEditTeacher">Batal</button>
+          <button type="submit" class="btn btn-primary btn-sm">Simpan Perubahan &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Reset Password Guru -->
+  <div class="modal-backdrop" id="resetPassModal" role="dialog" aria-modal="true" aria-labelledby="resetPassTitle">
+    <div class="modal-formal-card">
+      <button type="button" class="modal-close-btn" id="closeResetPassModal" aria-label="Tutup">&times;</button>
+      
+      <div class="admin-badge-formal" style="background: rgba(220, 38, 38, 0.12); color: var(--status-tidak-paham); border-color: rgba(220, 38, 38, 0.3);">
+        <span>Keamanan & Sandi</span>
+      </div>
+
+      <h3 class="modal-card-title" id="resetPassTitle">Reset Kata Sandi Akun Guru</h3>
+      <p class="modal-card-sub" id="resetPassSub">Tetapkan kata sandi sementara baru atau kirimkan tautan pemulihan ke email guru.</p>
+
+      <form id="resetPassForm">
+        <input type="hidden" id="resetPassTeacherId">
+
+        <div class="input-group-formal">
+          <label class="input-label" for="newTempPassField">Kata Sandi Baru Sementara</label>
+          <input type="text" class="input-control" id="newTempPassField" value="SandiBaru2026!" required>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 6px; margin-top: 8px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--text-muted); cursor: pointer;">
+            <input type="checkbox" id="sendEmailNoticeCheck" checked> Kirimkan kata sandi baru ke alamat email guru
+          </label>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCancelResetPass">Batal</button>
+          <button type="submit" class="btn btn-primary btn-sm">Terapkan Sandi Baru &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Bar -->
+  <div class="toast-bar" id="sidagToast"></div>
+
+  <!-- JavaScript Admin Controller -->
+  <script src="admin.js"></script>
+</body>
+</html>
