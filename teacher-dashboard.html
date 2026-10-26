@@ -625,35 +625,45 @@
                 <div style="margin-top: 10px;">
                   <label class="input-label">Pilihan Jawaban Tier 1 (Tandai Radio untuk Kunci Jawaban Benar, A - E):</label>
                   <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;" id="tier1OptionsEditorList">
-                    <div class="editor-option-row" id="editorOptRowA" style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="A" checked title="Kunci Jawaban Benar" id="tier1RadioA">
-                      <span style="font-weight:700; font-size:0.85rem; width:20px;">A.</span>
-                      <input type="text" class="input-control editor-targetable" id="qEditorOptA" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban A">
-                      <span class="status-badge paham">Kunci Benar</span>
+                    <div class="editor-option-row is-key" id="editorOptRowA" style="display:flex; align-items:center; gap:8px;">
+                      <label for="tier1RadioA" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih A sebagai Kunci Jawaban Tier 1">
+                        <input type="radio" name="tier1CorrectKey" value="A" checked title="Kunci Jawaban Benar" id="tier1RadioA" style="cursor:pointer;">
+                        <span style="font-weight:700; font-size:0.85rem; width:18px;">A.</span>
+                      </label>
+                      <input type="text" class="input-control editor-targetable" id="qEditorOptA" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban A (Kunci Benar)">
+                      <span class="status-badge paham" id="tier1Badge_A" style="cursor:pointer;" title="Klik untuk tetapkan opsi A sebagai Kunci">Kunci Benar</span>
                     </div>
                     <div class="editor-option-row" id="editorOptRowB" style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="B" title="Pilihan Jawaban B" id="tier1RadioB">
-                      <span style="font-weight:700; font-size:0.85rem; width:20px;">B.</span>
+                      <label for="tier1RadioB" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih B sebagai Kunci Jawaban Tier 1">
+                        <input type="radio" name="tier1CorrectKey" value="B" title="Pilihan Jawaban B" id="tier1RadioB" style="cursor:pointer;">
+                        <span style="font-weight:700; font-size:0.85rem; width:18px;">B.</span>
+                      </label>
                       <input type="text" class="input-control editor-targetable" id="qEditorOptB" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban B">
-                      <span class="status-badge miskonsepsi">Distraktor</span>
+                      <span class="status-badge miskonsepsi" id="tier1Badge_B" style="cursor:pointer;" title="Klik untuk tetapkan opsi B sebagai Kunci">Distraktor</span>
                     </div>
                     <div class="editor-option-row" id="editorOptRowC" style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="C" title="Pilihan Jawaban C" id="tier1RadioC">
-                      <span style="font-weight:700; font-size:0.85rem; width:20px;">C.</span>
+                      <label for="tier1RadioC" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih C sebagai Kunci Jawaban Tier 1">
+                        <input type="radio" name="tier1CorrectKey" value="C" title="Pilihan Jawaban C" id="tier1RadioC" style="cursor:pointer;">
+                        <span style="font-weight:700; font-size:0.85rem; width:18px;">C.</span>
+                      </label>
                       <input type="text" class="input-control editor-targetable" id="qEditorOptC" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban C">
-                      <span class="status-badge miskonsepsi">Distraktor</span>
+                      <span class="status-badge miskonsepsi" id="tier1Badge_C" style="cursor:pointer;" title="Klik untuk tetapkan opsi C sebagai Kunci">Distraktor</span>
                     </div>
                     <div class="editor-option-row" id="editorOptRowD" style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="D" title="Pilihan Jawaban D" id="tier1RadioD">
-                      <span style="font-weight:700; font-size:0.85rem; width:20px;">D.</span>
+                      <label for="tier1RadioD" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih D sebagai Kunci Jawaban Tier 1">
+                        <input type="radio" name="tier1CorrectKey" value="D" title="Pilihan Jawaban D" id="tier1RadioD" style="cursor:pointer;">
+                        <span style="font-weight:700; font-size:0.85rem; width:18px;">D.</span>
+                      </label>
                       <input type="text" class="input-control editor-targetable" id="qEditorOptD" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban D">
-                      <span class="status-badge miskonsepsi">Distraktor</span>
+                      <span class="status-badge miskonsepsi" id="tier1Badge_D" style="cursor:pointer;" title="Klik untuk tetapkan opsi D sebagai Kunci">Distraktor</span>
                     </div>
                     <div class="editor-option-row" id="editorOptRowE" style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="E" title="Pilihan Jawaban E" id="tier1RadioE">
-                      <span style="font-weight:700; font-size:0.85rem; width:20px;">E.</span>
+                      <label for="tier1RadioE" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih E sebagai Kunci Jawaban Tier 1">
+                        <input type="radio" name="tier1CorrectKey" value="E" title="Pilihan Jawaban E" id="tier1RadioE" style="cursor:pointer;">
+                        <span style="font-weight:700; font-size:0.85rem; width:18px;">E.</span>
+                      </label>
                       <input type="text" class="input-control editor-targetable" id="qEditorOptE" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban E">
-                      <span class="status-badge miskonsepsi">Distraktor</span>
+                      <span class="status-badge miskonsepsi" id="tier1Badge_E" style="cursor:pointer;" title="Klik untuk tetapkan opsi E sebagai Kunci">Distraktor</span>
                     </div>
                   </div>
                 </div>
@@ -666,35 +676,45 @@
                   Pilihan Alasan (Reasoning) &amp; Pemetaan Miskonsepsi (A - E)
                 </div>
                 <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;" id="tier2ReasonsEditorList">
-                  <div class="editor-reason-row" id="editorReasonRowA" style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="A" checked title="Kunci Alasan Ilmiah Benar" id="tier2RadioA">
-                    <span style="font-weight:700; font-size:0.85rem; width:20px;">A.</span>
+                  <div class="editor-reason-row is-key" id="editorReasonRowA" style="display:flex; align-items:center; gap:8px;">
+                    <label for="tier2RadioA" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih A sebagai Kunci Alasan Ilmiah Valid">
+                      <input type="radio" name="tier2CorrectKey" value="A" checked title="Kunci Alasan Ilmiah Benar" id="tier2RadioA" style="cursor:pointer;">
+                      <span style="font-weight:700; font-size:0.85rem; width:18px;">A.</span>
+                    </label>
                     <input type="text" class="input-control editor-targetable" id="qEditorReasonA" style="flex:1;" value="" placeholder="Tuliskan kunci alasan ilmiah yang benar...">
-                    <span class="status-badge paham">Alasan Ilmiah</span>
+                    <span class="status-badge paham" id="tier2Badge_A" style="cursor:pointer;" title="Klik untuk tetapkan opsi A sebagai Kunci Alasan">Alasan Ilmiah</span>
                   </div>
                   <div class="editor-reason-row" id="editorReasonRowB" style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="B" title="Alasan B" id="tier2RadioB">
-                    <span style="font-weight:700; font-size:0.85rem; width:20px;">B.</span>
+                    <label for="tier2RadioB" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih B sebagai Kunci Alasan Ilmiah Valid">
+                      <input type="radio" name="tier2CorrectKey" value="B" title="Alasan B" id="tier2RadioB" style="cursor:pointer;">
+                      <span style="font-weight:700; font-size:0.85rem; width:18px;">B.</span>
+                    </label>
                     <input type="text" class="input-control editor-targetable" id="qEditorReasonB" style="flex:1;" value="" placeholder="Tuliskan distraktor alasan (miskonsepsi B)...">
-                    <span class="status-badge miskonsepsi">Miskonsepsi M01</span>
+                    <span class="status-badge miskonsepsi" id="tier2Badge_B" style="cursor:pointer;" title="Klik untuk tetapkan opsi B sebagai Kunci Alasan">Miskonsepsi M01</span>
                   </div>
                   <div class="editor-reason-row" id="editorReasonRowC" style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="C" title="Alasan C" id="tier2RadioC">
-                    <span style="font-weight:700; font-size:0.85rem; width:20px;">C.</span>
+                    <label for="tier2RadioC" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih C sebagai Kunci Alasan Ilmiah Valid">
+                      <input type="radio" name="tier2CorrectKey" value="C" title="Alasan C" id="tier2RadioC" style="cursor:pointer;">
+                      <span style="font-weight:700; font-size:0.85rem; width:18px;">C.</span>
+                    </label>
                     <input type="text" class="input-control editor-targetable" id="qEditorReasonC" style="flex:1;" value="" placeholder="Tuliskan distraktor alasan (miskonsepsi C)...">
-                    <span class="status-badge miskonsepsi">Miskonsepsi M02</span>
+                    <span class="status-badge miskonsepsi" id="tier2Badge_C" style="cursor:pointer;" title="Klik untuk tetapkan opsi C sebagai Kunci Alasan">Miskonsepsi M02</span>
                   </div>
                   <div class="editor-reason-row" id="editorReasonRowD" style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="D" title="Alasan D" id="tier2RadioD">
-                    <span style="font-weight:700; font-size:0.85rem; width:20px;">D.</span>
+                    <label for="tier2RadioD" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih D sebagai Kunci Alasan Ilmiah Valid">
+                      <input type="radio" name="tier2CorrectKey" value="D" title="Alasan D" id="tier2RadioD" style="cursor:pointer;">
+                      <span style="font-weight:700; font-size:0.85rem; width:18px;">D.</span>
+                    </label>
                     <input type="text" class="input-control editor-targetable" id="qEditorReasonD" style="flex:1;" value="" placeholder="Tuliskan distraktor alasan (miskonsepsi D)...">
-                    <span class="status-badge miskonsepsi">Miskonsepsi M03</span>
+                    <span class="status-badge miskonsepsi" id="tier2Badge_D" style="cursor:pointer;" title="Klik untuk tetapkan opsi D sebagai Kunci Alasan">Miskonsepsi M03</span>
                   </div>
                   <div class="editor-reason-row" id="editorReasonRowE" style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="E" title="Alasan E" id="tier2RadioE">
-                    <span style="font-weight:700; font-size:0.85rem; width:20px;">E.</span>
+                    <label for="tier2RadioE" style="display:flex; align-items:center; gap:6px; margin:0; cursor:pointer;" title="Pilih E sebagai Kunci Alasan Ilmiah Valid">
+                      <input type="radio" name="tier2CorrectKey" value="E" title="Alasan E" id="tier2RadioE" style="cursor:pointer;">
+                      <span style="font-weight:700; font-size:0.85rem; width:18px;">E.</span>
+                    </label>
                     <input type="text" class="input-control editor-targetable" id="qEditorReasonE" style="flex:1;" value="" placeholder="Tuliskan distraktor alasan (miskonsepsi E)...">
-                    <span class="status-badge miskonsepsi">Distraktor</span>
+                    <span class="status-badge miskonsepsi" id="tier2Badge_E" style="cursor:pointer;" title="Klik untuk tetapkan opsi E sebagai Kunci Alasan">Distraktor</span>
                   </div>
                 </div>
               </div>
@@ -760,24 +780,24 @@
                 <!-- Preview Tier 2 Reasons -->
                 <div style="font-size: 0.72rem; font-weight: 700; color: var(--status-miskonsepsi); text-transform: uppercase; margin-bottom: 6px; margin-top: 10px;">Pilihan Alasan &amp; Argumen Ilmiah (Tier 2: A - E):</div>
                 <div class="preview-tier2-box" id="livePreviewReasonBox">
-                  <div class="preview-tier2-item">
-                    <span class="preview-badge-pill status-badge paham">A (Ilmiah)</span>
+                  <div class="preview-tier2-item correct" id="prevReasonItemA">
+                    <span class="preview-badge-pill status-badge paham" id="prevReasonBadgeA">A (Ilmiah)</span>
                     <span id="livePreviewReasonA">--</span>
                   </div>
-                  <div class="preview-tier2-item">
-                    <span class="preview-badge-pill status-badge miskonsepsi">B (Distraktor)</span>
+                  <div class="preview-tier2-item" id="prevReasonItemB">
+                    <span class="preview-badge-pill status-badge miskonsepsi" id="prevReasonBadgeB">B (Distraktor)</span>
                     <span id="livePreviewReasonB">--</span>
                   </div>
-                  <div class="preview-tier2-item">
-                    <span class="preview-badge-pill status-badge miskonsepsi">C (Distraktor)</span>
+                  <div class="preview-tier2-item" id="prevReasonItemC">
+                    <span class="preview-badge-pill status-badge miskonsepsi" id="prevReasonBadgeC">C (Distraktor)</span>
                     <span id="livePreviewReasonC">--</span>
                   </div>
-                  <div class="preview-tier2-item">
-                    <span class="preview-badge-pill status-badge miskonsepsi">D (Distraktor)</span>
+                  <div class="preview-tier2-item" id="prevReasonItemD">
+                    <span class="preview-badge-pill status-badge miskonsepsi" id="prevReasonBadgeD">D (Distraktor)</span>
                     <span id="livePreviewReasonD">--</span>
                   </div>
-                  <div class="preview-tier2-item">
-                    <span class="preview-badge-pill status-badge miskonsepsi">E (Distraktor)</span>
+                  <div class="preview-tier2-item" id="prevReasonItemE">
+                    <span class="preview-badge-pill status-badge miskonsepsi" id="prevReasonBadgeE">E (Distraktor)</span>
                     <span id="livePreviewReasonE">--</span>
                   </div>
                 </div>

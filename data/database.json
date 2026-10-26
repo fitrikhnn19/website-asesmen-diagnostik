@@ -132,44 +132,7 @@
       "created_at": "2026-10-25T13:45:38.119Z"
     }
   ],
-  "classes": [
-    {
-      "id": "CLS-01",
-      "teacher_id": "T01",
-      "name": "XI MIPA 2",
-      "grade": "Kelas XI",
-      "academic_year": "2026/2027 Ganjil",
-      "homeroom": "Bambang Hermanto, M.Si.",
-      "student_count": 34
-    },
-    {
-      "id": "CLS-02",
-      "teacher_id": "T01",
-      "name": "XI MIPA 1",
-      "grade": "Kelas XI",
-      "academic_year": "2026/2027 Ganjil",
-      "homeroom": "Dra. Hj. Nurhayati, M.Pd.",
-      "student_count": 36
-    },
-    {
-      "id": "CLS-03",
-      "teacher_id": "T04",
-      "name": "XI MIPA 3",
-      "grade": "Kelas XI",
-      "academic_year": "2026/2027 Ganjil",
-      "homeroom": "H. Sulaiman, M.Pd.",
-      "student_count": 32
-    },
-    {
-      "id": "CLS-04",
-      "teacher_id": "T02",
-      "name": "X-1",
-      "grade": "Kelas X",
-      "academic_year": "2026/2027 Ganjil",
-      "homeroom": "Rina Marlina, S.Pd.",
-      "student_count": 35
-    }
-  ],
+  "classes": [],
   "students": [
     {
       "id": "S35",
@@ -1321,6 +1284,23 @@
       "pCount": 0,
       "mCount": 0,
       "tCount": 6
+    },
+    {
+      "id": "att-1793015969726-625",
+      "assessment_id": "asm-diagno-2026",
+      "student_id": "s-1793015969726",
+      "student_name": "Aditya Pratama",
+      "student_class": "XI MIPA 2",
+      "student_roll": "-",
+      "started_at": "2026-10-26T11:59:29.726Z",
+      "submitted_at": "2026-10-26T11:59:29.758Z",
+      "status": "selesai",
+      "total_score": 0,
+      "concept_profile": "tidak-paham",
+      "cheat_count": 1,
+      "pCount": 0,
+      "mCount": 0,
+      "tCount": 6
     }
   ],
   "responses": [
@@ -1463,6 +1443,19 @@
       "is_tier1_correct": false,
       "is_tier2_correct": false,
       "concept_profile": "tidak_paham"
+    },
+    {
+      "id": "rsp-1793015969741-528",
+      "attempt_id": "att-1793015969726-625",
+      "question_id": "q1",
+      "tier1_option_id": null,
+      "tier2_reason_id": null,
+      "tier3_confidence": null,
+      "flagged": false,
+      "answered_at": "2026-10-26T11:59:29.741Z",
+      "is_tier1_correct": false,
+      "is_tier2_correct": false,
+      "concept_profile": "tidak_paham"
     }
   ],
   "item_analyses": [
@@ -1552,6 +1545,18 @@
     }
   ],
   "proctoring_events": [
+    {
+      "id": "proc-1793015969749",
+      "attempt_id": "att-1793015969726-625",
+      "student_name": "Aditya Pratama",
+      "class_name": "XI MIPA 2",
+      "teacher_name": "Bambang Hermanto, S.Pd., M.Si.",
+      "event_type": "tab_switch",
+      "violation_text": "Pindah Tab Browser (1 detik)",
+      "severity": "ringan",
+      "occurred_at": "2026-10-26T11:59:29.749Z",
+      "action_taken": "Peringatan ke-1 dicatat ke dasbor pengawas"
+    },
     {
       "id": "proc-1793001469849",
       "attempt_id": "att-1793001469829-990",
@@ -1762,6 +1767,306 @@
     }
   ],
   "audit_logs": [
+    {
+      "id": "aud-1793016696545-514",
+      "time": "2026-10-26T12:11:36.545Z",
+      "time_formatted": "26 Okt 2026, 20.11",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menghapus kelas: X-1",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793016693807-714",
+      "time": "2026-10-26T12:11:33.792Z",
+      "time_formatted": "26 Okt 2026, 20.11",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menghapus kelas: XI MIPA 1",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793016689748-412",
+      "time": "2026-10-26T12:11:29.747Z",
+      "time_formatted": "26 Okt 2026, 20.11",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menghapus kelas: XI MIPA 3",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793016685327-375",
+      "time": "2026-10-26T12:11:25.275Z",
+      "time_formatted": "26 Okt 2026, 20.11",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menghapus kelas: XI MIPA 2",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969769-486",
+      "time": "2026-10-26T11:59:29.768Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Aditya Pratama",
+      "role": "Siswa",
+      "action": "Mengumpulkan lembar asesmen (Skor: 0, Profil: tidak-paham)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969707-391",
+      "time": "2026-10-26T11:59:29.707Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menghapus catatan remedial untuk: Aditya Pratama (XI MIPA 2)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969691-412",
+      "time": "2026-10-26T11:59:29.691Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Memperbarui catatan remedial: Aditya Pratama (XI MIPA 2)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969673-860",
+      "time": "2026-10-26T11:59:29.672Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menyimpan catatan remedial untuk siswa: Aditya Pratama (XI MIPA 2)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969656-932",
+      "time": "2026-10-26T11:59:29.656Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menghapus butir soal: BS-MAT-07",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969616-192",
+      "time": "2026-10-26T11:59:29.615Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Memperbarui butir soal: BS-MAT-07",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969594-984",
+      "time": "2026-10-26T11:59:29.594Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Membuat butir soal diagnostik 3-tingkat: BS-MAT-07",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969565-636",
+      "time": "2026-10-26T11:59:29.565Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menghapus data siswa: Murid Guru Diperbarui",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969550-15",
+      "time": "2026-10-26T11:59:29.549Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Memperbarui data siswa: Murid Guru Diperbarui",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969529-486",
+      "time": "2026-10-26T11:59:29.528Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Mendaftarkan siswa baru: Murid Guru Test (S9999)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969493-778",
+      "time": "2026-10-26T11:59:29.492Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Menghapus kelas: XI MIPA 8",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969476-583",
+      "time": "2026-10-26T11:59:29.475Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Memperbarui data kelas: XI MIPA 8",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969456-254",
+      "time": "2026-10-26T11:59:29.455Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Guru Matematika",
+      "role": "Guru",
+      "action": "Membuat kelas baru: XI MIPA 8",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969429-841",
+      "time": "2026-10-26T11:59:29.429Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Menghapus master siswa: Siswa Percobaan Terupdate",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969410-70",
+      "time": "2026-10-26T11:59:29.409Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Memperbarui master siswa: Siswa Percobaan Terupdate",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969394-528",
+      "time": "2026-10-26T11:59:29.393Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Menambahkan master siswa: Siswa Percobaan Admin",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969345-312",
+      "time": "2026-10-26T11:59:29.345Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Menghapus master rombel: XI MIPA 9",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969294-165",
+      "time": "2026-10-26T11:59:29.294Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Memperbarui data master kelas: XI MIPA 9",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969239-472",
+      "time": "2026-10-26T11:59:29.239Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Menambahkan data master rombel: XI MIPA 9",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969222-990",
+      "time": "2026-10-26T11:59:29.222Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Menghapus akun guru: Ibu Rahmawati, M.Pd. (Revisi)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969205-180",
+      "time": "2026-10-26T11:59:29.204Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Mereset password akun guru: Ibu Rahmawati, M.Pd. (Revisi)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969187-2",
+      "time": "2026-10-26T11:59:29.186Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Menonaktifkan akun guru: Ibu Rahmawati, M.Pd. (Revisi)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969168-396",
+      "time": "2026-10-26T11:59:29.167Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Mengubah data akun guru: Ibu Rahmawati, M.Pd. (Revisi)",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969110-588",
+      "time": "2026-10-26T11:59:29.110Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag",
+      "role": "Admin",
+      "action": "Menambahkan akun guru baru: Ibu Rahmawati, M.Pd.",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969083-879",
+      "time": "2026-10-26T11:59:29.081Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Bambang Hermanto, S.Pd., M.Si.",
+      "role": "Guru",
+      "action": "Login berhasil ke portal guru",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
+    {
+      "id": "aud-1793015969045-49",
+      "time": "2026-10-26T11:59:28.857Z",
+      "time_formatted": "26 Okt 2026, 19.59",
+      "actor": "Administrator SiDag (FKIP ULM)",
+      "role": "Admin",
+      "action": "Login berhasil ke portal admin",
+      "ip": "127.0.0.1",
+      "status": "Sukses"
+    },
     {
       "id": "aud-1793001469891-457",
       "time": "2026-10-26T07:57:49.890Z",

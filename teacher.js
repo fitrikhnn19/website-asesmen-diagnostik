@@ -898,12 +898,22 @@ function initModalsAndActions() {
     const optA = document.getElementById('qEditorOptA')?.value.trim() || '-';
     const optB = document.getElementById('qEditorOptB')?.value.trim() || '-';
     const optC = document.getElementById('qEditorOptC')?.value.trim() || '-';
+    const optD = document.getElementById('qEditorOptD')?.value.trim() || '-';
+    const optE = document.getElementById('qEditorOptE')?.value.trim() || '-';
     const reasonA = document.getElementById('qEditorReasonA')?.value.trim() || '-';
     const reasonB = document.getElementById('qEditorReasonB')?.value.trim() || '-';
-    const key = document.querySelector('input[name="tier1CorrectKey"]:checked')?.value || 'A';
+    const reasonC = document.getElementById('qEditorReasonC')?.value.trim() || '-';
+    const reasonD = document.getElementById('qEditorReasonD')?.value.trim() || '-';
+    const reasonE = document.getElementById('qEditorReasonE')?.value.trim() || '-';
+
+    const keyT1 = document.querySelector('input[name="tier1CorrectKey"]:checked')?.value || 'A';
+    const keyT2 = document.querySelector('input[name="tier2CorrectKey"]:checked')?.value || 'A';
     
     // Add to table
     const tbody = document.getElementById('installedItemsTableBody');
+    const reasonsMap = { A: reasonA, B: reasonB, C: reasonC, D: reasonD, E: reasonE };
+    const correctReasonText = reasonsMap[keyT2] || reasonA;
+
     if (tbody) {
       const newNo = tbody.children.length + 1;
       const row = document.createElement('tr');
@@ -911,8 +921,8 @@ function initModalsAndActions() {
       row.innerHTML = `
         <td><strong>${newNo}</strong></td>
         <td>Butir Baru (Matematika)</td>
-        <td>${escapeHtml(stemVal.substring(0, 75))}... (Kunci: ${key})</td>
-        <td>${escapeHtml(reasonA.substring(0, 60))}...</td>
+        <td>${escapeHtml(stemVal.substring(0, 75))}... (Kunci: Tier 1 [${keyT1}], Tier 2 [${keyT2}])</td>
+        <td>${escapeHtml(correctReasonText.substring(0, 60))}...</td>
         <td><span class="status-badge paham">Diagram/Formula</span></td>
         <td><span class="status-badge paham">Draf Baru</span></td>
         <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
@@ -931,13 +941,18 @@ function initModalsAndActions() {
           difficulty: 'Sedang',
           stem_latex: stemVal,
           tier1_options: [
-            { letter: 'A', text: optA, is_correct: key === 'A' },
-            { letter: 'B', text: optB, is_correct: key === 'B' },
-            { letter: 'C', text: optC, is_correct: key === 'C' }
+            { letter: 'A', text: optA, is_correct: keyT1 === 'A' },
+            { letter: 'B', text: optB, is_correct: keyT1 === 'B' },
+            { letter: 'C', text: optC, is_correct: keyT1 === 'C' },
+            { letter: 'D', text: optD, is_correct: keyT1 === 'D' },
+            { letter: 'E', text: optE, is_correct: keyT1 === 'E' }
           ],
           tier2_reasons: [
-            { letter: 'A', text: reasonA, is_correct: true },
-            { letter: 'B', text: reasonB, is_correct: false, misconception: 'Miskonsepsi Siswa Baru' }
+            { letter: 'A', text: reasonA, is_correct: keyT2 === 'A', misconception_id: keyT2 === 'A' ? null : 'M01' },
+            { letter: 'B', text: reasonB, is_correct: keyT2 === 'B', misconception_id: keyT2 === 'B' ? null : 'M02' },
+            { letter: 'C', text: reasonC, is_correct: keyT2 === 'C', misconception_id: keyT2 === 'C' ? null : 'M03' },
+            { letter: 'D', text: reasonD, is_correct: keyT2 === 'D', misconception_id: keyT2 === 'D' ? null : 'M04' },
+            { letter: 'E', text: reasonE, is_correct: keyT2 === 'E', misconception_id: keyT2 === 'E' ? null : null }
           ]
         })
       });
@@ -945,7 +960,7 @@ function initModalsAndActions() {
       console.warn('Save question to API notice:', e);
     }
 
-    notify(`✓ Butir soal Three-Tier baru berhasil disimpan ke antrian asesmen! Total butir: ${tbody ? tbody.children.length : 11}`);
+    notify(`✓ Butir soal Three-Tier baru berhasil disimpan! Kunci: Tier 1 (${keyT1}), Tier 2 (${keyT2}). Total butir: ${tbody ? tbody.children.length : 11}`);
   });
 
   // Send Email Recap
@@ -1113,13 +1128,131 @@ function initMathSymbolToolbarAndPreview() {
   // Render initial symbols
   renderMathSymbols('dasar');
 
-  // Initial live preview render
-  updateLiveQuestionPreview();
+  // Initial live preview & badges setup
+  updateEditorKeyBadges();
 
-  // Radio button change for keys
+  // Radio button change for Tier 1 and Tier 2 keys
   document.querySelectorAll('input[name="tier1CorrectKey"]').forEach(r => {
-    r.addEventListener('change', () => updateLiveQuestionPreview());
+    r.addEventListener('change', () => {
+      updateEditorKeyBadges();
+      notify(`Kunci Jawaban Tier 1 disetel ke pilihan [${r.value}]`);
+    });
   });
+
+  document.querySelectorAll('input[name="tier2CorrectKey"]').forEach(r => {
+    r.addEventListener('change', () => {
+      updateEditorKeyBadges();
+      notify(`Kunci Alasan Ilmiah Tier 2 disetel ke pilihan [${r.value}]`);
+    });
+  });
+
+  // Allow clicking directly on the badges to select that key
+  ['A', 'B', 'C', 'D', 'E'].forEach(l => {
+    document.getElementById(`tier1Badge_${l}`)?.addEventListener('click', () => {
+      const rad = document.getElementById(`tier1Radio${l}`);
+      if (rad) {
+        rad.checked = true;
+        updateEditorKeyBadges();
+        notify(`Kunci Jawaban Tier 1 disetel ke pilihan [${l}]`);
+      }
+    });
+    document.getElementById(`tier2Badge_${l}`)?.addEventListener('click', () => {
+      const rad = document.getElementById(`tier2Radio${l}`);
+      if (rad) {
+        rad.checked = true;
+        updateEditorKeyBadges();
+        notify(`Kunci Alasan Ilmiah Tier 2 disetel ke pilihan [${l}]`);
+      }
+    });
+  });
+}
+
+function updateEditorKeyBadges() {
+  const letters = ['A', 'B', 'C', 'D', 'E'];
+
+  // 1. Tier 1 Answer Key
+  const t1Checked = document.querySelector('input[name="tier1CorrectKey"]:checked');
+  const t1Key = t1Checked ? t1Checked.value : 'A';
+
+  letters.forEach(l => {
+    const row = document.getElementById(`editorOptRow${l}`);
+    const badge = document.getElementById(`tier1Badge_${l}`);
+    const input = document.getElementById(`qEditorOpt${l}`);
+    const isSelected = (l === t1Key);
+
+    if (badge) {
+      if (isSelected) {
+        badge.className = 'status-badge paham';
+        badge.textContent = 'Kunci Benar';
+        badge.title = `Pilihan ${l} ditetapkan sebagai Kunci Jawaban Benar (Tier 1)`;
+      } else {
+        badge.className = 'status-badge miskonsepsi';
+        badge.textContent = 'Distraktor';
+        badge.title = `Pilihan ${l} sebagai Opsi Distraktor / Pengecoh (Klik untuk ubah jadi Kunci)`;
+      }
+    }
+
+    if (row) {
+      if (isSelected) {
+        row.classList.add('is-key');
+      } else {
+        row.classList.remove('is-key');
+      }
+    }
+
+    if (input && (!input.value || input.placeholder.includes('Kunci Benar') || input.placeholder.includes('Teks Pilihan Jawaban'))) {
+      input.placeholder = isSelected ? `Teks Pilihan Jawaban ${l} (Kunci Benar)` : `Teks Pilihan Jawaban ${l}`;
+    }
+  });
+
+  // 2. Tier 2 Scientific Reasoning Key vs Misconceptions
+  const t2Checked = document.querySelector('input[name="tier2CorrectKey"]:checked');
+  const t2Key = t2Checked ? t2Checked.value : 'A';
+
+  let miskNum = 1;
+  letters.forEach(l => {
+    const row = document.getElementById(`editorReasonRow${l}`);
+    const badge = document.getElementById(`tier2Badge_${l}`);
+    const input = document.getElementById(`qEditorReason${l}`);
+    const isSelected = (l === t2Key);
+
+    if (badge) {
+      if (isSelected) {
+        badge.className = 'status-badge paham';
+        badge.textContent = 'Alasan Ilmiah';
+        badge.title = `Alasan ${l} ditetapkan sebagai Kunci Alasan Ilmiah Valid (Tier 2)`;
+      } else {
+        badge.className = 'status-badge miskonsepsi';
+        if (miskNum <= 3) {
+          badge.textContent = `Miskonsepsi M0${miskNum}`;
+          badge.title = `Alasan ${l} sebagai Distraktor Penalaran Miskonsepsi M0${miskNum} (Klik untuk ubah jadi Kunci)`;
+          miskNum++;
+        } else {
+          badge.textContent = 'Distraktor';
+          badge.title = `Alasan ${l} sebagai Distraktor Pengecoh (Klik untuk ubah jadi Kunci)`;
+        }
+      }
+    }
+
+    if (row) {
+      if (isSelected) {
+        row.classList.add('is-key');
+      } else {
+        row.classList.remove('is-key');
+      }
+    }
+
+    if (input) {
+      if (isSelected) {
+        input.placeholder = 'Tuliskan kunci alasan ilmiah yang benar...';
+      } else {
+        input.placeholder = `Tuliskan distraktor alasan (miskonsepsi ${l})...`;
+      }
+    }
+  });
+
+  // 3. Keep Live KaTeX Preview in Sync
+  updateLiveQuestionPreview();
 }
 
 function renderMathSymbols(category) {
@@ -1217,13 +1350,33 @@ function updateLiveQuestionPreview() {
   if (reasonDEl) reasonDEl.textContent = reasonD || '(Alasan D)';
   if (reasonEEl) reasonEEl.textContent = reasonE || '(Alasan E)';
 
-  // Correct key highlight
+  // Correct key highlight Tier 1
   const selectedKey = document.querySelector('input[name="tier1CorrectKey"]:checked')?.value || 'A';
   ['A', 'B', 'C', 'D', 'E'].forEach(k => {
     const card = document.getElementById(`prevOptItem${k}`);
     if (card) {
       if (k === selectedKey) card.classList.add('correct');
       else card.classList.remove('correct');
+    }
+  });
+
+  // Correct key highlight Tier 2
+  const selectedT2Key = document.querySelector('input[name="tier2CorrectKey"]:checked')?.value || 'A';
+  ['A', 'B', 'C', 'D', 'E'].forEach(k => {
+    const item = document.getElementById(`prevReasonItem${k}`);
+    const badge = document.getElementById(`prevReasonBadge${k}`);
+    if (item) {
+      if (k === selectedT2Key) item.classList.add('correct');
+      else item.classList.remove('correct');
+    }
+    if (badge) {
+      if (k === selectedT2Key) {
+        badge.className = 'preview-badge-pill status-badge paham';
+        badge.textContent = `${k} (Ilmiah)`;
+      } else {
+        badge.className = 'preview-badge-pill status-badge miskonsepsi';
+        badge.textContent = `${k} (Distraktor)`;
+      }
     }
   });
 

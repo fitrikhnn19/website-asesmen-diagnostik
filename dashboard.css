@@ -1498,6 +1498,41 @@
   white-space: nowrap;
 }
 
+.preview-tier2-item.correct {
+  border-color: var(--status-paham);
+  background: rgba(16, 185, 129, 0.08);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.editor-option-row,
+.editor-reason-row {
+  transition: all 0.2s ease;
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  border: 1px solid transparent;
+}
+
+.editor-option-row.is-key,
+.editor-reason-row.is-key {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.45);
+}
+
+.editor-option-row .status-badge,
+.editor-reason-row .status-badge {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.editor-option-row .status-badge:hover,
+.editor-reason-row .status-badge:hover {
+  transform: scale(1.05);
+  opacity: 0.95;
+}
+
 /* ==========================================================================
    Multi-Kelas (Multi-Class Management & Comparison) Styles
    ========================================================================== */
