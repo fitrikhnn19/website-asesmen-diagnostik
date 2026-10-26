@@ -3,7 +3,10 @@
  * Sistem Informasi Asesmen Diagnostik Tiga Tingkat (Three-Tier)
  * Alur Siswa Token-First & Akses Portal Guru/Administrator via RESTful API
  */
-
+const { createClient } = supabase;
+const supabaseUrl = 'https://yveqzpomhmmravmeeoqm.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl2ZXF6cG9taG1tcmF2bWVlb3FtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2ODE2MjcsImV4cCI6MjEwODI1NzYyN30.AYPr7gxtJXPxx9s4mj9D-qt41g34vKSAADENLqoF3yc';
+const supabaseClient = createClient(supabaseUrl, supabaseKey);
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initMobileNav();

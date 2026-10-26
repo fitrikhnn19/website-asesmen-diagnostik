@@ -202,21 +202,15 @@
           <!-- Global Multi-Class Filter -->
           <div class="topbar-select-wrap">
             <select class="topbar-select" id="globalClassFilter" aria-label="Filter Rombel / Kelas Aktif">
-              <option value="all">Semua Rombel (Multi-Kelas)</option>
-              <option value="XI MIPA 2" selected>Kelas XI MIPA 2 (34 Siswa)</option>
-              <option value="XI MIPA 1">Kelas XI MIPA 1 (36 Siswa)</option>
-              <option value="XI MIPA 3">Kelas XI MIPA 3 (32 Siswa)</option>
-              <option value="X-1">Kelas X-1 (35 Siswa)</option>
+              <option value="all" id="globalClassOptAll">Semua Rombel (Multi-Kelas)</option>
+              <option value="" disabled selected id="globalClassOptPlaceholder">-- Pilih Rombel dari Database --</option>
             </select>
           </div>
 
           <!-- Active Assessment Dropdown -->
           <div class="topbar-select-wrap">
             <select class="topbar-select" id="activeAssessmentSelect" aria-label="Pilih Asesmen Aktif">
-              <option value="diagno-2026" selected>Asesmen Matematika (XI MIPA 2)</option>
-              <option value="mat-xi-1">Asesmen Matematika (XI MIPA 1)</option>
-              <option value="mat-xi-3">Draf Asesmen Matematika (XI MIPA 3)</option>
-              <option value="mat-x">Asesmen Matematika (Kelas X)</option>
+              <option value="" disabled selected id="activeAssessmentPlaceholder">-- Pilih Asesmen dari Database --</option>
             </select>
           </div>
 
@@ -274,8 +268,8 @@
                   </span>
                 </div>
                 <h2 style="font-size: 1.45rem; margin-top: 4px;">Selamat Datang, Bambang Hermanto, S.Pd., M.Si.</h2>
-                <p style="font-size: 0.9rem; max-width: 760px; margin-top: 6px; color:var(--text-muted);">
-                  Asesmen Diagnostik Matematika pada kelas <strong>XI MIPA 2</strong> di <strong>SMAN 7 Banjarmasin</strong> telah selesai dikerjakan oleh <strong>34 siswa</strong>. Sistem three-tier hasil kerjasama riset dengan <strong>FKIP Universitas Lambung Mangkurat</strong> ini telah memisahkan antara siswa paham konsep, siswa yang memiliki miskonsepsi, dan siswa yang memang belum paham.
+                <p style="font-size: 0.9rem; max-width: 760px; margin-top: 6px; color:var(--text-muted);" id="overviewHeroDesc">
+                  Asesmen Diagnostik Matematika siap diintegrasikan dengan database real-time. Sistem three-tier hasil riset dengan FKIP Universitas Lambung Mangkurat ini memisahkan antara siswa paham konsep, siswa yang memiliki miskonsepsi, dan siswa yang belum paham.
                 </p>
               </div>
               <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -304,9 +298,9 @@
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
                 </div>
-                <span class="stat-trend positive">100% Mengumpulkan</span>
+                <span class="stat-trend positive" id="statSubmissionRate">100% Mengumpulkan</span>
               </div>
-              <div class="stat-value">34 Siswa</div>
+              <div class="stat-value" id="statTotalStudents">0 Siswa</div>
               <div class="stat-label">Total Peserta Selesai Mengerjakan</div>
             </div>
 
@@ -318,9 +312,9 @@
                     <polyline points="22 4 12 14.01 9 11.01"></polyline>
                   </svg>
                 </div>
-                <span class="stat-trend positive">52.9% dari Kelas</span>
+                <span class="stat-trend positive" id="statPahamRate">0% dari Kelas</span>
               </div>
-              <div class="stat-value" style="color:var(--status-paham);">18 Siswa</div>
+              <div class="stat-value" style="color:var(--status-paham);" id="statPahamStudents">0 Siswa</div>
               <div class="stat-label">Profil Paham Konsep Utuh</div>
             </div>
 
@@ -333,9 +327,9 @@
                     <line x1="12" y1="17" x2="12.01" y2="17"></line>
                   </svg>
                 </div>
-                <span class="stat-trend warning">32.4% Butuh Remedial</span>
+                <span class="stat-trend warning" id="statMiskonsepsiRate">0% Butuh Remedial</span>
               </div>
-              <div class="stat-value" style="color:var(--status-miskonsepsi);">11 Siswa</div>
+              <div class="stat-value" style="color:var(--status-miskonsepsi);" id="statMiskonsepsiStudents">0 Siswa</div>
               <div class="stat-label">Profil Miskonsepsi (Yakin tapi Salah Alasan)</div>
             </div>
 
@@ -348,9 +342,9 @@
                     <line x1="9" y1="9" x2="15" y2="15"></line>
                   </svg>
                 </div>
-                <span class="stat-trend neutral">14.7% Belum Menguasai</span>
+                <span class="stat-trend neutral" id="statTidakPahamRate">0% Belum Menguasai</span>
               </div>
-              <div class="stat-value" style="color:var(--status-tidak-paham);">5 Siswa</div>
+              <div class="stat-value" style="color:var(--status-tidak-paham);" id="statTidakPahamStudents">0 Siswa</div>
               <div class="stat-label">Profil Tidak Paham (Tidak Yakin)</div>
             </div>
           </div>
@@ -375,30 +369,30 @@
             </div>
 
             <div class="diagnostic-bar-wrapper">
-              <div class="diagnostic-proportion-bar">
-                <div class="prop-segment paham" style="width: 52.9%;" title="Paham: 18 Siswa (52.9%)">
-                  Paham 52.9% (18 Siswa)
+              <div class="diagnostic-proportion-bar" id="diagnosticProportionBar">
+                <div class="prop-segment paham" id="barSegmentPaham" style="width: 0%;" title="Paham: 0 Siswa (0%)">
+                  Paham 0%
                 </div>
-                <div class="prop-segment miskonsepsi" style="width: 32.4%;" title="Miskonsepsi: 11 Siswa (32.4%)">
-                  Miskonsepsi 32.4% (11)
+                <div class="prop-segment miskonsepsi" id="barSegmentMiskonsepsi" style="width: 0%;" title="Miskonsepsi: 0 Siswa (0%)">
+                  Miskonsepsi 0%
                 </div>
-                <div class="prop-segment tidak-paham" style="width: 14.7%;" title="Tidak Paham: 5 Siswa (14.7%)">
-                  14.7% (5)
+                <div class="prop-segment tidak-paham" id="barSegmentTidakPaham" style="width: 0%;" title="Tidak Paham: 0 Siswa (0%)">
+                  0%
                 </div>
               </div>
 
               <div class="diagnostic-legend-row">
                 <div class="legend-item">
                   <span class="legend-dot paham"></span>
-                  <span><strong>Paham:</strong> Jawaban Benar, Alasan Ilmiah Benar, Yakin (18 Siswa / 52.9%)</span>
+                  <span id="legendPahamText"><strong>Paham:</strong> Jawaban Benar, Alasan Ilmiah Benar, Yakin (0 Siswa / 0%)</span>
                 </div>
                 <div class="legend-item">
                   <span class="legend-dot miskonsepsi"></span>
-                  <span><strong>Miskonsepsi:</strong> Jawaban/Alasan Keliru namun Siswa Yakin (11 Siswa / 32.4%)</span>
+                  <span id="legendMiskonsepsiText"><strong>Miskonsepsi:</strong> Jawaban/Alasan Keliru namun Siswa Yakin (0 Siswa / 0%)</span>
                 </div>
                 <div class="legend-item">
                   <span class="legend-dot tidak-paham"></span>
-                  <span><strong>Tidak Paham:</strong> Jawaban Salah dan Siswa Menyatakan Tidak Yakin (5 Siswa / 14.7%)</span>
+                  <span id="legendTidakPahamText"><strong>Tidak Paham:</strong> Jawaban Salah dan Siswa Menyatakan Tidak Yakin (0 Siswa / 0%)</span>
                 </div>
               </div>
             </div>
@@ -424,37 +418,9 @@
                 </button>
               </div>
 
-              <div style="display: flex; flex-direction: column; gap: 12px;">
-                <div class="misconception-card priority-high" style="margin: 0;">
-                  <div class="misconception-header">
-                    <h4 class="misconception-title">Percepatan di Titik Puncak Gerak Vertikal</h4>
-                    <span class="status-badge miskonsepsi">32.4% (11 Siswa)</span>
-                  </div>
-                  <p class="misconception-desc">
-                    Siswa meyakini saat kecepatan benda bernilai $v = 0$ di titik tertinggi, percepatan gravitasi ($g$) juga otomatis menjadi nol.
-                  </p>
-                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;">
-                    <span style="color: var(--text-dim);">Ref: Butir Soal No. 1 &amp; 4</span>
-                    <button type="button" class="btn btn-outline btn-sm" onclick="quickRemedial('Percepatan di Titik Puncak Gerak Vertikal')">
-                      Rencana Bimbingan &rarr;
-                    </button>
-                  </div>
-                </div>
-
-                <div class="misconception-card priority-medium" style="margin: 0;">
-                  <div class="misconception-header">
-                    <h4 class="misconception-title">Gaya Gesek Selalu Menghambat Gerak</h4>
-                    <span class="status-badge miskonsepsi">23.5% (8 Siswa)</span>
-                  </div>
-                  <p class="misconception-desc">
-                    Siswa tidak membedakan fungsi gaya gesek statis pada roda yang menggelinding atau saat manusia melangkah maju ke depan.
-                  </p>
-                  <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;">
-                    <span style="color: var(--text-dim);">Ref: Butir Soal No. 2</span>
-                    <button type="button" class="btn btn-outline btn-sm" onclick="quickRemedial('Gaya Gesek Selalu Menghambat Gerak')">
-                      Rencana Bimbingan &rarr;
-                    </button>
-                  </div>
+              <div id="topMisconceptionsContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="misconception-card" id="topMisconceptionsEmptyState" style="margin: 0; text-align: center; color: var(--text-dim); padding: 24px;">
+                  Belum ada data miskonsepsi kelas. Data analisis miskonsepsi akan dimuat otomatis dari hasil pengerjaan siswa di database.
                 </div>
               </div>
             </div>
@@ -490,8 +456,8 @@
                     ✓
                   </div>
                   <div>
-                    <strong style="font-size: 0.88rem; color: var(--text-main); display: block;">Integritas Sesi: 91.2% Bersih</strong>
-                    <span style="font-size: 0.74rem; color: var(--text-muted);">31 Siswa tertib &bull; 3 Sesi terdeteksi pindah tab</span>
+                    <strong style="font-size: 0.88rem; color: var(--text-main); display: block;" id="proctorCleanStatusText">Integritas Sesi: Bersih</strong>
+                    <span style="font-size: 0.74rem; color: var(--text-muted);" id="proctorCleanSummaryText">Log pemantauan sesi ujian realtime</span>
                   </div>
                 </div>
                 <button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-proctoring')">
@@ -545,9 +511,7 @@
                 <div class="input-group-formal">
                   <label class="input-label" for="assessClassTarget">Kelas Sasaran &amp; Peserta</label>
                   <select class="input-control" id="assessClassTarget">
-                    <option value="XI MIPA 2" selected>XI MIPA 2 (34 Siswa)</option>
-                    <option value="XI MIPA 1">XI MIPA 1 (36 Siswa)</option>
-                    <option value="XI MIPA 3">XI MIPA 3 (32 Siswa)</option>
+                    <option value="" disabled selected id="assessClassTargetPlaceholder">-- Pilih Kelas Sasaran dari Database --</option>
                   </select>
                 </div>
 
@@ -637,58 +601,58 @@
                   <label class="input-label" for="qEditorStem">
                     Teks Pertanyaan (Gunakan <code>$...$</code> untuk LaTeX inline atau <code>$$...$$</code> untuk display):
                   </label>
-                  <textarea class="input-control editor-targetable" id="qEditorStem" rows="3" placeholder="Contoh: Sebuah titik $P(2, -3)$ pada bidang koordinat Cartesius ditranslasikan oleh vektor $T = \begin{pmatrix} -5 \\ 7 \end{pmatrix}$. Tentukan bayangan $P'$...">Sebuah titik $P(2, -3)$ pada bidang koordinat Cartesius ditranslasikan oleh vektor translasi $T = \begin{pmatrix} -5 \\ 7 \end{pmatrix}$. Manakah koordinat bayangan titik $P'$ yang tepat?</textarea>
+                  <textarea class="input-control editor-targetable" id="qEditorStem" rows="3" placeholder="Tuliskan teks pertanyaan Tier 1 (mendukung format LaTeX $...$)..."></textarea>
                 </div>
 
                 <!-- Media Attachment Row -->
                 <div class="form-row-2" style="margin-top: 10px;">
                   <div class="input-group-formal">
-                    <label class="input-label">Tipe Media Stimulus (Opsional)</label>
+                    <label class="input-label" for="stimulusMediaType">Tipe Media Stimulus (Opsional)</label>
                     <select class="input-control" id="stimulusMediaType">
-                      <option value="none">Tidak ada media (Teks/Formula murni)</option>
-                      <option value="gambar" selected>Diagram Koordinat Cartesius (SVG)</option>
+                      <option value="none" selected>Tidak ada media (Teks/Formula murni)</option>
+                      <option value="gambar">Diagram Koordinat Cartesius (SVG)</option>
                       <option value="grafik">Grafik Fungsi Matematika</option>
                       <option value="geogebra">Tautan GeoGebra Interaktif</option>
                     </select>
                   </div>
                   <div class="input-group-formal">
-                    <label class="input-label">Tautan / Nama Berkas Media</label>
-                    <input type="text" class="input-control" id="qEditorMediaUrl" value="assets/diagram-koordinat-kartesius.svg" placeholder="assets/diagram.svg atau URL">
+                    <label class="input-label" for="qEditorMediaUrl">Tautan / Nama Berkas Media</label>
+                    <input type="text" class="input-control" id="qEditorMediaUrl" value="" placeholder="assets/diagram.svg atau URL gambar">
                   </div>
                 </div>
 
                 <!-- Tier 1 Options -->
                 <div style="margin-top: 10px;">
                   <label class="input-label">Pilihan Jawaban Tier 1 (Tandai Radio untuk Kunci Jawaban Benar, A - E):</label>
-                  <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="A" checked title="Kunci Jawaban Benar">
+                  <div style="display:flex; flex-direction:column; gap:6px; margin-top:6px;" id="tier1OptionsEditorList">
+                    <div class="editor-option-row" id="editorOptRowA" style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey" value="A" checked title="Kunci Jawaban Benar" id="tier1RadioA">
                       <span style="font-weight:700; font-size:0.85rem; width:20px;">A.</span>
-                      <input type="text" class="input-control editor-targetable" id="qEditorOptA" style="flex:1;" value="$P'(-3, 4)$">
+                      <input type="text" class="input-control editor-targetable" id="qEditorOptA" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban A">
                       <span class="status-badge paham">Kunci Benar</span>
                     </div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="B">
+                    <div class="editor-option-row" id="editorOptRowB" style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey" value="B" title="Pilihan Jawaban B" id="tier1RadioB">
                       <span style="font-weight:700; font-size:0.85rem; width:20px;">B.</span>
-                      <input type="text" class="input-control editor-targetable" id="qEditorOptB" style="flex:1;" value="$P'(7, -10)$">
+                      <input type="text" class="input-control editor-targetable" id="qEditorOptB" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban B">
                       <span class="status-badge miskonsepsi">Distraktor</span>
                     </div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="C">
+                    <div class="editor-option-row" id="editorOptRowC" style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey" value="C" title="Pilihan Jawaban C" id="tier1RadioC">
                       <span style="font-weight:700; font-size:0.85rem; width:20px;">C.</span>
-                      <input type="text" class="input-control editor-targetable" id="qEditorOptC" style="flex:1;" value="$P'(-3, -10)$">
+                      <input type="text" class="input-control editor-targetable" id="qEditorOptC" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban C">
                       <span class="status-badge miskonsepsi">Distraktor</span>
                     </div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="D">
+                    <div class="editor-option-row" id="editorOptRowD" style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey" value="D" title="Pilihan Jawaban D" id="tier1RadioD">
                       <span style="font-weight:700; font-size:0.85rem; width:20px;">D.</span>
-                      <input type="text" class="input-control editor-targetable" id="qEditorOptD" style="flex:1;" value="$P'(3, -4)$">
+                      <input type="text" class="input-control editor-targetable" id="qEditorOptD" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban D">
                       <span class="status-badge miskonsepsi">Distraktor</span>
                     </div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <input type="radio" name="tier1CorrectKey" value="E">
+                    <div class="editor-option-row" id="editorOptRowE" style="display:flex; align-items:center; gap:8px;">
+                      <input type="radio" name="tier1CorrectKey" value="E" title="Pilihan Jawaban E" id="tier1RadioE">
                       <span style="font-weight:700; font-size:0.85rem; width:20px;">E.</span>
-                      <input type="text" class="input-control editor-targetable" id="qEditorOptE" style="flex:1;" value="$P'(-10, -21)$">
+                      <input type="text" class="input-control editor-targetable" id="qEditorOptE" style="flex:1;" value="" placeholder="Teks Pilihan Jawaban E">
                       <span class="status-badge miskonsepsi">Distraktor</span>
                     </div>
                   </div>
@@ -701,35 +665,35 @@
                   <span class="status-badge miskonsepsi" style="padding:2px 7px;">Tier 2</span>
                   Pilihan Alasan (Reasoning) &amp; Pemetaan Miskonsepsi (A - E)
                 </div>
-                <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="A" checked title="Kunci Alasan Ilmiah Benar">
+                <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;" id="tier2ReasonsEditorList">
+                  <div class="editor-reason-row" id="editorReasonRowA" style="display:flex; align-items:center; gap:8px;">
+                    <input type="radio" name="tier2CorrectKey" value="A" checked title="Kunci Alasan Ilmiah Benar" id="tier2RadioA">
                     <span style="font-weight:700; font-size:0.85rem; width:20px;">A.</span>
-                    <input type="text" class="input-control editor-targetable" id="qEditorReasonA" style="flex:1;" value="Translasi diperoleh dengan menjumlahkan koordinat titik asal dengan vektor pergeseran: $x' = x + a$ dan $y' = y + b$.">
+                    <input type="text" class="input-control editor-targetable" id="qEditorReasonA" style="flex:1;" value="" placeholder="Tuliskan kunci alasan ilmiah yang benar...">
                     <span class="status-badge paham">Alasan Ilmiah</span>
                   </div>
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="B">
+                  <div class="editor-reason-row" id="editorReasonRowB" style="display:flex; align-items:center; gap:8px;">
+                    <input type="radio" name="tier2CorrectKey" value="B" title="Alasan B" id="tier2RadioB">
                     <span style="font-weight:700; font-size:0.85rem; width:20px;">B.</span>
-                    <input type="text" class="input-control editor-targetable" id="qEditorReasonB" style="flex:1;" value="Translasi dilakukan dengan mengurangkan koordinat titik terhadap vektor translasi: $x' = x - a$ dan $y' = y - b$.">
+                    <input type="text" class="input-control editor-targetable" id="qEditorReasonB" style="flex:1;" value="" placeholder="Tuliskan distraktor alasan (miskonsepsi B)...">
                     <span class="status-badge miskonsepsi">Miskonsepsi M01</span>
                   </div>
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="C">
+                  <div class="editor-reason-row" id="editorReasonRowC" style="display:flex; align-items:center; gap:8px;">
+                    <input type="radio" name="tier2CorrectKey" value="C" title="Alasan C" id="tier2RadioC">
                     <span style="font-weight:700; font-size:0.85rem; width:20px;">C.</span>
-                    <input type="text" class="input-control editor-targetable" id="qEditorReasonC" style="flex:1;" value="Komponen translasi bertindak sebagai faktor pengali skalar terhadap koordinat titik: $x' = x \cdot a$ dan $y' = y \cdot b$.">
+                    <input type="text" class="input-control editor-targetable" id="qEditorReasonC" style="flex:1;" value="" placeholder="Tuliskan distraktor alasan (miskonsepsi C)...">
                     <span class="status-badge miskonsepsi">Miskonsepsi M02</span>
                   </div>
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="D">
+                  <div class="editor-reason-row" id="editorReasonRowD" style="display:flex; align-items:center; gap:8px;">
+                    <input type="radio" name="tier2CorrectKey" value="D" title="Alasan D" id="tier2RadioD">
                     <span style="font-weight:700; font-size:0.85rem; width:20px;">D.</span>
-                    <input type="text" class="input-control editor-targetable" id="qEditorReasonD" style="flex:1;" value="Komponen translasi $a$ menggeser sumbu $Y$ dan komponen $b$ menggeser sumbu $X$ secara terbalik.">
+                    <input type="text" class="input-control editor-targetable" id="qEditorReasonD" style="flex:1;" value="" placeholder="Tuliskan distraktor alasan (miskonsepsi D)...">
                     <span class="status-badge miskonsepsi">Miskonsepsi M03</span>
                   </div>
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="tier2CorrectKey" value="E">
+                  <div class="editor-reason-row" id="editorReasonRowE" style="display:flex; align-items:center; gap:8px;">
+                    <input type="radio" name="tier2CorrectKey" value="E" title="Alasan E" id="tier2RadioE">
                     <span style="font-weight:700; font-size:0.85rem; width:20px;">E.</span>
-                    <input type="text" class="input-control editor-targetable" id="qEditorReasonE" style="flex:1;" value="Translasi hanya mengubah tanda positif/negatif tanpa mengubah nilai mutlak koordinat awal.">
+                    <input type="text" class="input-control editor-targetable" id="qEditorReasonE" style="flex:1;" value="" placeholder="Tuliskan distraktor alasan (miskonsepsi E)...">
                     <span class="status-badge miskonsepsi">Distraktor</span>
                   </div>
                 </div>
@@ -826,14 +790,14 @@
           <div class="dash-card">
             <div class="dash-card-header">
               <div class="dash-card-title-group">
-                <h3 class="dash-card-title">Daftar Butir Soal Terpasang (10 Butir Three-Tier)</h3>
-                <span class="dash-card-subtitle">Urutan soal asesmen aktif DIAGNO-2026 (Mata Pelajaran Matematika)</span>
+                <h3 class="dash-card-title" id="installedItemsHeaderTitle">Daftar Butir Soal Terpasang (<span id="installedItemsTotalCount">0</span> Butir Three-Tier)</h3>
+                <span class="dash-card-subtitle" id="installedItemsSubtitle">Urutan butir soal asesmen aktif (Three-Tier Diagnostic)</span>
               </div>
-              <span class="status-badge paham">Status: Terbit &amp; Terkunci</span>
+              <span class="status-badge paham" id="installedItemsStatusBadge">Status: Siap Menerima Data</span>
             </div>
 
             <div class="dash-table-wrap">
-              <table class="dash-table">
+              <table class="dash-table" id="installedItemsTable">
                 <thead>
                   <tr>
                     <th style="width: 50px;">No</th>
@@ -846,95 +810,10 @@
                   </tr>
                 </thead>
                 <tbody id="installedItemsTableBody">
-                  <tr>
-                    <td><strong>1</strong></td>
-                    <td>Translasi Vektor pada Bidang Koordinat</td>
-                    <td>Titik $P(2, -3)$ digeser vektor translasi $T = \begin{pmatrix} -5 \\ 7 \end{pmatrix}$</td>
-                    <td>Komponen dijumlahkan: $x' = x + a$ dan $y' = y + b$</td>
-                    <td><span class="status-badge paham">Diagram SVG</span></td>
-                    <td><span class="status-badge paham">0.52 (Sedang)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>2</strong></td>
-                    <td>Refleksi Titik terhadap Garis $y = -x$</td>
-                    <td>Bayangan titik $A(3, 1)$ dicerminkan terhadap garis $y = -x$</td>
-                    <td>Posisi ditukar dan tanda dinegasikan: $(x, y) \to (-y, -x)$</td>
-                    <td><span class="status-badge paham">Diagram SVG</span></td>
-                    <td><span class="status-badge paham">0.64 (Sedang)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>3</strong></td>
-                    <td>Rotasi $+90^\circ$ terhadap Pusat $O(0,0)$</td>
-                    <td>Bayangan titik $B(4, 2)$ dirotasikan $+90^\circ$ pusat asal</td>
-                    <td>Arah berlawanan jarum jam: $(x, y) \to (-y, x)$</td>
-                    <td><span class="status-badge paham">Diagram SVG</span></td>
-                    <td><span class="status-badge tidak-paham">0.38 (Sukar)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>4</strong></td>
-                    <td>Dilatasi Segitiga &amp; Perubahan Luas 2D</td>
-                    <td>Perubahan luas segitiga awal $12\text{ cm}^2$ dengan faktor skala $k = 3$</td>
-                    <td>Luas berubah sebesar kuadrat faktor skala ($L' = k^2 L = 9 \times 12$)</td>
-                    <td><span class="status-badge miskonsepsi">Diagram SVG</span></td>
-                    <td><span class="status-badge miskonsepsi">0.78 (Mudah)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>5</strong></td>
-                    <td>Komposisi Perkalian Matriks $(T_2 \circ T_1)$</td>
-                    <td>Matriks tunggal komposisi transformasi $(T_2 \circ T_1)$</td>
-                    <td>Perkalian matriks dihitung dari kanan ke kiri ($M = M_2 \times M_1$)</td>
-                    <td><span class="status-badge paham">Diagram SVG</span></td>
-                    <td><span class="status-badge paham">0.55 (Sedang)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>6</strong></td>
-                    <td>Refleksi terhadap Garis Vertikal $x = h$</td>
-                    <td>Bayangan titik $C(1, 4)$ dicerminkan terhadap garis $x = 3$</td>
-                    <td>Absis bayangan $x' = 2h - x = 2(3) - 1 = 5$, ordinat tetap</td>
-                    <td><span class="status-badge paham">Diagram SVG</span></td>
-                    <td><span class="status-badge paham">0.61 (Sedang)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>7</strong></td>
-                    <td>Translasi Persamaan Garis Linear Bidang</td>
-                    <td>Bayangan garis linear $2x - 3y + 6 = 0$ oleh translasi $T$</td>
-                    <td>Substitusi variabel asal $x = x' - a$ dan $y = y' - b$ ke persamaan</td>
-                    <td><span class="status-badge inactive-status">Teks/Formula</span></td>
-                    <td><span class="status-badge paham">0.45 (Sedang)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>8</strong></td>
-                    <td>Refleksi Garis terhadap Sumbu Koordinat</td>
-                    <td>Pencerminan garis lurus terhadap sumbu $X$</td>
-                    <td>Ordinat berbalik tanda menjadi negatif: $(x, y) \to (x, -y)$</td>
-                    <td><span class="status-badge inactive-status">Teks/Formula</span></td>
-                    <td><span class="status-badge miskonsepsi">0.88 (Terlalu Mudah)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>9</strong></td>
-                    <td>Dilatasi dengan Pusat Sembarang $(a, b)$</td>
-                    <td>Dilatasi titik koordinat dengan pusat $(1, 2)$ dan faktor $k = 2$</td>
-                    <td>Rumus pergeseran: $(x' - a) = k(x - a)$ dan $(y' - b) = k(y - b)$</td>
-                    <td><span class="status-badge inactive-status">Teks/Formula</span></td>
-                    <td><span class="status-badge paham">0.50 (Sedang)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
-                  </tr>
-                  <tr>
-                    <td><strong>10</strong></td>
-                    <td>Rotasi $180^\circ$ &amp; Refleksi Titik Asal $O(0,0)$</td>
-                    <td>Rotasi $180^\circ$ titik sembarang terhadap pusat koordinat</td>
-                    <td>Identik dengan pencerminan titik asal: $(x, y) \to (-x, -y)$</td>
-                    <td><span class="status-badge inactive-status">Teks/Formula</span></td>
-                    <td><span class="status-badge paham">0.56 (Sedang)</span></td>
-                    <td><button type="button" class="btn btn-outline btn-sm" onclick="switchView('view-item-analysis')">Analisis</button></td>
+                  <tr id="installedItemsEmptyRow">
+                    <td colspan="7" style="text-align: center; padding: 32px; color: var(--text-dim);" id="installedItemsEmptyState">
+                      Belum ada butir soal terpasang. Data butir soal akan dimuat secara dinamis dari database.
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -1003,8 +882,8 @@
                   </div>
                   <span class="stat-trend positive">Lengkap</span>
                 </div>
-                <div class="stat-value" id="kpiTotalMultiStudents">137</div>
-                <div class="stat-label">Total Siswa Terdaftar (Rata-rata 34.2 siswa / rombel)</div>
+                <div class="stat-value" id="kpiTotalMultiStudents">0</div>
+                <div class="stat-label">Total Siswa Terdaftar di Seluruh Rombel</div>
               </div>
 
               <div class="stat-card">
@@ -1014,9 +893,9 @@
                       <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                     </svg>
                   </div>
-                  <span class="stat-trend positive">72.2% Paham</span>
+                  <span class="stat-trend positive" id="kpiHighestClassRate">-</span>
                 </div>
-                <div class="stat-value" style="color:var(--status-paham); font-size:1.6rem;">XI MIPA 1</div>
+                <div class="stat-value" style="color:var(--status-paham); font-size:1.6rem;" id="kpiHighestClass">-</div>
                 <div class="stat-label">Rombel Pemahaman Tertinggi (Penguasaan konsep optimum)</div>
               </div>
 
@@ -1029,9 +908,9 @@
                       <line x1="12" y1="17" x2="12.01" y2="17"></line>
                     </svg>
                   </div>
-                  <span class="stat-trend warning">37.5% Perlu Remedial</span>
+                  <span class="stat-trend warning" id="kpiRemedialClassRate">-</span>
                 </div>
-                <div class="stat-value" style="color:var(--status-miskonsepsi); font-size:1.6rem;">XI MIPA 3</div>
+                <div class="stat-value" style="color:var(--status-miskonsepsi); font-size:1.6rem;" id="kpiRemedialClass">-</div>
                 <div class="stat-label">Fokus Remedial &amp; Miskonsepsi (Intervensi transformasi)</div>
               </div>
             </div>
@@ -1113,7 +992,7 @@
                   </div>
                   <span class="stat-trend neutral">Format A–E + Keyakinan</span>
                 </div>
-                <div class="stat-value" id="kpiQbTotalItems">8 Butir</div>
+                <div class="stat-value" id="kpiQbTotalItems">0 Butir</div>
                 <div class="stat-label">Total Butir di Bank Soal (Instrumen Diagnostik)</div>
               </div>
 
@@ -1124,9 +1003,9 @@
                       <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                   </div>
-                  <span class="stat-trend positive">87.5% Teruji</span>
+                  <span class="stat-trend positive" id="kpiQbValidPercent">-</span>
                 </div>
-                <div class="stat-value" style="color:var(--status-paham);">7 Butir</div>
+                <div class="stat-value" style="color:var(--status-paham);" id="kpiQbValidCount">0 Butir</div>
                 <div class="stat-label">Butir Teruji &amp; Valid (Daya Beda &gt; 0.35 Signifikan)</div>
               </div>
 
@@ -1139,9 +1018,9 @@
                       <line x1="6" y1="20" x2="6" y2="14"></line>
                     </svg>
                   </div>
-                  <span class="stat-trend positive">Sangat Baik</span>
+                  <span class="stat-trend positive" id="kpiQbDiscStatus">-</span>
                 </div>
-                <div class="stat-value" style="color:var(--status-paham);">0.46</div>
+                <div class="stat-value" style="color:var(--status-paham);" id="kpiQbAvgDisc">-</div>
                 <div class="stat-label">Rata-rata Daya Beda (Membedakan Paham &amp; Miskonsepsi)</div>
               </div>
 
@@ -1154,10 +1033,10 @@
                       <polyline points="2 12 12 17 22 12"></polyline>
                     </svg>
                   </div>
-                  <span class="stat-trend warning">5 Butir</span>
+                  <span class="stat-trend warning" id="kpiQbTopTopicCount">-</span>
                 </div>
-                <div class="stat-value" style="font-size:1.5rem;">Transformasi</div>
-                <div class="stat-label">Topik Terbanyak (Translasi, Refleksi, Rotasi, Dilatasi)</div>
+                <div class="stat-value" style="font-size:1.5rem;" id="kpiQbTopTopic">-</div>
+                <div class="stat-label">Topik Terbanyak di Bank Soal</div>
               </div>
             </div>
           </div>
@@ -1189,7 +1068,7 @@
               </select>
 
               <span id="qbFilteredCountText" style="font-size:0.82rem; color:var(--text-muted); margin-left:auto;">
-                Menampilkan 8 dari 8 butir soal
+                Menampilkan 0 butir soal
               </span>
             </div>
 
@@ -1225,7 +1104,7 @@
                     <span class="matrix-status-dot paham"></span>
                     <h4 class="matrix-title" style="color:var(--status-paham);">Paham Konsep</h4>
                   </div>
-                  <span class="status-badge paham">18 Siswa (52.9%)</span>
+                  <span class="status-badge paham" id="matrixPahamCountBadge">0 Siswa (0%)</span>
                 </div>
 
                 <div class="matrix-tiers-block">
@@ -1269,7 +1148,7 @@
                     <span class="matrix-status-dot miskonsepsi"></span>
                     <h4 class="matrix-title" style="color:var(--status-miskonsepsi);">Miskonsepsi</h4>
                   </div>
-                  <span class="status-badge miskonsepsi">11 Siswa (32.4%)</span>
+                  <span class="status-badge miskonsepsi" id="matrixMiskonsepsiCountBadge">0 Siswa (0%)</span>
                 </div>
 
                 <div class="matrix-tiers-block">
@@ -1313,7 +1192,7 @@
                     <span class="matrix-status-dot tidak-paham"></span>
                     <h4 class="matrix-title" style="color:var(--status-tidak-paham);">Tidak Paham</h4>
                   </div>
-                  <span class="status-badge tidak-paham">5 Siswa (14.7%)</span>
+                  <span class="status-badge tidak-paham" id="matrixTidakPahamCountBadge">0 Siswa (0%)</span>
                 </div>
 
                 <div class="matrix-tiers-block">
@@ -1371,16 +1250,12 @@
               </select>
 
               <select class="input-control" id="filterClassSelect" style="max-width:180px;">
-                <option value="all">Semua Rombel/Kelas</option>
-                <option value="XI MIPA 2" selected>XI MIPA 2</option>
-                <option value="XI MIPA 1">XI MIPA 1</option>
-                <option value="XI MIPA 3">XI MIPA 3</option>
-                <option value="X-1">X-1</option>
+                <option value="all" id="filterClassOptAll">Semua Rombel/Kelas</option>
               </select>
             </div>
 
             <div class="filter-group">
-              <span id="filteredCountText" style="font-size:0.82rem; color:var(--text-muted);">Menampilkan 34 dari 34 siswa</span>
+              <span id="filteredCountText" style="font-size:0.82rem; color:var(--text-muted);">Menampilkan 0 dari 0 siswa</span>
               <button type="button" class="btn btn-primary btn-sm" id="btnOpenAddStudentModal">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                   <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -1416,7 +1291,11 @@
                   </tr>
                 </thead>
                 <tbody id="studentProfilesBody">
-                  <!-- Dynamically rendered by teacher.js -->
+                  <tr id="studentProfilesEmptyRow">
+                    <td colspan="8" style="text-align: center; padding: 28px; color: var(--text-dim);" id="studentProfilesEmptyState">
+                      Belum ada data siswa. Data siswa akan dimuat secara dinamis dari database.
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -1426,11 +1305,11 @@
           <div class="dash-card">
             <div class="dash-card-header">
               <div class="dash-card-title-group">
-                <h3 class="dash-card-title" style="color:var(--status-miskonsepsi);">
+                <h3 class="dash-card-title" style="color:var(--status-miskonsepsi);" id="misconceptionCardTitle">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                   </svg>
-                  Peta Miskonsepsi Siswa Kelas XI IPA 2
+                  Peta Miskonsepsi Siswa <span id="misconceptionClassLabel"></span>
                 </h3>
                 <span class="dash-card-subtitle">Konsep-konsep yang paling sering salah dipahami secara sistematis oleh siswa</span>
               </div>
@@ -1613,10 +1492,10 @@
                       <polyline points="17 6 23 6 23 12"></polyline>
                     </svg>
                   </div>
-                  <span class="stat-trend positive">+23.5% Meningkat</span>
+                  <span class="stat-trend positive" id="progressPahamTrend">-</span>
                 </div>
-                <div class="stat-value" style="color:var(--status-paham);">52.9%</div>
-                <div class="stat-label">Persentase Siswa Paham Saat Ini (Awal: 29.4%)</div>
+                <div class="stat-value" style="color:var(--status-paham);" id="progressPahamPercent">0%</div>
+                <div class="stat-label">Persentase Siswa Paham Saat Ini</div>
               </div>
 
               <div class="stat-card">
@@ -1627,10 +1506,10 @@
                       <polyline points="17 18 23 18 23 12"></polyline>
                     </svg>
                   </div>
-                  <span class="stat-trend positive">-16.2% Berkurang</span>
+                  <span class="stat-trend positive" id="progressMiskonsepsiTrend">-</span>
                 </div>
-                <div class="stat-value" style="color:var(--status-miskonsepsi);">32.4%</div>
-                <div class="stat-label">Penurunan Miskonsepsi Siswa (Awal: 48.6%)</div>
+                <div class="stat-value" style="color:var(--status-miskonsepsi);" id="progressMiskonsepsiPercent">0%</div>
+                <div class="stat-label">Tingkat Miskonsepsi Siswa</div>
               </div>
 
               <div class="stat-card">
@@ -1643,9 +1522,9 @@
                       <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
                   </div>
-                  <span class="stat-trend neutral">2 Siklus Asesmen</span>
+                  <span class="stat-trend neutral" id="progressRemedialCyclesText">Siklus Asesmen</span>
                 </div>
-                <div class="stat-value">3 Catatan</div>
+                <div class="stat-value" id="progressRemedialNotesCount">0 Catatan</div>
                 <div class="stat-label">Rencana Remedial Terdokumentasi</div>
               </div>
 
@@ -1658,9 +1537,9 @@
                       <line x1="12" y1="16" x2="12.01" y2="16"></line>
                     </svg>
                   </div>
-                  <span class="stat-trend warning">Perlu Remedial Intensif</span>
+                  <span class="stat-trend warning" id="progressPersistentTrend">Perlu Remedial Intensif</span>
                 </div>
-                <div class="stat-value" style="color:var(--status-tidak-paham);">5 Siswa</div>
+                <div class="stat-value" style="color:var(--status-tidak-paham);" id="progressPersistentStudentsCount">0 Siswa</div>
                 <div class="stat-label">Siswa dengan Miskonsepsi Persisten</div>
               </div>
             </div>
@@ -1886,20 +1765,11 @@
                     <th>Status Pengiriman</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">23 Okt 2026, 16:15</td>
-                    <td>bambang.hermanto@sman7banjarmasin.sch.id</td>
-                    <td>Asesmen Matematika (XI MIPA 2)</td>
-                    <td><code>Rekap_Diagnostik_Matematika_SMAN7_Banjarmasin_XI_MIPA_2.pdf</code></td>
-                    <td><span class="status-badge paham">&bull; Terkirim (Resend API)</span></td>
-                  </tr>
-                  <tr>
-                    <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">15 Okt 2026, 11:30</td>
-                    <td>bambang.hermanto@sman7banjarmasin.sch.id</td>
-                    <td>Asesmen Diagnostik Awal Matematika (XI MIPA 2)</td>
-                    <td><code>Rekap_Awal_Matematika_SMAN7_XI.pdf</code></td>
-                    <td><span class="status-badge paham">&bull; Terkirim</span></td>
+                <tbody id="emailDispatchLogBody">
+                  <tr id="emailDispatchEmptyRow">
+                    <td colspan="5" style="text-align: center; padding: 24px; color: var(--text-dim);" id="emailDispatchEmptyState">
+                      Belum ada riwayat pengiriman laporan email. Riwayat pengiriman akan dimuat dari database.
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -1952,23 +1822,18 @@
         <div class="input-group-formal">
           <label class="input-label" for="remedialStudentSelect">Pilih Siswa</label>
           <select class="input-control" id="remedialStudentSelect" required>
-            <option value="Budi Pratama (XI IPA 2)">Budi Pratama (XI IPA 2) — 5 Butir Miskonsepsi</option>
-            <option value="Citra Lestari (XI IPA 2)">Citra Lestari (XI IPA 2) — 6 Butir Tidak Paham</option>
-            <option value="Eko Prasetyo (XI IPA 2)">Eko Prasetyo (XI IPA 2) — 7 Butir Tidak Paham</option>
-            <option value="Ahmad Dahlan (XI IPA 2)">Ahmad Dahlan (XI IPA 2) — 4 Butir Miskonsepsi</option>
-            <option value="Bagas Firmansyah (XI IPA 2)">Bagas Firmansyah (XI IPA 2) — 4 Butir Miskonsepsi</option>
-            <option value="Dian Anggraini (XI IPA 2)">Dian Anggraini (XI IPA 2) — 4 Butir Miskonsepsi</option>
+            <option value="" disabled selected id="remedialStudentSelectPlaceholder">-- Pilih Siswa dari Database --</option>
           </select>
         </div>
 
         <div class="input-group-formal">
           <label class="input-label" for="remedialFocusConcept">Fokus Konsep yang Diintervensi</label>
-          <input type="text" class="input-control" id="remedialFocusConcept" value="Pertukaran Posisi Koordinat pada Refleksi Garis y = -x" required>
+          <input type="text" class="input-control" id="remedialFocusConcept" value="" placeholder="Tuliskan fokus konsep miskonsepsi yang diintervensi..." required>
         </div>
 
         <div class="input-group-formal">
           <label class="input-label" for="remedialNoteContent">Rencana Intervensi / Bimbingan Konseptual</label>
-          <textarea class="input-control" id="remedialNoteContent" rows="4" placeholder="Tuliskan rencana penugasan mandiri, demonstrasi simulasi GeoGebra, atau bimbingan sebaya..." required>Diberikan lembar kerja eksplorasi visual GeoGebra interaktif untuk menarik titik sembarang melintasi cermin y = -x. Ditekankan hubungan pertukaran koordinat dan negasi tanda (x, y) → (-y, -x).</textarea>
+          <textarea class="input-control" id="remedialNoteContent" rows="4" placeholder="Tuliskan rencana penugasan mandiri, demonstrasi simulasi GeoGebra, atau bimbingan sebaya..." required></textarea>
         </div>
 
         <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">

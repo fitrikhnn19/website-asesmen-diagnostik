@@ -828,17 +828,17 @@ function renderGatewayView(container) {
             <form id="gatewayStudentDetailForm">
               <div class="input-group-formal">
                 <label class="input-label" for="gStudentName">Nama Lengkap Siswa</label>
-                <input type="text" class="input-control" id="gStudentName" placeholder="Contoh: Muhammad Fauzan Rahman" value="${state.student.name || ''}" required>
+                <input type="text" class="input-control" id="gStudentName" placeholder="Masukkan nama lengkap siswa..." value="${state.student.name || ''}" required>
               </div>
 
               <div class="input-grid-2" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <div class="input-group-formal">
                   <label class="input-label" for="gStudentClass">Kelas / Rombel</label>
-                  <input type="text" class="input-control" id="gStudentClass" placeholder="Contoh: XI MIPA 2" value="${state.student.class || ''}" required>
+                  <input type="text" class="input-control" id="gStudentClass" placeholder="Kelas / Rombel..." value="${state.student.class || ''}" required>
                 </div>
                 <div class="input-group-formal">
                   <label class="input-label" for="gStudentRoll">Nomor Absen / NISN</label>
-                  <input type="text" class="input-control" id="gStudentRoll" placeholder="Contoh: 18" value="${state.student.roll || ''}">
+                  <input type="text" class="input-control" id="gStudentRoll" placeholder="Nomor absen / NISN" value="${state.student.roll || ''}">
                 </div>
               </div>
 
@@ -1124,11 +1124,25 @@ window.returnToGateway = function() {
    VIEW 3: RUANG UJIAN ASESMEN 3-TINGKAT (ACTIVE EXAM WORKSPACE)
    ========================================================================== */
 function renderExamView(container) {
-  const asm = state.assessment;
-  const std = state.student;
-  const curQ = asm.questions[state.currentQuestionIndex];
+  const asm = state.assessment || { questions: [] };
+  const std = state.student || {};
+  const totalQ = (asm.questions && asm.questions.length) || 0;
+  const curQ = asm.questions && asm.questions[state.currentQuestionIndex];
   const curAns = state.answers[state.currentQuestionIndex] || { tier1: null, tier2: null, tier3: null, flagged: false };
-  const totalQ = asm.questions.length;
+
+  if (!curQ || totalQ === 0) {
+    container.innerHTML = `
+      <div id="emptyQuestionsContainer" style="max-width: 680px; margin: 80px auto; text-align: center; padding: 48px 24px; background: var(--bg-surface); border: 1px dashed var(--border-color); border-radius: var(--radius-md);">
+        <div style="font-size: 2.5rem; margin-bottom: 16px;">📚</div>
+        <h2 id="emptyQuestionsTitle" style="font-size: 1.4rem; margin-bottom: 8px;">Belum Ada Butir Soal Terpasang</h2>
+        <p id="emptyQuestionsDesc" style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 24px;">
+          Asesmen ini belum memiliki butir soal atau sedang menunggu sinkronisasi dari database. Silakan hubungi guru pengampu atau muat ulang halaman.
+        </p>
+        <button type="button" class="btn btn-outline" id="btnReloadEmptyExam" onclick="location.reload()">Muat Ulang Halaman</button>
+      </div>
+    `;
+    return;
+  }
 
   const t1Answered = Boolean(curAns.tier1);
   const t2Answered = Boolean(curAns.tier2);
@@ -1253,47 +1267,47 @@ function renderExamView(container) {
     <!-- Exam Main Workspace Layout -->
     <div class="container exam-workspace-layout">
       <!-- Left: Active Question -->
-      <section class="exam-main-panel">
+      <section class="exam-main-panel" id="examMainPanel">
         <!-- Question Bar -->
-        <div class="question-header-card">
-          <div class="question-index-tag">
-            <span>Butir Soal ${curQ.number} dari ${totalQ}</span>
-            <span class="question-concept-tag">${curQ.concept}</span>
+        <div class="question-header-card" id="questionHeaderCard">
+          <div class="question-index-tag" id="questionIndexTag">
+            <span id="questionIndexText">Butir Soal ${curQ.number} dari ${totalQ}</span>
+            <span class="question-concept-tag" id="questionConceptTag">${curQ.concept}</span>
           </div>
-          <button type="button" class="btn-flag-toggle ${curAns.flagged ? 'flagged' : ''}" onclick="toggleQuestionFlag(${state.currentQuestionIndex})">
+          <button type="button" class="btn-flag-toggle ${curAns.flagged ? 'flagged' : ''}" id="btnFlagToggle" onclick="toggleQuestionFlag(${state.currentQuestionIndex})">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="${curAns.flagged ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2">
               <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
               <line x1="4" y1="22" x2="4" y2="15"></line>
             </svg>
-            <span>${curAns.flagged ? 'Ragu-ragu' : 'Tandai Ragu-ragu'}</span>
+            <span id="flagToggleText">${curAns.flagged ? 'Ragu-ragu' : 'Tandai Ragu-ragu'}</span>
           </button>
         </div>
 
         <!-- Stem Card -->
-        <div class="question-stem-card">
-          <div class="stem-text">${curQ.stem}</div>
+        <div class="question-stem-card" id="questionStemCard">
+          <div class="stem-text" id="questionStemText">${curQ.stem}</div>
           ${curQ.mediaSvg ? `
-            <div class="question-media-wrap">
+            <div class="question-media-wrap" id="questionMediaWrap">
               ${curQ.mediaSvg}
-              <div class="media-caption">${curQ.mediaCaption || ''}</div>
+              <div class="media-caption" id="questionMediaCaption">${curQ.mediaCaption || ''}</div>
             </div>
           ` : ''}
         </div>
 
         <!-- TAHAP 1: JAWABAN (TIER 1) -->
         <div class="tier-section ${t1Answered ? 'completed' : 'active'}" id="tier1Section">
-          <div class="tier-header-bar">
+          <div class="tier-header-bar" id="tier1HeaderBar">
             <div class="tier-badge-title">
               <span class="tier-level-num">Tahap 1</span>
               <span class="tier-title-text">Pilihan Jawaban Konseptual</span>
             </div>
-            <div class="tier-status-chip ${t1Answered ? 'done' : ''}">
+            <div class="tier-status-chip ${t1Answered ? 'done' : ''}" id="tier1StatusChip">
               ${t1Answered ? '&check; Terpilih' : 'Wajib Diisi'}
             </div>
           </div>
-          <div class="options-list">
+          <div class="options-list" id="tier1OptionsList">
             ${curQ.tier1.options.map(opt => `
-              <div class="option-card ${curAns.tier1 === opt.id ? 'selected' : ''}" onclick="selectAnswerTier(1, '${opt.id}')">
+              <div class="option-card ${curAns.tier1 === opt.id ? 'selected' : ''}" id="tier1Opt_${opt.id}" onclick="selectAnswerTier(1, '${opt.id}')">
                 <div class="option-letter-badge">${opt.id}</div>
                 <div class="option-content-text">${opt.text}</div>
               </div>
@@ -1303,17 +1317,17 @@ function renderExamView(container) {
 
         <!-- TAHAP 2: ALASAN ILMIAH (TIER 2) -->
         <div class="tier-section ${!t1Answered ? 'locked' : (t2Answered ? 'completed' : 'active')}" id="tier2Section">
-          <div class="tier-header-bar">
+          <div class="tier-header-bar" id="tier2HeaderBar">
             <div class="tier-badge-title">
               <span class="tier-level-num">Tahap 2</span>
               <span class="tier-title-text">Pilihan Alasan / Argumen Ilmiah</span>
             </div>
-            <div class="tier-status-chip ${t2Answered ? 'done' : (t1Answered ? '' : 'lock')}">
+            <div class="tier-status-chip ${t2Answered ? 'done' : (t1Answered ? '' : 'lock')}" id="tier2StatusChip">
               ${t2Answered ? '&check; Terpilih' : (t1Answered ? 'Wajib Diisi' : '🔒 Terkunci')}
             </div>
           </div>
           ${!t1Answered ? `
-            <div class="tier-locked-message">
+            <div class="tier-locked-message" id="tier2LockedMessage">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -1321,9 +1335,9 @@ function renderExamView(container) {
               <span>Pilih salah satu jawaban pada <strong>Tahap 1</strong> terlebih dahulu untuk membuka pilihan alasan ilmiah.</span>
             </div>
           ` : `
-            <div class="options-list">
+            <div class="options-list" id="tier2OptionsList">
               ${curQ.tier2.options.map(opt => `
-                <div class="option-card ${curAns.tier2 === opt.id ? 'selected' : ''}" onclick="selectAnswerTier(2, '${opt.id}')">
+                <div class="option-card ${curAns.tier2 === opt.id ? 'selected' : ''}" id="tier2Opt_${opt.id}" onclick="selectAnswerTier(2, '${opt.id}')">
                   <div class="option-letter-badge">${opt.id}</div>
                   <div class="option-content-text">${opt.text}</div>
                 </div>
@@ -1334,17 +1348,17 @@ function renderExamView(container) {
 
         <!-- TAHAP 3: TINGKAT KEYAKINAN (TIER 3) -->
         <div class="tier-section ${!t2Answered ? 'locked' : (t3Answered ? 'completed' : 'active')}" id="tier3Section">
-          <div class="tier-header-bar">
+          <div class="tier-header-bar" id="tier3HeaderBar">
             <div class="tier-badge-title">
               <span class="tier-level-num">Tahap 3</span>
               <span class="tier-title-text">Tingkat Keyakinan (Certainty)</span>
             </div>
-            <div class="tier-status-chip ${t3Answered ? 'done' : (t2Answered ? '' : 'lock')}">
+            <div class="tier-status-chip ${t3Answered ? 'done' : (t2Answered ? '' : 'lock')}" id="tier3StatusChip">
               ${t3Answered ? '&check; Terpilih' : (t2Answered ? 'Wajib Diisi' : '🔒 Terkunci')}
             </div>
           </div>
           ${!t2Answered ? `
-            <div class="tier-locked-message">
+            <div class="tier-locked-message" id="tier3LockedMessage">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                 <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -1352,8 +1366,8 @@ function renderExamView(container) {
               <span>Tentukan pilihan alasan pada <strong>Tahap 2</strong> sebelum menyatakan tingkat keyakinan.</span>
             </div>
           ` : `
-            <div class="confidence-cards-grid">
-              <div class="confidence-choice-card yakin ${curAns.tier3 === 'yakin' ? 'selected' : ''}" onclick="selectAnswerTier(3, 'yakin')">
+            <div class="confidence-cards-grid" id="tier3ConfidenceGrid">
+              <div class="confidence-choice-card yakin ${curAns.tier3 === 'yakin' ? 'selected' : ''}" id="tier3ChoiceYakin" onclick="selectAnswerTier(3, 'yakin')">
                 <div class="conf-icon-wrap">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <polyline points="20 6 9 17 4 12"></polyline>
@@ -1365,7 +1379,7 @@ function renderExamView(container) {
                 </div>
               </div>
 
-              <div class="confidence-choice-card tidak-yakin ${curAns.tier3 === 'tidak-yakin' ? 'selected' : ''}" onclick="selectAnswerTier(3, 'tidak-yakin')">
+              <div class="confidence-choice-card tidak-yakin ${curAns.tier3 === 'tidak-yakin' ? 'selected' : ''}" id="tier3ChoiceTidakYakin" onclick="selectAnswerTier(3, 'tidak-yakin')">
                 <div class="conf-icon-wrap">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <circle cx="12" cy="12" r="10"></circle>
@@ -1383,21 +1397,21 @@ function renderExamView(container) {
         </div>
 
         <!-- Bottom Action Bar -->
-        <div class="exam-actions-bar">
-          <button type="button" class="btn btn-secondary" onclick="navigateToQuestion(${state.currentQuestionIndex - 1})" ${state.currentQuestionIndex === 0 ? 'disabled style="opacity:0.4; pointer-events:none;"' : ''}>
+        <div class="exam-actions-bar" id="examActionsBar">
+          <button type="button" class="btn btn-secondary" id="btnPrevQuestion" onclick="navigateToQuestion(${state.currentQuestionIndex - 1})" ${state.currentQuestionIndex === 0 ? 'disabled style="opacity:0.4; pointer-events:none;"' : ''}>
             &larr; Butir Sebelumnya
           </button>
 
-          <button type="button" class="btn-flag-toggle ${curAns.flagged ? 'flagged' : ''}" onclick="toggleQuestionFlag(${state.currentQuestionIndex})">
+          <button type="button" class="btn-flag-toggle ${curAns.flagged ? 'flagged' : ''}" id="btnBottomFlagToggle" onclick="toggleQuestionFlag(${state.currentQuestionIndex})">
             <span>${curAns.flagged ? 'Hapus Tanda Ragu-ragu' : 'Tandai Ragu-ragu'}</span>
           </button>
 
           ${state.currentQuestionIndex === totalQ - 1 ? `
-            <button type="button" class="btn btn-primary" onclick="promptSubmitConfirmation()">
+            <button type="button" class="btn btn-primary" id="btnSubmitFromBottom" onclick="promptSubmitConfirmation()">
               Selesai & Kumpulkan &rarr;
             </button>
           ` : `
-            <button type="button" class="btn btn-primary" onclick="navigateToQuestion(${state.currentQuestionIndex + 1})">
+            <button type="button" class="btn btn-primary" id="btnNextQuestion" onclick="navigateToQuestion(${state.currentQuestionIndex + 1})">
               Butir Selanjutnya &rarr;
             </button>
           `}
@@ -1405,9 +1419,9 @@ function renderExamView(container) {
       </section>
 
       <!-- Right: Navigator Sidebar -->
-      <aside class="exam-sidebar-panel">
+      <aside class="exam-sidebar-panel" id="examSidebarPanel">
         <div class="sidebar-sticky-box">
-          <div class="navigator-card">
+          <div class="navigator-card" id="navigatorCard">
             <div class="navigator-title-row">
               <span class="navigator-heading">Navigasi Butir Soal</span>
               <span class="navigator-stats-summary" id="navigatorStatsSummary">
@@ -1416,7 +1430,7 @@ function renderExamView(container) {
             </div>
 
             <!-- Number Grid -->
-            <div class="nav-grid-buttons">
+            <div class="nav-grid-buttons" id="questionNavGrid">
               ${asm.questions.map((q, idx) => {
                 const ans = state.answers[idx];
                 const isCurrent = idx === state.currentQuestionIndex;
@@ -1432,7 +1446,7 @@ function renderExamView(container) {
                   }
                 }
                 return `
-                  <button type="button" class="nav-q-btn ${isCurrent ? 'current' : ''} ${statusClass}" onclick="navigateToQuestion(${idx})" title="Butir ${q.number}">
+                  <button type="button" class="nav-q-btn ${isCurrent ? 'current' : ''} ${statusClass}" id="navBtn_${idx}" onclick="navigateToQuestion(${idx})" title="Butir ${q.number}">
                     ${q.number}
                   </button>
                 `;
@@ -1710,7 +1724,20 @@ window.viewDirectResultsDemo = function() {
 // 5. VIEW 4: HASIL ASESMEN & REFLEKSI PEMAHAMAN SISWA (PRD F-17 & Section 4.4)
 // ============================================================================
 function evaluateThreeTierDiagnostic() {
-  const questions = state.assessment.questions;
+  const questions = (state.assessment && state.assessment.questions) || [];
+  if (questions.length === 0) {
+    return {
+      itemResults: [],
+      pahamCount: 0,
+      miskonsepsiCount: 0,
+      tidakPahamCount: 0,
+      pahamPct: 0,
+      miskonsepsiPct: 0,
+      tidakPahamPct: 0,
+      avgScore: 0,
+      totalQ: 0
+    };
+  }
   let pahamCount = 0;
   let miskonsepsiCount = 0;
   let tidakPahamCount = 0;
@@ -1846,26 +1873,26 @@ function renderResultsView(container) {
         </p>
 
         <!-- Student & Assessment Info Strip -->
-        <div class="results-info-strip">
+        <div class="results-info-strip" id="resultsInfoStrip">
           <div>
             <div class="meta-item-label">Nama Siswa</div>
-            <div class="meta-item-value highlight">${std.name || 'Siswa Peserta'}</div>
+            <div class="meta-item-value highlight" id="resultsStudentName">${std.name || 'Siswa Peserta'}</div>
           </div>
           <div>
             <div class="meta-item-label">Kelas / Rombel</div>
-            <div class="meta-item-value">${std.class || 'XI MIPA 2'} • No. ${std.roll || '-'}</div>
+            <div class="meta-item-value" id="resultsStudentClass">${std.class || 'XI MIPA 2'} • No. ${std.roll || '-'}</div>
           </div>
           <div>
             <div class="meta-item-label">Sekolah</div>
-            <div class="meta-item-value highlight" style="color:var(--status-paham);">${asm.school || 'SMAN 7 Banjarmasin'}</div>
+            <div class="meta-item-value highlight" style="color:var(--status-paham);" id="resultsExamSchool">${asm.school || 'SMAN 7 Banjarmasin'}</div>
           </div>
           <div>
             <div class="meta-item-label">Instansi Pengembang</div>
-            <div class="meta-item-value" style="font-size:0.78rem;">${asm.developerInstitution || 'FKIP ULM'}</div>
+            <div class="meta-item-value" style="font-size:0.78rem;" id="resultsExamInstitution">${asm.developerInstitution || 'FKIP ULM'}</div>
           </div>
           <div>
             <div class="meta-item-label">Tanggal Pengerjaan</div>
-            <div class="meta-item-value">${new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</div>
+            <div class="meta-item-value" id="resultsExamDate">${new Date().toLocaleDateString('id-ID', { day:'numeric', month:'long', year:'numeric' })}</div>
           </div>
         </div>
 
@@ -2017,22 +2044,22 @@ function renderReflectionItemCards(itemResults, filter) {
     const t2KeyOpt = q.tier2.options.find(o => o.id === q.tier2.key);
 
     return `
-      <article class="reflection-item-card ${item.profile}" style="margin-bottom:20px;">
+      <article class="reflection-item-card ${item.profile}" id="reflectionCard_${q.id}" style="margin-bottom:20px;">
         <div class="ref-item-header">
           <div class="ref-item-title-group">
-            <span class="ref-q-badge">Butir Soal #${q.number}</span>
-            <span class="question-concept-tag">${q.concept}</span>
-            <span class="ref-profile-badge ${item.profile}">${profileLabel}</span>
+            <span class="ref-q-badge" id="refBadge_${q.id}">Butir Soal #${q.number}</span>
+            <span class="question-concept-tag" id="refConcept_${q.id}">${q.concept}</span>
+            <span class="ref-profile-badge ${item.profile}" id="refProfileBadge_${q.id}">${profileLabel}</span>
           </div>
-          <span style="font-size:0.8rem; font-weight:700; color:var(--text-dim);">Skor: ${item.score}/100</span>
+          <span style="font-size:0.8rem; font-weight:700; color:var(--text-dim);" id="refScore_${q.id}">Skor: ${item.score}/100</span>
         </div>
 
-        <div class="ref-stem-box">
+        <div class="ref-stem-box" id="refStem_${q.id}">
           <strong>Pertanyaan:</strong> ${q.stem}
         </div>
 
         <!-- 3 Tier Breakdown -->
-        <div class="ref-tier-grid">
+        <div class="ref-tier-grid" id="refTierGrid_${q.id}">
           <!-- Tier 1 -->
           <div class="ref-tier-col">
             <span class="ref-tier-label">Tingkat 1: Pilihan Jawaban</span>

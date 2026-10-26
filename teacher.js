@@ -7,61 +7,7 @@
 // Global Mock State
 const TEACHER_STATE = {
   currentAssessment: 'diagno-2026',
-  students: [
-    { id: 'S01', name: 'Aditya Pratama', class: 'XI MIPA 2', score: 88, profile: 'paham', pCount: 8, mCount: 1, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S02', name: 'Ahmad Dahlan', class: 'XI MIPA 2', score: 62, profile: 'miskonsepsi', pCount: 5, mCount: 4, tCount: 1, cheatCount: 1, status: '1x Pindah Tab (Ringan)' },
-    { id: 'S03', name: 'Aisyah Putri Rahayu', class: 'XI MIPA 2', score: 92, profile: 'paham', pCount: 9, mCount: 1, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S04', name: 'Bagas Firmansyah', class: 'XI MIPA 2', score: 55, profile: 'miskonsepsi', pCount: 4, mCount: 4, tCount: 2, cheatCount: 0, status: 'Jujur' },
-    { id: 'S05', name: 'Budi Pratama', class: 'XI MIPA 2', score: 48, profile: 'miskonsepsi', pCount: 3, mCount: 5, tCount: 2, cheatCount: 3, status: '3x Pindah Tab (Berat)' },
-    { id: 'S06', name: 'Citra Lestari', class: 'XI MIPA 2', score: 38, profile: 'tidak-paham', pCount: 2, mCount: 2, tCount: 6, cheatCount: 0, status: 'Jujur' },
-    { id: 'S07', name: 'Dian Anggraini', class: 'XI MIPA 2', score: 58, profile: 'miskonsepsi', pCount: 4, mCount: 4, tCount: 2, cheatCount: 0, status: 'Jujur' },
-    { id: 'S08', name: 'Dimas Setiawan', class: 'XI MIPA 2', score: 85, profile: 'paham', pCount: 8, mCount: 2, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S09', name: 'Eko Prasetyo', class: 'XI MIPA 2', score: 35, profile: 'tidak-paham', pCount: 2, mCount: 1, tCount: 7, cheatCount: 1, status: '1x Keluar Fullscreen' },
-    { id: 'S10', name: 'Fadhil Muhammad', class: 'XI MIPA 2', score: 90, profile: 'paham', pCount: 9, mCount: 0, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S11', name: 'Farah Nabila', class: 'XI MIPA 2', score: 82, profile: 'paham', pCount: 7, mCount: 2, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S12', name: 'Gilang Ramadhan', class: 'XI MIPA 2', score: 65, profile: 'miskonsepsi', pCount: 5, mCount: 3, tCount: 2, cheatCount: 0, status: 'Jujur' },
-    { id: 'S13', name: 'Hafiz Surya', class: 'XI MIPA 2', score: 78, profile: 'paham', pCount: 7, mCount: 2, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S14', name: 'Indah Permata', class: 'XI MIPA 2', score: 86, profile: 'paham', pCount: 8, mCount: 1, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S15', name: 'Kurnia Sandy', class: 'XI MIPA 2', score: 42, profile: 'tidak-paham', pCount: 2, mCount: 3, tCount: 5, cheatCount: 0, status: 'Jujur' },
-    { id: 'S16', name: 'Laila Zahra', class: 'XI MIPA 2', score: 88, profile: 'paham', pCount: 8, mCount: 2, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S17', name: 'M. Rizky Ramadhan', class: 'XI MIPA 2', score: 75, profile: 'paham', pCount: 6, mCount: 3, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S18', name: 'Nadya Safitri', class: 'XI MIPA 2', score: 60, profile: 'miskonsepsi', pCount: 4, mCount: 4, tCount: 2, cheatCount: 0, status: 'Jujur' },
-    { id: 'S19', name: 'Putri Handayani', class: 'XI MIPA 2', score: 84, profile: 'paham', pCount: 8, mCount: 1, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S20', name: 'Rahmat Hidayat', class: 'XI MIPA 2', score: 58, profile: 'miskonsepsi', pCount: 4, mCount: 4, tCount: 2, cheatCount: 1, status: '1x Pindah Tab (Ringan)' },
-    { id: 'S21', name: 'Rian Maulana', class: 'XI MIPA 2', score: 90, profile: 'paham', pCount: 9, mCount: 1, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S22', name: 'Rina Kusuma', class: 'XI MIPA 2', score: 88, profile: 'paham', pCount: 8, mCount: 1, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S23', name: 'Salsabila Putri', class: 'XI MIPA 2', score: 74, profile: 'paham', pCount: 6, mCount: 3, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S24', name: 'Taufik Ismail', class: 'XI MIPA 2', score: 40, profile: 'tidak-paham', pCount: 2, mCount: 2, tCount: 6, cheatCount: 0, status: 'Jujur' },
-    { id: 'S25', name: 'Tiara Anggraini', class: 'XI MIPA 2', score: 80, profile: 'paham', pCount: 7, mCount: 2, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S26', name: 'Umar Wirahadi', class: 'XI MIPA 2', score: 64, profile: 'miskonsepsi', pCount: 5, mCount: 4, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S27', name: 'Vina Panduwinata', class: 'XI MIPA 2', score: 86, profile: 'paham', pCount: 8, mCount: 1, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S28', name: 'Wahyu Nugroho', class: 'XI MIPA 2', score: 59, profile: 'miskonsepsi', pCount: 4, mCount: 4, tCount: 2, cheatCount: 0, status: 'Jujur' },
-    { id: 'S29', name: 'Widya Astuti', class: 'XI MIPA 2', score: 82, profile: 'paham', pCount: 7, mCount: 2, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S30', name: 'Yoga Pratama', class: 'XI MIPA 2', score: 76, profile: 'paham', pCount: 7, mCount: 2, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S31', name: 'Zahra Amelia', class: 'XI MIPA 2', score: 94, profile: 'paham', pCount: 9, mCount: 1, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S32', name: 'Zaki Mubarak', class: 'XI MIPA 2', score: 85, profile: 'paham', pCount: 8, mCount: 1, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S33', name: 'Alifia Zahran', class: 'XI MIPA 2', score: 72, profile: 'paham', pCount: 6, mCount: 3, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S34', name: 'Bayu Wicaksono', class: 'XI MIPA 2', score: 77, profile: 'paham', pCount: 7, mCount: 2, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    // Multi-Class: XI MIPA 1 (Sample students)
-    { id: 'S101', name: 'Anindya Kirana', class: 'XI MIPA 1', score: 95, profile: 'paham', pCount: 10, mCount: 0, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S102', name: 'Arkan Danendra', class: 'XI MIPA 1', score: 88, profile: 'paham', pCount: 9, mCount: 1, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S103', name: 'Bilqis Humaira', class: 'XI MIPA 1', score: 82, profile: 'paham', pCount: 8, mCount: 2, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S104', name: 'Daffa Raihan', class: 'XI MIPA 1', score: 68, profile: 'miskonsepsi', pCount: 6, mCount: 3, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S105', name: 'Felicia Agatha', class: 'XI MIPA 1', score: 91, profile: 'paham', pCount: 9, mCount: 1, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S106', name: 'Genta Pratama', class: 'XI MIPA 1', score: 45, profile: 'tidak-paham', pCount: 3, mCount: 2, tCount: 5, cheatCount: 0, status: 'Jujur' },
-    // Multi-Class: XI MIPA 3 (Sample students)
-    { id: 'S301', name: 'Cahya Ramadhani', class: 'XI MIPA 3', score: 54, profile: 'miskonsepsi', pCount: 4, mCount: 4, tCount: 2, cheatCount: 0, status: 'Jujur' },
-    { id: 'S302', name: 'Devan Alvaro', class: 'XI MIPA 3', score: 50, profile: 'miskonsepsi', pCount: 3, mCount: 5, tCount: 2, cheatCount: 1, status: '1x Pindah Tab' },
-    { id: 'S303', name: 'Farrel Arya', class: 'XI MIPA 3', score: 40, profile: 'tidak-paham', pCount: 2, mCount: 2, tCount: 6, cheatCount: 0, status: 'Jujur' },
-    { id: 'S304', name: 'Gita Maharani', class: 'XI MIPA 3', score: 78, profile: 'paham', pCount: 7, mCount: 2, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S305', name: 'Helmi Satria', class: 'XI MIPA 3', score: 58, profile: 'miskonsepsi', pCount: 4, mCount: 4, tCount: 2, cheatCount: 0, status: 'Jujur' },
-    // Multi-Class: X-1 (Sample students)
-    { id: 'S401', name: 'Amanda Putri', class: 'X-1', score: 85, profile: 'paham', pCount: 8, mCount: 1, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S402', name: 'Arya Wardhana', class: 'X-1', score: 74, profile: 'paham', pCount: 6, mCount: 3, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S403', name: 'Bima Sakti', class: 'X-1', score: 62, profile: 'miskonsepsi', pCount: 5, mCount: 4, tCount: 1, cheatCount: 0, status: 'Jujur' },
-    { id: 'S404', name: 'Clara Shinta', class: 'X-1', score: 88, profile: 'paham', pCount: 8, mCount: 2, tCount: 0, cheatCount: 0, status: 'Jujur' },
-    { id: 'S405', name: 'Dendy Kurniawan', class: 'X-1', score: 42, profile: 'tidak-paham', pCount: 2, mCount: 3, tCount: 5, cheatCount: 0, status: 'Jujur' }
-  ],
+  students: [],
   classes: [
     {
       id: 'CLS-01',
@@ -69,16 +15,16 @@ const TEACHER_STATE = {
       grade: 'Kelas XI',
       academicYear: '2026/2027 Ganjil',
       homeroom: 'Bambang Hermanto, M.Si.',
-      studentCount: 34,
+      studentCount: 0,
       token: 'DIAGNO-2026',
       assessment: 'Asesmen Matematika (XI MIPA 2)',
-      pCount: 20,
-      mCount: 9,
-      tCount: 5,
-      pPercent: 58.8,
-      mPercent: 26.5,
-      tPercent: 14.7,
-      avgScore: 74.2
+      pCount: 0,
+      mCount: 0,
+      tCount: 0,
+      pPercent: 0,
+      mPercent: 0,
+      tPercent: 0,
+      avgScore: 0
     },
     {
       id: 'CLS-02',
@@ -86,16 +32,16 @@ const TEACHER_STATE = {
       grade: 'Kelas XI',
       academicYear: '2026/2027 Ganjil',
       homeroom: 'Dra. Hj. Nurhayati, M.Pd.',
-      studentCount: 36,
+      studentCount: 0,
       token: 'MAT-XI',
       assessment: 'Asesmen Matematika (XI MIPA 1)',
-      pCount: 26,
-      mCount: 7,
-      tCount: 3,
-      pPercent: 72.2,
-      mPercent: 19.4,
-      tPercent: 8.4,
-      avgScore: 82.5
+      pCount: 0,
+      mCount: 0,
+      tCount: 0,
+      pPercent: 0,
+      mPercent: 0,
+      tPercent: 0,
+      avgScore: 0
     },
     {
       id: 'CLS-03',
@@ -103,16 +49,16 @@ const TEACHER_STATE = {
       grade: 'Kelas XI',
       academicYear: '2026/2027 Ganjil',
       homeroom: 'H. Sulaiman, M.Pd.',
-      studentCount: 32,
+      studentCount: 0,
       token: 'MAT-XI-3',
       assessment: 'Asesmen Matematika (XI MIPA 3)',
-      pCount: 14,
-      mCount: 12,
-      tCount: 6,
-      pPercent: 43.8,
-      mPercent: 37.5,
-      tPercent: 18.7,
-      avgScore: 61.8
+      pCount: 0,
+      mCount: 0,
+      tCount: 0,
+      pPercent: 0,
+      mPercent: 0,
+      tPercent: 0,
+      avgScore: 0
     },
     {
       id: 'CLS-04',
@@ -120,360 +66,80 @@ const TEACHER_STATE = {
       grade: 'Kelas X',
       academicYear: '2026/2027 Ganjil',
       homeroom: 'Rina Marlina, S.Pd.',
-      studentCount: 35,
+      studentCount: 0,
       token: 'MAT-X',
       assessment: 'Asesmen Matematika (Kelas X)',
-      pCount: 22,
-      mCount: 8,
-      tCount: 5,
-      pPercent: 62.9,
-      mPercent: 22.8,
-      tPercent: 14.3,
-      avgScore: 76.4
+      pCount: 0,
+      mCount: 0,
+      tCount: 0,
+      pPercent: 0,
+      mPercent: 0,
+      tPercent: 0,
+      avgScore: 0
     }
   ],
-  questionBank: [
-    {
-      id: 'BS-MAT-01',
-      topic: 'Transformasi Geometri',
-      difficulty: 'Sedang',
-      diffVal: 0.52,
-      discVal: 0.48,
-      validVal: 0.65,
-      usageCount: 4,
-      stem: 'Sebuah titik $P(2, -3)$ pada bidang Cartesius ditranslasikan oleh vektor $T = \\begin{pmatrix} -5 \\\\ 7 \\end{pmatrix}$. Manakah koordinat bayangan $P\'$ yang tepat?',
-      tier1: {
-        correct: 'A',
-        options: [
-          { letter: 'A', text: '$P\'(-3, 4)$', isCorrect: true },
-          { letter: 'B', text: '$P\'(7, -10)$', isCorrect: false },
-          { letter: 'C', text: '$P\'(-3, -10)$', isCorrect: false },
-          { letter: 'D', text: '$P\'(3, -4)$', isCorrect: false },
-          { letter: 'E', text: '$P\'(-10, -21)$', isCorrect: false }
-        ]
-      },
-      tier2: {
-        correct: 'A',
-        correctReason: 'A. Translasi diperoleh dengan menjumlahkan koordinat: $x\' = x + a$ dan $y\' = y + b$.',
-        reasons: [
-          { letter: 'A', text: 'Translasi diperoleh dengan menjumlahkan koordinat: $x\' = x + a$ dan $y\' = y + b$.', isCorrect: true },
-          { letter: 'B', text: 'Translasi dilakukan dengan mengurangkan koordinat: $x\' = x - a$ dan $y\' = y - b$.', misconception: 'Miskonsepsi Pengurangan Translasi' },
-          { letter: 'C', text: 'Komponen translasi bertindak sebagai faktor pengali skalar: $x\' = x \\cdot a$ dan $y\' = y \\cdot b$.', misconception: 'Miskonsepsi Perkalian Translasi' },
-          { letter: 'D', text: 'Komponen translasi $a$ menggeser sumbu $Y$ dan $b$ menggeser sumbu $X$ secara terbalik.', misconception: 'Miskonsepsi Pertukaran Sumbu Translasi' },
-          { letter: 'E', text: 'Translasi hanya menegasikan tanda tanpa mengubah nilai mutlak koordinat awal.', misconception: 'Distraktor Negasi' }
-        ]
-      },
-      tier3: { label: 'Certainty of Response Index (Yakin vs Tidak Yakin)' }
-    },
-    {
-      id: 'BS-MAT-02',
-      topic: 'Transformasi Geometri',
-      difficulty: 'Sedang',
-      diffVal: 0.64,
-      discVal: 0.42,
-      validVal: 0.59,
-      usageCount: 3,
-      stem: 'Titik $A(3, 1)$ dicerminkan terhadap garis lurus $y = -x$. Tentukan koordinat titik bayangan $A\'$ hasil refleksi tersebut!',
-      tier1: {
-        correct: 'A',
-        options: [
-          { letter: 'A', text: '$A\'(-1, -3)$', isCorrect: true },
-          { letter: 'B', text: '$A\'(1, 3)$', isCorrect: false },
-          { letter: 'C', text: '$A\'(-3, -1)$', isCorrect: false },
-          { letter: 'D', text: '$A\'(-3, 1)$', isCorrect: false },
-          { letter: 'E', text: '$A\'(3, -1)$', isCorrect: false }
-        ]
-      },
-      tier2: {
-        correct: 'B',
-        correctReason: 'B. Pencerminan terhadap garis $y = -x$ menukar posisi absis dan ordinat sekaligus menegasikan tandanya: $(x, y) \\to (-y, -x)$.',
-        reasons: [
-          { letter: 'A', text: 'Pencerminan terhadap garis $y = -x$ hanya menegasikan tanda tanpa menukar posisi: $(x, y) \\to (-x, -y)$.', misconception: 'Miskonsepsi Negasi Tanpa Tukar' },
-          { letter: 'B', text: 'Pencerminan terhadap garis $y = -x$ menukar posisi absis dan ordinat sekaligus menegasikan tandanya: $(x, y) \\to (-y, -x)$.', isCorrect: true },
-          { letter: 'C', text: 'Pencerminan terhadap garis $y = -x$ hanya menukar posisi kedua koordinat: $(x, y) \\to (y, x)$.', misconception: 'Tertukar Refleksi y = x' },
-          { letter: 'D', text: 'Hanya absis yang dinegasikan karena garis memotong sumbu vertikal.', misconception: 'Miskonsepsi Parsial Absis' },
-          { letter: 'E', text: 'Refleksi garis diagonal selalu menghasilkan titik bayangan tetap (invarian).', misconception: 'Miskonsepsi Titik Invarian' }
-        ]
-      },
-      tier3: { label: 'Certainty of Response Index (Yakin vs Tidak Yakin)' }
-    },
-    {
-      id: 'BS-MAT-03',
-      topic: 'Transformasi Geometri',
-      difficulty: 'Sukar',
-      diffVal: 0.38,
-      discVal: 0.35,
-      validVal: 0.52,
-      usageCount: 3,
-      stem: 'Titik $B(4, 2)$ dirotasikan sebesar $+90^\\circ$ dengan pusat putaran di titik asal $O(0,0)$. Tentukan koordinat bayangan $B\'$!',
-      tier1: {
-        correct: 'A',
-        options: [
-          { letter: 'A', text: '$B\'(-2, 4)$', isCorrect: true },
-          { letter: 'B', text: '$B\'(2, -4)$', isCorrect: false },
-          { letter: 'C', text: '$B\'(-4, -2)$', isCorrect: false },
-          { letter: 'D', text: '$B\'(4, -2)$', isCorrect: false },
-          { letter: 'E', text: '$B\'(2, 4)$', isCorrect: false }
-        ]
-      },
-      tier2: {
-        correct: 'A',
-        correctReason: 'A. Konvensi sudut rotasi positif $+90^\\circ$ berlawanan arah jarum jam dengan matriks $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$, sehingga $(x, y) \\to (-y, x)$.',
-        reasons: [
-          { letter: 'A', text: 'Konvensi sudut rotasi positif $+90^\\circ$ berlawanan arah jarum jam dengan matriks $\\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$, sehingga $(x, y) \\to (-y, x)$.', isCorrect: true },
-          { letter: 'B', text: 'Rotasi positif berputar searah jarum jam seperti putaran jam analog: $(x, y) \\to (y, -x)$.', misconception: 'Miskonsepsi Arah Jarum Jam' },
-          { letter: 'C', text: 'Rotasi $+90^\\circ$ menegasikan seluruh koordinat awal: $(x, y) \\to (-x, -y)$.', misconception: 'Tertukar Rotasi 180 Derajat' },
-          { letter: 'D', text: 'Hanya ordinat yang berubah tanda karena diputar terhadap sumbu $X$.', misconception: 'Miskonsepsi Sumbu Rotasi' },
-          { letter: 'E', text: 'Rotasi sudut tegak lurus hanya membalik urutan absis dan ordinat: $(x, y) \\to (y, x)$.', misconception: 'Miskonsepsi Tukar Koordinat' }
-        ]
-      },
-      tier3: { label: 'Certainty of Response Index (Yakin vs Tidak Yakin)' }
-    },
-    {
-      id: 'BS-MAT-04',
-      topic: 'Transformasi Geometri',
-      difficulty: 'Sedang',
-      diffVal: 0.55,
-      discVal: 0.51,
-      validVal: 0.68,
-      usageCount: 2,
-      stem: 'Sebuah segitiga $ABC$ memiliki luas awal $12\\text{ cm}^2$. Segitiga tersebut didilatasi dengan faktor skala $k = 3$ dan pusat $O(0,0)$. Berapakah luas bayangan segitiga $A\'B\'C\'$?',
-      tier1: {
-        correct: 'A',
-        options: [
-          { letter: 'A', text: '$108\\text{ cm}^2$', isCorrect: true },
-          { letter: 'B', text: '$36\\text{ cm}^2$', isCorrect: false },
-          { letter: 'C', text: '$72\\text{ cm}^2$', isCorrect: false },
-          { letter: 'D', text: '$24\\text{ cm}^2$', isCorrect: false },
-          { letter: 'E', text: '$144\\text{ cm}^2$', isCorrect: false }
-        ]
-      },
-      tier2: {
-        correct: 'A',
-        correctReason: 'A. Luas bangun datar berdimensi dua berubah sebanding dengan kuadrat faktor skala dilatasi: $L\' = k^2 \\times L = 3^2 \\times 12 = 108\\text{ cm}^2$.',
-        reasons: [
-          { letter: 'A', text: 'Luas bangun datar berdimensi dua berubah sebanding dengan kuadrat faktor skala dilatasi: $L\' = k^2 \\times L = 3^2 \\times 12 = 108\\text{ cm}^2$.', isCorrect: true },
-          { letter: 'B', text: 'Luas bangun berubah linier dengan mengalikan luas awal dengan faktor skala: $L\' = k \\times L = 3 \\times 12 = 36\\text{ cm}^2$.', misconception: 'Miskonsepsi Perubahan Luas Linier' },
-          { letter: 'C', text: 'Luas berubah sebesar $2k \\times L$ karena segitiga memiliki dimensi panjang dan tinggi.', misconception: 'Miskonsepsi Faktor Skala Ganda' },
-          { letter: 'D', text: 'Luas dilatasi diperoleh dengan menjumlahkan faktor skala ke luas awal: $L\' = L + k$.', misconception: 'Miskonsepsi Penjumlahan Dilatasi' },
-          { letter: 'E', text: 'Luas berubah sebanding dengan pangkat tiga faktor skala seperti volume ruang.', misconception: 'Tertukar Dimensi Volume 3D' }
-        ]
-      },
-      tier3: { label: 'Certainty of Response Index (Yakin vs Tidak Yakin)' }
-    },
-    {
-      id: 'BS-MAT-05',
-      topic: 'Matriks & Vektor',
-      difficulty: 'Sedang',
-      diffVal: 0.58,
-      discVal: 0.49,
-      validVal: 0.63,
-      usageCount: 2,
-      stem: 'Diberikan matriks transformasi $T_1 = \\begin{pmatrix} 2 & 0 \\\\ 0 & 3 \\end{pmatrix}$ dan $T_2 = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$. Manakah matriks tunggal yang mewakili komposisi $(T_2 \\circ T_1)$?',
-      tier1: {
-        correct: 'A',
-        options: [
-          { letter: 'A', text: '$\\begin{pmatrix} 0 & -3 \\\\ 2 & 0 \\end{pmatrix}$', isCorrect: true },
-          { letter: 'B', text: '$\\begin{pmatrix} 0 & -2 \\\\ 3 & 0 \\end{pmatrix}$', isCorrect: false },
-          { letter: 'C', text: '$\\begin{pmatrix} 2 & -1 \\\\ 1 & 3 \\end{pmatrix}$', isCorrect: false },
-          { letter: 'D', text: '$\\begin{pmatrix} 0 & 0 \\\\ 0 & 0 \\end{pmatrix}$', isCorrect: false },
-          { letter: 'E', text: '$\\begin{pmatrix} -3 & 0 \\\\ 0 & 2 \\end{pmatrix}$', isCorrect: false }
-        ]
-      },
-      tier2: {
-        correct: 'A',
-        correctReason: 'A. Komposisi transformasi $(T_2 \\circ T_1)$ dikerjakan dari kanan ke kiri dengan mengalikan matriks $M = T_2 \\times T_1$.',
-        reasons: [
-          { letter: 'A', text: 'Komposisi transformasi $(T_2 \\circ T_1)$ dikerjakan dari kanan ke kiri dengan mengalikan matriks $M = T_2 \\times T_1$.', isCorrect: true },
-          { letter: 'B', text: 'Komposisi dihitung dari kiri ke kanan sesuai urutan penulisan: $M = T_1 \\times T_2$.', misconception: 'Miskonsepsi Urutan Matriks Kiri-ke-Kanan' },
-          { letter: 'C', text: 'Komposisi diperoleh dengan menjumlahkan elemen-elemen seletak dari kedua matriks.', misconception: 'Miskonsepsi Penjumlahan Komposisi' },
-          { letter: 'D', text: 'Perkalian matriks bersifat komutatif sehingga urutan tidak berpengaruh.', misconception: 'Miskonsepsi Komutatif Matriks' },
-          { letter: 'E', text: 'Komposisi diperoleh dengan mengalikan diagonal utama masing-masing matriks saja.', misconception: 'Miskonsepsi Elemen Diagonal' }
-        ]
-      },
-      tier3: { label: 'Certainty of Response Index (Yakin vs Tidak Yakin)' }
-    },
-    {
-      id: 'BS-MAT-06',
-      topic: 'Fungsi & Aljabar',
-      difficulty: 'Sedang',
-      diffVal: 0.45,
-      discVal: 0.50,
-      validVal: 0.62,
-      usageCount: 1,
-      stem: 'Persamaan garis lurus $2x - 3y + 6 = 0$ ditranslasikan oleh vektor $T = \\begin{pmatrix} 3 \\\\ -2 \\end{pmatrix}$. Tentukan persamaan garis bayangannya!',
-      tier1: {
-        correct: 'A',
-        options: [
-          { letter: 'A', text: '$2x - 3y - 6 = 0$', isCorrect: true },
-          { letter: 'B', text: '$2x - 3y + 18 = 0$', isCorrect: false },
-          { letter: 'C', text: '$5x - 5y + 6 = 0$', isCorrect: false },
-          { letter: 'D', text: '$2x - 3y + 6 = 0$', isCorrect: false },
-          { letter: 'E', text: '$-3x + 2y - 6 = 0$', isCorrect: false }
-        ]
-      },
-      tier2: {
-        correct: 'A',
-        correctReason: 'A. Variabel awal disubstitusikan dengan $x = x\' - a = x\' - 3$ dan $y = y\' - b = y\' + 2$ sehingga $2(x\' - 3) - 3(y\' + 2) + 6 = 0$.',
-        reasons: [
-          { letter: 'A', text: 'Variabel awal disubstitusikan dengan $x = x\' - a = x\' - 3$ dan $y = y\' - b = y\' + 2$ sehingga $2(x\' - 3) - 3(y\' + 2) + 6 = 0$.', isCorrect: true },
-          { letter: 'B', text: 'Translasi langsung ditambahkan ke variabel: $x\' = x + 3$ dan $y\' = y - 2$.', misconception: 'Miskonsepsi Substitusi Langsung Positif' },
-          { letter: 'C', text: 'Komponen translasi dijumlahkan langsung pada koefisien variabel $x$ dan $y$.', misconception: 'Miskonsepsi Penjumlahan Koefisien' },
-          { letter: 'D', text: 'Garis lurus yang ditranslasikan tidak mengalami perubahan persamaan sama sekali.', misconception: 'Miskonsepsi Garis Tetap' },
-          { letter: 'E', text: 'Translasi menukar koefisien antara variabel $x$ dan variabel $y$.', misconception: 'Miskonsepsi Tukar Koefisien' }
-        ]
-      },
-      tier3: { label: 'Certainty of Response Index (Yakin vs Tidak Yakin)' }
-    },
-    {
-      id: 'BS-MAT-07',
-      topic: 'Transformasi Geometri',
-      difficulty: 'Sukar',
-      diffVal: 0.40,
-      discVal: 0.46,
-      validVal: 0.64,
-      usageCount: 1,
-      stem: 'Titik $K(5, 1)$ didilatasi dengan faktor skala $k = 2$ berpusat di titik sembarang $M(2, 3)$. Tentukan koordinat titik bayangan $K\'$!',
-      tier1: {
-        correct: 'A',
-        options: [
-          { letter: 'A', text: '$K\'(8, -1)$', isCorrect: true },
-          { letter: 'B', text: '$K\'(10, 2)$', isCorrect: false },
-          { letter: 'C', text: '$K\'(7, 4)$', isCorrect: false },
-          { letter: 'D', text: '$K\'(6, -1)$', isCorrect: false },
-          { letter: 'E', text: '$K\'(12, 5)$', isCorrect: false }
-        ]
-      },
-      tier2: {
-        correct: 'A',
-        correctReason: 'A. Rumus dilatasi pusat $(a,b)$: $x\' = a + k(x - a) = 2 + 2(5 - 2) = 8$ dan $y\' = b + k(y - b) = 3 + 2(1 - 3) = -1$.',
-        reasons: [
-          { letter: 'A', text: 'Rumus dilatasi pusat $(a,b)$: $x\' = a + k(x - a) = 2 + 2(5 - 2) = 8$ dan $y\' = b + k(y - b) = 3 + 2(1 - 3) = -1$.', isCorrect: true },
-          { letter: 'B', text: 'Dilatasi langsung mengalikan koordinat titik dengan faktor skala $k$: $(kx, ky) = (10, 2)$ mengabaikan titik pusat.', misconception: 'Miskonsepsi Dilatasi Tanpa Pusat' },
-          { letter: 'C', text: 'Pusat dilatasi dijumlahkan dengan titik awal lalu dikalikan skala.', misconception: 'Miskonsepsi Penjumlahan Titik Pusat' },
-          { letter: 'D', text: 'Hanya absis yang terpengaruh oleh titik pusat sedangkan ordinat tetap.', misconception: 'Miskonsepsi Koordinat Asimetris' },
-          { letter: 'E', text: 'Dilatasi selalu menjauhkan titik secara linier tanpa mempertimbangkan tanda selisih.', misconception: 'Miskonsepsi Selisih Negatif' }
-        ]
-      },
-      tier3: { label: 'Certainty of Response Index (Yakin vs Tidak Yakin)' }
-    },
-    {
-      id: 'BS-MAT-08',
-      topic: 'Trigonometri',
-      difficulty: 'Sedang',
-      diffVal: 0.56,
-      discVal: 0.44,
-      validVal: 0.60,
-      usageCount: 1,
-      stem: 'Diberikan segitiga siku-siku dengan sudut lancip $\\alpha$. Jika $\\sin\\alpha = \\frac{3}{5}$, berapakah nilai $\\tan\\alpha$?',
-      tier1: {
-        correct: 'A',
-        options: [
-          { letter: 'A', text: '$\\frac{3}{4}$', isCorrect: true },
-          { letter: 'B', text: '$\\frac{4}{3}$', isCorrect: false },
-          { letter: 'C', text: '$\\frac{4}{5}$', isCorrect: false },
-          { letter: 'D', text: '$\\frac{3}{8}$', isCorrect: false },
-          { letter: 'E', text: '$\\frac{5}{3}$', isCorrect: false }
-        ]
-      },
-      tier2: {
-        correct: 'A',
-        correctReason: 'A. Sisi samping dihitung dengan dalil Pythagoras: $x = \\sqrt{5^2 - 3^2} = 4$, sehingga $\\tan\\alpha = \\frac{\\text{depan}}{\\text{samping}} = \\frac{3}{4}$.',
-        reasons: [
-          { letter: 'A', text: 'Sisi samping dihitung dengan dalil Pythagoras: $x = \\sqrt{5^2 - 3^2} = 4$, sehingga $\\tan\\alpha = \\frac{\\text{depan}}{\\text{samping}} = \\frac{3}{4}$.', isCorrect: true },
-          { letter: 'B', text: 'Tangen didefinisikan sebagai sisi samping dibagi sisi depan: $\\tan\\alpha = \\frac{4}{3}$.', misconception: 'Tertukar Tangen dan Kotangen' },
-          { letter: 'C', text: 'Tangen adalah perbandingan sisi samping dengan sisi miring: $\\frac{4}{5}$.', misconception: 'Tertukar Tangen dan Kosinus' },
-          { letter: 'D', text: 'Sisi samping diperoleh dengan menjumlahkan sisi depan dan sisi miring ($3+5=8$).', misconception: 'Miskonsepsi Penjumlahan Sisi Pythagoras' },
-          { letter: 'E', text: 'Tangen adalah perbandingan sisi miring dengan sisi depan segitiga.', misconception: 'Tertukar Tangen dan Kosekan' }
-        ]
-      },
-      tier3: { label: 'Certainty of Response Index (Yakin vs Tidak Yakin)' }
-    }
-  ],
-  misconceptions: [
-    {
-      id: 'M01',
-      title: 'Pertukaran Posisi Koordinat pada Refleksi Garis y = -x',
-      percentage: '32.4%',
-      count: 11,
-      severity: 'high',
-      desc: 'Siswa meyakini pencerminan terhadap garis $y = -x$ hanya menegasikan tanda tanpa menukar posisi absis dan ordinat ($(-x, -y)$), atau tertukar dengan refleksi terhadap garis $y = x$ ($y, x$).',
-      questionRef: 'Butir Soal No. 2'
-    },
-    {
-      id: 'M02',
-      title: 'Perubahan Luas Bangun Akibat Dilatasi Skala k',
-      percentage: '23.5%',
-      count: 8,
-      severity: 'medium',
-      desc: 'Siswa mengira luas bayangan bangun datar setelah didilatasi faktor skala $k$ bertambah linier sebesar $k \\times L$ ($36\\text{ cm}^2$), padahal luas berdimensi dua sehingga berubah sebesar $k^2 \\times L$ ($108\\text{ cm}^2$).',
-      questionRef: 'Butir Soal No. 4'
-    },
-    {
-      id: 'M03',
-      title: 'Arah Rotasi Sudut Positif & Matriks Rotasi',
-      percentage: '17.6%',
-      count: 6,
-      severity: 'medium',
-      desc: 'Siswa menganggap rotasi sudut positif $+90^\\circ$ berputar searah jarum jam seperti putaran jam dinding, padahal konvensi baku matematika menetapkan putaran positif berlawanan jarum jam ($(-y, x)$).',
-      questionRef: 'Butir Soal No. 3'
-    },
-    {
-      id: 'M04',
-      title: 'Urutan Perkalian Matriks Komposisi (T2 ∘ T1)',
-      percentage: '14.7%',
-      count: 5,
-      severity: 'medium',
-      desc: 'Siswa membaca komposisi transformasi dari kiri ke kanan sehingga mengalikan matriks $M_1 \\times M_2$ atau mengira matriks komutatif, padahal seharusnya $M_2 \\times M_1$.',
-      questionRef: 'Butir Soal No. 5'
-    }
-  ],
-  itemsAnalysis: [
-    { no: 1, concept: 'Translasi Vektor pada Bidang Koordinat', difficulty: 0.52, diffCat: 'Sedang', discrimination: 0.48, discCat: 'Sangat Baik', validity: 0.65, valCat: 'Valid', quality: 'Baik', recommendation: 'Pertahankan Butir' },
-    { no: 2, concept: 'Refleksi Titik terhadap Garis y = -x', difficulty: 0.64, diffCat: 'Sedang', discrimination: 0.42, discCat: 'Baik', validity: 0.59, valCat: 'Valid', quality: 'Baik', recommendation: 'Pertahankan Butir' },
-    { no: 3, concept: 'Rotasi +90° terhadap Pusat O(0,0)', difficulty: 0.38, diffCat: 'Sukar', discrimination: 0.35, discCat: 'Baik', validity: 0.52, valCat: 'Valid', quality: 'Baik', recommendation: 'Pertahankan Butir' },
-    { no: 4, concept: 'Dilatasi Segitiga & Perubahan Luas 2D', difficulty: 0.78, diffCat: 'Mudah', discrimination: 0.22, discCat: 'Cukup', validity: 0.45, valCat: 'Valid', quality: 'Perlu Revisi', recommendation: 'Revisi Distraktor Tier 2' },
-    { no: 5, concept: 'Komposisi Perkalian Matriks (T2 ∘ T1)', difficulty: 0.55, diffCat: 'Sedang', discrimination: 0.51, discCat: 'Sangat Baik', validity: 0.68, valCat: 'Valid', quality: 'Baik', recommendation: 'Pertahankan Butir' },
-    { no: 6, concept: 'Refleksi Titik terhadap Garis Vertikal x = h', difficulty: 0.61, diffCat: 'Sedang', discrimination: 0.44, discCat: 'Baik', validity: 0.60, valCat: 'Valid', quality: 'Baik', recommendation: 'Pertahankan Butir' },
-    { no: 7, concept: 'Translasi Persamaan Garis Linear Bidang', difficulty: 0.45, diffCat: 'Sedang', discrimination: 0.49, discCat: 'Sangat Baik', validity: 0.62, valCat: 'Valid', quality: 'Baik', recommendation: 'Pertahankan Butir' },
-    { no: 8, concept: 'Refleksi Garis terhadap Sumbu Koordinat', difficulty: 0.88, diffCat: 'Terlalu Mudah', discrimination: 0.16, discCat: 'Jelek', validity: 0.31, valCat: 'Tidak Valid', quality: 'Diganti', recommendation: 'Ganti dengan Konsep Lebih Menantang' },
-    { no: 9, concept: 'Dilatasi dengan Pusat Sembarang (a, b)', difficulty: 0.50, diffCat: 'Sedang', discrimination: 0.46, discCat: 'Sangat Baik', validity: 0.64, valCat: 'Valid', quality: 'Baik', recommendation: 'Pertahankan Butir' },
-    { no: 10, concept: 'Rotasi 180° & Refleksi Titik Asal O(0,0)', difficulty: 0.56, diffCat: 'Sedang', discrimination: 0.47, discCat: 'Sangat Baik', validity: 0.66, valCat: 'Valid', quality: 'Baik', recommendation: 'Pertahankan Butir' }
-  ],
-  remedialNotes: [
-    {
-      id: 1,
-      studentName: 'Budi Pratama (XI MIPA 2)',
-      concept: 'Pertukaran Posisi Koordinat pada Refleksi Garis y = -x',
-      date: '23 Okt 2026, 15:40',
-      note: 'Diberikan lembar kerja eksplorasi visual GeoGebra interaktif untuk menarik titik sembarang melintasi cermin y = -x. Ditekankan hubungan pertukaran koordinat dan negasi tanda (x, y) → (-y, -x).',
-      teacher: 'Bambang Hermanto, S.Pd., M.Si.'
-    },
-    {
-      id: 2,
-      studentName: 'Citra Lestari (XI MIPA 2)',
-      concept: 'Pemahaman Luas Bangun Hasil Dilatasi Skala k',
-      date: '22 Okt 2026, 11:20',
-      note: 'Diberikan latihan pembuktian geometri menggunakan petak satuan persegi, memperlihatkan bahwa perbesaran dua arah (alas dan tinggi) menghasilkan pertambahan luas sebesar k², bukan k.',
-      teacher: 'Bambang Hermanto, S.Pd., M.Si.'
-    },
-    {
-      id: 3,
-      studentName: 'Eko Prasetyo (XI MIPA 2)',
-      concept: 'Urutan Komposisi Matriks Pengali',
-      date: '21 Okt 2026, 09:15',
-      note: 'Penguatan konsep fungsi komposisi (f ∘ g)(x) = f(g(x)). Diberikan drill perkalian matriks dari arah kanan ke kiri (M₂ × M₁).',
-      teacher: 'Bambang Hermanto, S.Pd., M.Si.'
-    }
-  ],
-  proctoringLogs: [
-    { time: '23 Okt 2026, 10:42', name: 'Budi Pratama', class: 'XI MIPA 2', event: 'Pindah Tab Browser (Keluar jendela)', severity: 'berat', warn: 'Peringatan ke-3 Ditampilkan', action: 'Beri Peringatan Lisan' },
-    { time: '23 Okt 2026, 10:38', name: 'Budi Pratama', class: 'XI MIPA 2', event: 'Pindah Tab Browser', severity: 'sedang', warn: 'Peringatan ke-2 Ditampilkan', action: 'Pantau Layar' },
-    { time: '23 Okt 2026, 10:25', name: 'Eko Prasetyo', class: 'XI MIPA 2', event: 'Keluar dari Mode Fullscreen', severity: 'ringan', warn: 'Peringatan Otomatis Dikirim', action: 'Kunci Ulang Layar' },
-    { time: '23 Okt 2026, 10:19', name: 'Ahmad Dahlan', class: 'XI MIPA 2', event: 'Upaya Copy Teks Soal', severity: 'ringan', warn: 'Aksi Dicegah Sistem', action: 'Aman' },
-    { time: '23 Okt 2026, 10:14', name: 'Rahmat Hidayat', class: 'XI MIPA 2', event: 'Pindah Tab Browser (< 3 detik)', severity: 'ringan', warn: 'Peringatan Otomatis Dikirim', action: 'Aman' }
-  ]
+  questionBank: [],
+  misconceptions: [],
+  itemsAnalysis: [],
+  remedialNotes: [],
+  proctoringLogs: []
 };
+
+
+// Dynamic Select Populators for Database Integration
+function populateRemedialStudentSelect() {
+  const select = document.getElementById('remedialStudentSelect');
+  if (!select) return;
+  const currentVal = select.value;
+  select.innerHTML = '<option value="" disabled selected id="remedialStudentSelectPlaceholder">-- Pilih Siswa dari Database --</option>';
+  TEACHER_STATE.students.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = `${s.name} (${s.class})`;
+    opt.id = `remedialStudentOpt_${s.id}`;
+    opt.textContent = `${s.name} (${s.class}) — Skor: ${s.score}`;
+    select.appendChild(opt);
+  });
+  if (currentVal) select.value = currentVal;
+}
+
+function populateClassFilterSelects() {
+  const globalFilter = document.getElementById('globalClassFilter');
+  const classFilter = document.getElementById('filterClassSelect');
+  const assessClassTarget = document.getElementById('assessClassTarget');
+
+  if (globalFilter) {
+    globalFilter.innerHTML = '<option value="all" id="globalClassOptAll">Semua Rombel (Multi-Kelas)</option>';
+    TEACHER_STATE.classes.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.name;
+      opt.id = `globalClassOpt_${c.id}`;
+      opt.textContent = `Kelas ${c.name} (${c.studentCount} Siswa)`;
+      globalFilter.appendChild(opt);
+    });
+  }
+
+  if (classFilter) {
+    classFilter.innerHTML = '<option value="all" id="filterClassOptAll">Semua Rombel/Kelas</option>';
+    TEACHER_STATE.classes.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.name;
+      opt.id = `filterClassOpt_${c.id}`;
+      opt.textContent = c.name;
+      classFilter.appendChild(opt);
+    });
+  }
+
+  if (assessClassTarget) {
+    assessClassTarget.innerHTML = '<option value="" disabled selected id="assessClassTargetPlaceholder">-- Pilih Kelas Sasaran dari Database --</option>';
+    TEACHER_STATE.classes.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c.name;
+      opt.id = `targetClassOpt_${c.id}`;
+      opt.textContent = `${c.name} (${c.studentCount} Siswa)`;
+      assessClassTarget.appendChild(opt);
+    });
+  }
+}
 
 // API Loader for Teacher Dashboard
 async function loadTeacherDataFromApi() {
@@ -506,6 +172,7 @@ async function loadTeacherDataFromApi() {
       }));
       renderClassCards();
       renderClassComparison();
+      populateClassFilterSelects();
     }
 
     if (questionsRes && questionsRes.success && Array.isArray(questionsRes.data) && questionsRes.data.length > 0) {
@@ -514,6 +181,10 @@ async function loadTeacherDataFromApi() {
     }
 
     if (studentsRes && studentsRes.success && Array.isArray(studentsRes.data) && studentsRes.data.length > 0) {
+      TEACHER_STATE.students = studentsRes.data;
+      populateRemedialStudentSelect();
+      initAttentionStudents();
+      updateOverviewStatsByClass('all');
       TEACHER_STATE.students = studentsRes.data;
       if (typeof window.refreshStudentProfilesTable === 'function') {
         window.refreshStudentProfilesTable();
@@ -554,6 +225,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   initDashboardTheme();
   initSidebarNavigation();
   initAssessmentSelector();
+  populateRemedialStudentSelect();
+  populateClassFilterSelects();
+  updateOverviewStatsByClass("all");
   initMultiClassModule();
   initQuestionBankModule();
   initStudentProfilesTable();
@@ -761,9 +435,9 @@ function initStudentProfilesTable() {
 
     if (filtered.length === 0) {
       tbody.innerHTML = `
-        <tr>
-          <td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);">
-            Tidak ditemukan data siswa yang cocok dengan filter.
+        <tr id="studentProfilesEmptyRow">
+          <td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);" id="studentProfilesEmptyState">
+            Belum ada data siswa. Data siswa akan dimuat secara dinamis dari database.
           </td>
         </tr>
       `;
@@ -776,10 +450,10 @@ function initStudentProfilesTable() {
       const isSuspect = s.cheatCount > 1;
 
       return `
-        <tr>
+        <tr id="studentRow_${s.id}">
           <td>${idx + 1}</td>
           <td>
-            <strong>${s.name}</strong>
+            <strong id="studentName_${s.id}">${s.name}</strong>
             <div style="font-size:0.74rem; color:var(--text-muted); font-family:var(--font-mono);">${s.id}</div>
           </td>
           <td>${s.class}</td>
@@ -917,16 +591,25 @@ function initMisconceptionsMap() {
   const container = document.getElementById('misconceptionsContainer');
   if (!container) return;
 
-  container.innerHTML = TEACHER_STATE.misconceptions.map(m => `
-    <div class="misconception-card priority-${m.severity}">
-      <div class="misconception-header">
-        <h4 class="misconception-title">${m.title}</h4>
-        <span class="status-badge miskonsepsi">${m.percentage} (${m.count} Siswa)</span>
+  if (TEACHER_STATE.misconceptions.length === 0) {
+    container.innerHTML = `
+      <div id="misconceptionsEmptyState" style="text-align: center; padding: 36px 20px; color: var(--text-muted); background: var(--bg-surface); border: 1px dashed var(--border-color); border-radius: var(--radius-sm); grid-column: 1 / -1;">
+        Belum ada data miskonsepsi terdeteksi. Peta miskonsepsi akan terbentuk otomatis setelah siswa menyelesaikan pengerjaan asesmen diagnostik di database.
       </div>
-      <p class="misconception-desc">${m.desc}</p>
+    `;
+    return;
+  }
+
+  container.innerHTML = TEACHER_STATE.misconceptions.map(m => `
+    <div class="misconception-card priority-${m.severity}" id="misconceptionCard_${m.id}">
+      <div class="misconception-header">
+        <h4 class="misconception-title" id="misconceptionTitle_${m.id}">${m.title}</h4>
+        <span class="status-badge miskonsepsi" id="misconceptionBadge_${m.id}">${m.percentage} (${m.count} Siswa)</span>
+      </div>
+      <p class="misconception-desc" id="misconceptionDesc_${m.id}">${m.desc}</p>
       <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: var(--text-dim);">
-        <span>Terdeteksi pada: <strong>${m.questionRef}</strong></span>
-        <button type="button" class="btn btn-outline btn-sm" onclick="quickRemedial('${m.title}')">
+        <span id="misconceptionRef_${m.id}">Terdeteksi pada: <strong>${m.questionRef}</strong></span>
+        <button type="button" class="btn btn-outline btn-sm" id="btnQuickRemedial_${m.id}" onclick="quickRemedial('${m.title}')">
           Rencana Remedial &rarr;
         </button>
       </div>
@@ -947,26 +630,37 @@ function initItemAnalysisTable() {
   const tbody = document.getElementById('itemAnalysisBody');
   if (!tbody) return;
 
+  if (TEACHER_STATE.itemsAnalysis.length === 0) {
+    tbody.innerHTML = `
+      <tr id="itemAnalysisEmptyRow">
+        <td colspan="7" style="text-align:center; padding:32px; color:var(--text-muted);" id="itemAnalysisEmptyState">
+          Belum ada data analisis psikometrik butir soal. Analisis tingkat kesukaran dan daya beda akan dihitung otomatis saat siswa menyelesaikan asesmen.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
   tbody.innerHTML = TEACHER_STATE.itemsAnalysis.map(it => {
     const isProblematic = it.quality !== 'Baik';
     return `
-      <tr>
+      <tr id="itemAnalysisRow_${it.no}">
         <td style="font-weight:700;">No. ${it.no}</td>
         <td>
-          <strong>${it.concept}</strong>
+          <strong id="itemConcept_${it.no}">${it.concept}</strong>
         </td>
         <td>
-          <span style="font-family:var(--font-mono); font-weight:600;">${it.difficulty.toFixed(2)}</span>
+          <span style="font-family:var(--font-mono); font-weight:600;" id="itemDiff_${it.no}">${it.difficulty.toFixed(2)}</span>
           <span style="font-size:0.75rem; color:var(--text-muted); margin-left:4px;">(${it.diffCat})</span>
         </td>
         <td>
-          <span style="font-family:var(--font-mono); font-weight:600; color:${it.discrimination > 0.3 ? 'var(--status-paham)' : 'var(--status-miskonsepsi)'};">
+          <span style="font-family:var(--font-mono); font-weight:600; color:${it.discrimination > 0.3 ? 'var(--status-paham)' : 'var(--status-miskonsepsi)'};" id="itemDisc_${it.no}">
             ${it.discrimination.toFixed(2)}
           </span>
           <span style="font-size:0.75rem; color:var(--text-muted); margin-left:4px;">(${it.discCat})</span>
         </td>
         <td>
-          <span style="font-family:var(--font-mono); font-weight:600;">${it.validity.toFixed(2)}</span>
+          <span style="font-family:var(--font-mono); font-weight:600;" id="itemVal_${it.no}">${it.validity.toFixed(2)}</span>
           <span class="status-badge ${it.valCat === 'Valid' ? 'paham' : 'tidak-paham'}" style="margin-left:4px; padding:1px 6px;">
             ${it.valCat}
           </span>
@@ -993,15 +687,24 @@ function initAttentionStudents() {
 
   const attentionList = TEACHER_STATE.students.filter(s => s.profile === 'miskonsepsi' || s.profile === 'tidak-paham').slice(0, 5);
 
+  if (attentionList.length === 0) {
+    grid.innerHTML = `
+      <div id="attentionStudentsEmptyState" style="background: var(--bg-surface); border: 1px dashed var(--border-color); border-radius: var(--radius-sm); padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.84rem;">
+        Tidak ada siswa yang memerlukan perhatian mendesak saat ini.
+      </div>
+    `;
+    return;
+  }
+
   grid.innerHTML = attentionList.map(s => `
-    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 12px; display:flex; justify-content:space-between; align-items:center;">
+    <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 12px; display:flex; justify-content:space-between; align-items:center;" id="attentionRow_${s.id}">
       <div>
-        <strong style="font-size: 0.88rem; color: var(--text-main); display:block;">${s.name}</strong>
-        <span style="font-size: 0.74rem; color: var(--status-tidak-paham);">
+        <strong style="font-size: 0.88rem; color: var(--text-main); display:block;" id="attentionName_${s.id}">${s.name}</strong>
+        <span style="font-size: 0.74rem; color: var(--status-tidak-paham);" id="attentionDesc_${s.id}">
           Miskonsepsi berulang: ${s.mCount} Butir Salah
         </span>
       </div>
-      <button type="button" class="btn btn-outline btn-sm" onclick="openRemedialFor('${s.name}')">
+      <button type="button" class="btn btn-outline btn-sm" id="btnAttentionRemedial_${s.id}" onclick="openRemedialFor('${s.name}')">
         Bimbingan
       </button>
     </div>
@@ -1070,12 +773,23 @@ function initProctoringLogs() {
   const tbody = document.getElementById('proctoringLogBody');
   if (!tbody) return;
 
-  tbody.innerHTML = TEACHER_STATE.proctoringLogs.map(l => `
-    <tr>
+  if (TEACHER_STATE.proctoringLogs.length === 0) {
+    tbody.innerHTML = `
+      <tr id="proctoringLogEmptyRow">
+        <td colspan="7" style="text-align:center; padding:32px; color:var(--text-muted);" id="proctoringLogEmptyState">
+          Belum ada rekaman pelanggaran integritas. Log pengawasan ujian akan tercatat otomatis saat sesi berlangsung.
+        </td>
+      </tr>
+    `;
+    return;
+  }
+
+  tbody.innerHTML = TEACHER_STATE.proctoringLogs.map((l, idx) => `
+    <tr id="proctoringLogRow_${idx}">
       <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">${l.time}</td>
-      <td><strong>${l.name}</strong></td>
-      <td>${l.class}</td>
-      <td>${l.event}</td>
+      <td><strong id="proctorStudentName_${idx}">${l.name}</strong></td>
+      <td id="proctorStudentClass_${idx}">${l.class}</td>
+      <td id="proctorEvent_${idx}">${l.event}</td>
       <td>
         <span class="cheat-badge-severity ${l.severity}">
           ${l.severity}
@@ -1661,14 +1375,63 @@ function initMultiClassModule() {
 
 function updateOverviewStatsByClass(className) {
   const kpiTotal = document.getElementById('kpiTotalStudents');
-  if (kpiTotal) {
-    if (!className || className === 'all') {
-      kpiTotal.textContent = TEACHER_STATE.students.length;
-    } else {
-      const classCount = TEACHER_STATE.students.filter(s => s.class === className).length;
-      kpiTotal.textContent = classCount;
-    }
+  const statTotal = document.getElementById('statTotalStudents');
+  const statPaham = document.getElementById('statPahamStudents');
+  const statMis = document.getElementById('statMiskonsepsiStudents');
+  const statTidak = document.getElementById('statTidakPahamStudents');
+
+  const filtered = (!className || className === 'all')
+    ? TEACHER_STATE.students
+    : TEACHER_STATE.students.filter(s => s.class === className);
+
+  const total = filtered.length;
+  if (kpiTotal) kpiTotal.textContent = total;
+  if (statTotal) statTotal.textContent = `${total} Siswa`;
+
+  const pahamCount = filtered.filter(s => s.profile === 'paham').length;
+  const misCount = filtered.filter(s => s.profile === 'miskonsepsi').length;
+  const tidakCount = filtered.filter(s => s.profile === 'tidak-paham').length;
+
+  if (statPaham) statPaham.textContent = `${pahamCount} Siswa`;
+  if (statMis) statMis.textContent = `${misCount} Siswa`;
+  if (statTidak) statTidak.textContent = `${tidakCount} Siswa`;
+
+  const pahamPct = total ? Math.round((pahamCount / total) * 100) : 0;
+  const misPct = total ? Math.round((misCount / total) * 100) : 0;
+  const tidakPct = total ? (100 - pahamPct - misPct) : 0;
+
+  const ratePaham = document.getElementById('statPahamRate');
+  if (ratePaham) ratePaham.textContent = `${pahamPct}% dari Kelas`;
+  const rateMis = document.getElementById('statMiskonsepsiRate');
+  if (rateMis) rateMis.textContent = `${misPct}% Butuh Remedial`;
+  const rateTidak = document.getElementById('statTidakPahamRate');
+  if (rateTidak) rateTidak.textContent = `${tidakPct}% Belum Menguasai`;
+
+  const barPaham = document.getElementById('barSegmentPaham');
+  if (barPaham) {
+    barPaham.style.width = `${pahamPct}%`;
+    barPaham.textContent = `Paham ${pahamPct}% (${pahamCount} Siswa)`;
+    barPaham.title = `Paham: ${pahamCount} Siswa (${pahamPct}%)`;
   }
+  const barMis = document.getElementById('barSegmentMiskonsepsi');
+  if (barMis) {
+    barMis.style.width = `${misPct}%`;
+    barMis.textContent = `Miskonsepsi ${misPct}% (${misCount})`;
+    barMis.title = `Miskonsepsi: ${misCount} Siswa (${misPct}%)`;
+  }
+  const barTidak = document.getElementById('barSegmentTidakPaham');
+  if (barTidak) {
+    barTidak.style.width = `${tidakPct}%`;
+    barTidak.textContent = `${tidakPct}% (${tidakCount})`;
+    barTidak.title = `Tidak Paham: ${tidakCount} Siswa (${tidakPct}%)`;
+  }
+
+  const matPaham = document.getElementById('matrixPahamCountBadge');
+  if (matPaham) matPaham.textContent = `${pahamCount} Siswa (${pahamPct}%)`;
+  const matMis = document.getElementById('matrixMiskonsepsiCountBadge');
+  if (matMis) matMis.textContent = `${misCount} Siswa (${misPct}%)`;
+  const matTidak = document.getElementById('matrixTidakPahamCountBadge');
+  if (matTidak) matTidak.textContent = `${tidakCount} Siswa (${tidakPct}%)`;
 }
 
 function renderClassCards() {
@@ -1676,7 +1439,7 @@ function renderClassCards() {
   if (!container) return;
 
   container.innerHTML = TEACHER_STATE.classes.map(cls => `
-    <div class="class-card">
+    <div class="class-card" id="classCard_${cls.id}">
       <div class="class-card-header">
         <div class="class-title-wrap">
           <div class="class-name-heading">
@@ -2184,9 +1947,9 @@ function renderQuestionBankList() {
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div style="text-align:center; padding:40px; background:var(--bg-elevated); border:1px solid var(--border-color); border-radius:var(--radius-sm); color:var(--text-muted);">
-        <p style="margin-bottom:8px; font-weight:600;">Tidak ditemukan butir soal yang sesuai filter pencarian.</p>
-        <button type="button" class="btn btn-outline btn-sm" onclick="resetQbFilters()">Reset Filter</button>
+      <div id="qbEmptyStateContainer" style="text-align:center; padding:48px 24px; background:var(--bg-elevated); border:1px dashed var(--border-color); border-radius:var(--radius-sm); color:var(--text-muted);">
+        <p id="qbEmptyStateText" style="margin-bottom:12px; font-weight:600; font-size:0.95rem;">Belum ada butir soal di Bank Soal. Data butir soal siap dimuat dari database.</p>
+        <button type="button" class="btn btn-primary btn-sm" id="btnEmptyAddQuestion" onclick="document.getElementById('btnOpenAddQuestionBankModal')?.click()">+ Tambah Butir Soal Baru</button>
       </div>
     `;
     return;
@@ -2196,7 +1959,7 @@ function renderQuestionBankList() {
     const diffBadgeClass = q.difficulty === 'Mudah' ? 'miskonsepsi' : q.difficulty === 'Sedang' ? 'paham' : 'tidak-paham';
 
     return `
-      <div class="qb-card">
+      <div class="qb-card" id="qbCard_${q.id}">
         <!-- Header Strip -->
         <div class="qb-card-header">
           <div class="qb-badge-group">
