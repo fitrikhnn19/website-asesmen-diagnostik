@@ -6,17 +6,19 @@
 
 // ============================================================================
 // ============================================================================
-// 1. DATA SOAL ASESMEN DIAGNOSTIK 3-TINGKAT (MOCK DATA MATEMATIKA — TRANSFORMASI GEOMETRI)
+// 1. DATA SOAL ASESMEN DIAGNOSTIK 3-TINGKAT (MOCK DATA MATEMATIKA)
 // ============================================================================
 const ASSESSMENTS_DATABASE = {
   'DIAGNO-2026': {
     token: 'DIAGNO-2026',
-    title: 'Asesmen Diagnostik Tiga Tingkat: Transformasi Geometri (Translasi, Refleksi, Rotasi, Dilatasi)',
+    title: 'Asesmen Diagnostik Tiga Tingkat: Matematika (Kelas XI)',
     subject: 'Matematika',
     grade: 'Fase F / Kelas XI',
+    school: 'SMAN 7 Banjarmasin',
+    developerInstitution: 'Fakultas Keguruan dan Ilmu Pendidikan, Universitas Lambung Mangkurat',
     teacher: 'Bambang Hermanto, S.Pd., M.Si.',
     durationMinutes: 30,
-    instructions: 'Asesmen ini bertujuan mendiagnosis struktur pemahaman konsep dan miskonsepsi Anda pada materi Transformasi Geometri. Kerjakan secara mandiri dengan jujur tanpa bantuan alat hitung otomatis.',
+    instructions: 'Asesmen ini bertujuan mendiagnosis struktur pemahaman konsep dan miskonsepsi Anda pada mata pelajaran Matematika. Kerjakan secara mandiri dengan jujur tanpa bantuan alat hitung otomatis.',
     questions: [
       {
         id: 'q1',
@@ -258,7 +260,7 @@ const ASSESSMENTS_DATABASE = {
       {
         id: 'q5',
         number: 5,
-        concept: 'Komposisi Matriks Transformasi $(T_2 \\circ T_1)$',
+        concept: 'Komposisi Perkalian Matriks $(T_2 \\circ T_1)$',
         stem: 'Sebuah transformasi $T_1$ bersesuaian dengan matriks $M_1 = \\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}$ (refleksi terhadap garis $y = x$) dan $T_2$ bersesuaian dengan matriks $M_2 = \\begin{pmatrix} 0 & -1 \\\\ 1 & 0 \\end{pmatrix}$ (rotasi $+90^\\circ$). Matriks tunggal yang mewakili komposisi transformasi $(T_2 \\circ T_1)$ (transformasi $T_1$ dilanjutkan oleh $T_2$) adalah:',
         mediaSvg: `
           <svg viewBox="0 0 460 220" width="100%" height="190" xmlns="http://www.w3.org/2000/svg">
@@ -291,7 +293,7 @@ const ASSESSMENTS_DATABASE = {
             <text x="230" y="192" fill="#c7d2fe" font-size="12" font-weight="700" text-anchor="middle">Aturan: (T₂ ∘ T₁) mewakili perkalian matriks M = M₂ × M₁ (Kanan ke Kiri)</text>
           </svg>
         `,
-        mediaCaption: 'Gambar 5. Alur komposisi transformasi T1 dilanjutkan T2 berkorespondensi dengan M2 × M1.',
+        mediaCaption: 'Gambar 5. Alur komposisi T1 dilanjutkan T2 berkorespondensi dengan M2 × M1.',
         tier1: {
           key: 'A',
           options: [
@@ -312,7 +314,7 @@ const ASSESSMENTS_DATABASE = {
             { id: 'E', text: 'Kedua transformasi saling meniadakan karena determinan masing-masing bernilai nol.' }
           ]
         },
-        misconceptionNote: 'Miskonsepsi Urutan Komposisi Transformasi: Siswa terbiasa membaca dari kiri ke kanan sehingga menghitung $M_1 \\times M_2$, atau beranggapan perkalian matriks bersifat komutatif. Padahal $(T_2 \\circ T_1)$ berarti $T_1$ bekerja lebih dahulu, sehingga matriks pengalinya adalah $M_2 \\times M_1$.'
+        misconceptionNote: 'Miskonsepsi Urutan Komposisi Operasi: Siswa terbiasa membaca dari kiri ke kanan sehingga menghitung $M_1 \\times M_2$, atau beranggapan perkalian matriks bersifat komutatif. Padahal $(T_2 \\circ T_1)$ berarti $T_1$ bekerja lebih dahulu, sehingga matriks pengalinya adalah $M_2 \\times M_1$.'
       },
       {
         id: 'q6',
@@ -376,34 +378,40 @@ const ASSESSMENTS_DATABASE = {
       }
     ]
   },
-  'TRANS-GEO': {
-    token: 'TRANS-GEO',
-    title: 'Asesmen Diagnostik Matematika — Komposisi Matriks & Transformasi (XI)',
-    subject: 'Matematika',
-    grade: 'Fase F / Kelas XI',
-    teacher: 'Bambang Hermanto, S.Pd., M.Si.',
-    durationMinutes: 30,
-    instructions: 'Asesmen komposisi transformasi geometri tiga tingkat.',
-    questions: [] // Uses default fallback
-  },
   'MAT-XI': {
     token: 'MAT-XI',
-    title: 'Asesmen Diagnostik Matematika — Transformasi Geometri Lanjutan (XI)',
+    title: 'Asesmen Diagnostik Matematika — Kelas XI',
     subject: 'Matematika',
     grade: 'Fase F / Kelas XI',
-    teacher: 'Dra. Siti Rahmawati, M.Pd.',
-    durationMinutes: 35,
-    instructions: 'Asesmen diagnostik tiga tingkat geometri analitik dan pemodelan.',
-    questions: []
+    school: 'SMAN 7 Banjarmasin',
+    developerInstitution: 'Fakultas Keguruan dan Ilmu Pendidikan, Universitas Lambung Mangkurat',
+    teacher: 'Bambang Hermanto, S.Pd., M.Si.',
+    durationMinutes: 30,
+    instructions: 'Asesmen diagnostik matematika three-tier.',
+    questions: [] // Uses default fallback
   },
   'MAT-X': {
     token: 'MAT-X',
-    title: 'Asesmen Diagnostik Matematika — Fungsi & Persamaan Aljabar (X)',
+    title: 'Asesmen Diagnostik Matematika — Kelas X',
     subject: 'Matematika',
     grade: 'Fase E / Kelas X',
+    school: 'SMAN 7 Banjarmasin',
+    developerInstitution: 'Fakultas Keguruan dan Ilmu Pendidikan, Universitas Lambung Mangkurat',
     teacher: 'Dewi Sartika, S.Pd.',
     durationMinutes: 40,
-    instructions: 'Asesmen aljabar diagnostik three-tier.',
+    instructions: 'Asesmen diagnostik matematika three-tier.',
+    questions: []
+  },
+  'MAT-XII': {
+    token: 'MAT-XII',
+    title: 'Asesmen Diagnostik Matematika — Kelas XII',
+    subject: 'Matematika',
+    grade: 'Fase F / Kelas XII',
+    school: 'SMAN 7 Banjarmasin',
+    developerInstitution: 'Fakultas Keguruan dan Ilmu Pendidikan, Universitas Lambung Mangkurat',
+    teacher: 'Dr. Hendra Gunawan, M.Si.',
+    durationMinutes: 35,
+    instructions: 'Asesmen diagnostik matematika three-tier.',
     questions: []
   }
 };
@@ -557,6 +565,19 @@ function recordProctoringIncident(reason) {
 
   notify(`⚠️ Pelanggaran Integritas Ujian ke-${incidentCount} dicatat dalam log pengawasan guru!`);
   saveProgressToStorage();
+
+  // Sync proctoring violation to Backend API
+  if (state.student.attemptId) {
+    fetch(`/api/student/exam/${encodeURIComponent(state.student.attemptId)}/proctor-event`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_type: 'pindah_tab',
+        violation_text: reason,
+        severity: incidentCount >= 3 ? 'berat' : 'ringan'
+      })
+    }).catch(err => console.warn('Anti-cheat sync error:', err));
+  }
 }
 
 function closeProctorModal() {
@@ -586,11 +607,13 @@ function parseUrlAndSessionData() {
   const activeName = nameParam || sessionObj?.name || '';
   const activeClass = classParam || sessionObj?.class || '';
   const activeRoll = rollParam || sessionObj?.roll || '';
+  const activeAttemptId = urlParams.get('attemptId') || sessionObj?.attemptId || ('att-' + Date.now());
 
   state.student.token = activeToken;
   state.student.name = activeName;
   state.student.class = activeClass;
   state.student.roll = activeRoll;
+  state.student.attemptId = activeAttemptId;
 
   // Set assessment database
   if (ASSESSMENTS_DATABASE[activeToken]) {
@@ -616,8 +639,14 @@ function parseUrlAndSessionData() {
   } else if (viewParam === 'briefing') {
     state.currentView = 'briefing';
   } else if (activeName && activeClass) {
-    // Siswa yang token dan identitasnya valid langsung diarahkan ke lembar soal butir pertama (PRD F-14 & Feature 05 line 24)
-    state.currentView = 'exam';
+    // Berikan dulu petunjuk pengerjaan (briefing) sebelum mulai mengerjakan soal
+    const hasProgress = state.answers && state.answers.some(a => a.tier1 || a.tier2 || a.tier3);
+    if (hasProgress && viewParam === 'exam') {
+      state.currentView = 'exam';
+    } else {
+      // Selalu tampilkan petunjuk pengerjaan ujian terlebih dahulu
+      state.currentView = 'briefing';
+    }
   } else {
     // Perlu verifikasi identitas / token
     state.currentView = 'gateway';
@@ -755,9 +784,17 @@ function renderGatewayView(container) {
 
     <main class="gateway-view-wrap">
       <div class="gateway-card">
-        <span class="gateway-intro-tag">Akses Pengerjaan Ujian</span>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px;">
+          <span class="gateway-intro-tag" style="margin-bottom:0;">Akses Pengerjaan Ujian</span>
+          <span style="font-size:0.75rem; font-weight:700; color:var(--primary); background:var(--primary-subtle); padding:3px 8px; border-radius:4px;">
+            SMAN 7 Banjarmasin &bull; FKIP ULM
+          </span>
+        </div>
         <h1 class="gateway-heading">Selamat Datang di Portal Asesmen</h1>
-        <p class="gateway-subtext">Masukkan token asesmen resmi yang diberikan oleh guru Anda untuk memulai lembar soal diagnostik.</p>
+        <p class="gateway-subtext">Masukkan token asesmen resmi yang diberikan oleh guru Matematika Anda untuk memulai lembar soal diagnostik tiga tingkat.</p>
+        <div style="font-size:0.78rem; color:var(--text-dim); margin-top:-6px; margin-bottom:14px;">
+          Dikembangkan oleh <strong>Fakultas Keguruan dan Ilmu Pendidikan, Universitas Lambung Mangkurat</strong> untuk <strong>SMAN 7 Banjarmasin</strong>.
+        </div>
 
         <div class="gateway-step-container">
           <!-- Tahap 1: Verifikasi Token -->
@@ -772,9 +809,9 @@ function renderGatewayView(container) {
             
             <div class="token-quick-chips">
               <span class="token-quick-label">Pilihan token aktif:</span>
-              <button type="button" class="token-quick-btn" onclick="selectQuickToken('DIAGNO-2026')">DIAGNO-2026 (Transformasi Geometri XI)</button>
-              <button type="button" class="token-quick-btn" onclick="selectQuickToken('TRANS-GEO')">TRANS-GEO</button>
+              <button type="button" class="token-quick-btn" onclick="selectQuickToken('DIAGNO-2026')">DIAGNO-2026 (Matematika XI)</button>
               <button type="button" class="token-quick-btn" onclick="selectQuickToken('MAT-XI')">MAT-XI</button>
+              <button type="button" class="token-quick-btn" onclick="selectQuickToken('MAT-X')">MAT-X</button>
             </div>
           </form>
 
@@ -858,8 +895,8 @@ function renderGatewayView(container) {
         roll
       }));
 
-      notify(`Identitas terverifikasi: ${name} (${sClass}). Membuka lembar soal...`);
-      state.currentView = 'exam';
+      notify(`Identitas terverifikasi: ${name} (${sClass}). Membuka petunjuk pengerjaan...`);
+      state.currentView = 'briefing';
       renderAppView();
     });
   }
@@ -948,26 +985,42 @@ function renderBriefingView(container) {
     <main class="briefing-view-wrap">
       <div class="briefing-container">
         <div class="briefing-card">
-          <span class="briefing-header-tag">Konfirmasi Sebelum Mulai</span>
+          <span class="briefing-header-tag">Petunjuk &amp; Konfirmasi Asesmen</span>
           <h1 class="briefing-title">${asm.title}</h1>
 
           <!-- Meta Grid -->
           <div class="briefing-meta-grid">
             <div class="meta-item">
+              <div class="meta-item-label">Nama Siswa</div>
+              <div class="meta-item-value highlight">${std.name || '-'}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">Kelas / Rombel</div>
+              <div class="meta-item-value">${std.class || asm.grade}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">Nomor Absen</div>
+              <div class="meta-item-value">${std.roll || '-'}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">Token Ujian</div>
+              <div class="meta-item-value highlight" style="font-family:var(--font-mono);">${state.student.token}</div>
+            </div>
+            <div class="meta-item">
               <div class="meta-item-label">Mata Pelajaran</div>
-              <div class="meta-item-value highlight">${asm.subject}</div>
+              <div class="meta-item-value">${asm.subject}</div>
             </div>
             <div class="meta-item">
-              <div class="meta-item-label">Tingkat / Kelas</div>
-              <div class="meta-item-value">${asm.grade}</div>
+              <div class="meta-item-label">Sekolah Pelaksana</div>
+              <div class="meta-item-value highlight" style="color:var(--status-paham);">${asm.school || 'SMAN 7 Banjarmasin'}</div>
             </div>
             <div class="meta-item">
-              <div class="meta-item-label">Guru Pengampu</div>
-              <div class="meta-item-value">${asm.teacher}</div>
+              <div class="meta-item-label">Instansi Pengembang Web</div>
+              <div class="meta-item-value">${asm.developerInstitution || 'FKIP Universitas Lambung Mangkurat'}</div>
             </div>
             <div class="meta-item">
               <div class="meta-item-label">Jumlah Butir Soal</div>
-              <div class="meta-item-value">${asm.questions.length} Butir (3-Tingkat)</div>
+              <div class="meta-item-value">${(asm.questions && asm.questions.length) ? asm.questions.length : 4} Butir (3-Tingkat)</div>
             </div>
             <div class="meta-item">
               <div class="meta-item-label">Alokasi Waktu</div>
@@ -983,52 +1036,56 @@ function renderBriefingView(container) {
                 <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
               </svg>
-              Alur Menjawab Soal Tiga Tingkat (Three-Tier Diagnostic)
+              Petunjuk Cara Menjawab Soal Tiga Tingkat (Three-Tier Diagnostic)
             </h3>
+            <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:14px; line-height:1.5;">
+              Asesmen ini bertujuan mendiagnosis pemahaman konsep Anda secara akurat dan objektif. Setiap butir soal terdiri dari <strong>3 tahapan berurutan</strong>:
+            </p>
             <div class="guidance-steps-row">
               <div class="guidance-step-col">
                 <div class="step-num-badge">1</div>
-                <div class="step-title">Tingkat 1: Pilihan Jawaban</div>
-                <div class="step-desc">Pilihlah satu jawaban yang Anda anggap paling tepat atas pertanyaan yang diajukan.</div>
+                <div class="step-title">Tingkat 1: Pilihan Jawaban (A &ndash; E)</div>
+                <div class="step-desc">Pilihlah salah satu opsi jawaban (A, B, C, D, atau E) yang Anda yakini benar atas pertanyaan konsep matematika yang disajikan.</div>
               </div>
               <div class="guidance-step-col">
                 <div class="step-num-badge">2</div>
-                <div class="step-title">Tingkat 2: Pilihan Alasan</div>
-                <div class="step-desc">Pilihlah argumen ilmiah yang menjadi dasar mengapa Anda memilih jawaban pada Tingkat 1.</div>
+                <div class="step-title">Tingkat 2: Pilihan Alasan (A &ndash; E)</div>
+                <div class="step-desc">Pilihlah salah satu argumen atau alasan ilmiah (A, B, C, D, atau E) yang menjadi dasar mengapa Anda memilih jawaban pada Tingkat 1.</div>
               </div>
               <div class="guidance-step-col">
                 <div class="step-num-badge">3</div>
                 <div class="step-title">Tingkat 3: Derajat Keyakinan</div>
-                <div class="step-desc">Pilihlah apakah Anda <strong>Yakin</strong> atau <strong>Tidak Yakin</strong> dengan kombinasi jawaban Anda.</div>
+                <div class="step-desc">Pilihlah <strong>Yakin</strong> jika Anda benar-benar pasti dengan jawaban &amp; alasan Anda, atau <strong>Tidak Yakin</strong> jika Anda masih ragu-ragu/menebak.</div>
               </div>
             </div>
           </div>
 
-          <!-- Pakta Integritas & Anti-Cheat -->
+          <!-- Ketentuan & Tata Tertib Pengerjaan -->
           <div class="proctoring-notice-card">
             <div class="proctoring-notice-title">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
               </svg>
-              Ketentuan Integritas & Pengawasan Ujian Daring (Anti-Cheat PRD F-24 & F-25)
+              Ketentuan &amp; Tata Tertib Pengerjaan Ujian
             </div>
             <ul class="proctoring-notice-list">
-              <li>Sistem memantau dan mencatat secara otomatis apabila Anda <strong>berpindah tab atau meninggalkan jendela ujian</strong>.</li>
-              <li>Layar ujian akan dikunci penuh saat tombol mulai ditekan.</li>
-              <li>Fitur salin teks (copy-paste) dan menu konteks dinonaktifkan demi keaslian data diagnostik.</li>
-              <li>Seluruh jawaban tersimpan secara otomatis setiap detik ke memori lokal dan server.</li>
+              <li>Kerjakan setiap butir soal secara <strong>mandiri, jujur, dan sungguh-sungguh</strong> tanpa bantuan alat hitung otomatis agar profil pemahaman konsep Anda terpetakan secara akurat.</li>
+              <li>Alokasi waktu pengerjaan (<strong>${asm.durationMinutes} menit</strong>) akan mulai dihitung mundur saat Anda menekan tombol <strong>Mulai Kerjakan Soal Sekarang</strong> di bawah.</li>
+              <li>Seluruh pilihan jawaban Anda akan <strong>tersimpan secara otomatis (autosave)</strong> setiap kali Anda mengklik pilihan opsi.</li>
+              <li>Anda dapat berpindah antar-soal secara bebas dan menandai butir yang masih ragu-ragu melalui panel <strong>Navigasi Soal</strong> di sebelah kanan.</li>
+              <li>Tetaplah berada pada halaman ujian ini dan hindari menutup peramban atau berpindah tab selama ujian berlangsung untuk menjaga integritas asesmen.</li>
             </ul>
           </div>
 
           <label class="honor-agreement-label">
-            <input type="checkbox" id="honorCheck" required>
-            <span>Saya menyatakan siap mengerjakan asesmen ini secara mandiri, jujur, dan menaati seluruh tata tertib ujian.</span>
+            <input type="checkbox" id="honorCheck" required checked>
+            <span>Saya telah membaca dan memahami seluruh petunjuk pengerjaan ini serta siap mengerjakan ujian secara mandiri dan jujur.</span>
           </label>
 
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <button type="button" class="btn btn-secondary" onclick="returnToGateway()">&larr; Kembali</button>
-            <button type="button" class="btn btn-primary" id="btnStartActualExam" style="padding:12px 28px; font-size:1rem;">
-              Masuk Ruang Ujian & Mulai &rarr;
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:20px;">
+            <button type="button" class="btn btn-secondary" onclick="returnToGateway()">&larr; Kembali ke Identitas</button>
+            <button type="button" class="btn btn-primary" id="btnStartActualExam" style="padding:14px 32px; font-size:1.02rem; font-weight:700;">
+              Mulai Kerjakan Soal Sekarang &rarr;
             </button>
           </div>
         </div>
@@ -1042,8 +1099,12 @@ function renderBriefingView(container) {
   const honorCheck = document.getElementById('honorCheck');
   if (startBtn) {
     startBtn.addEventListener('click', () => {
-      if (honorCheck) honorCheck.checked = true;
-      notify('Memulai lembar soal... Mode pengawasan aktif!');
+      if (honorCheck && !honorCheck.checked) {
+        notify('Harap centang persetujuan petunjuk ujian terlebih dahulu.');
+        honorCheck.focus();
+        return;
+      }
+      notify('Memulai lembar soal... Waktu pengerjaan berjalan!');
       state.currentView = 'exam';
       renderAppView();
     });
@@ -1051,8 +1112,12 @@ function renderBriefingView(container) {
 }
 
 window.returnToGateway = function() {
-  state.currentView = 'gateway';
-  renderAppView();
+  if (window.location.search) {
+    window.location.href = 'index.html#token-gateway';
+  } else {
+    state.currentView = 'gateway';
+    renderAppView();
+  }
 };
 
 /* ==========================================================================
@@ -1091,6 +1156,7 @@ function renderExamView(container) {
         <div class="exam-meta-pill">
           <span class="exam-meta-subject">${asm.subject}</span>
           <span class="exam-meta-title" title="${asm.title}">${asm.title}</span>
+          <span style="font-size:0.7rem; font-weight:700; color:var(--status-paham); background:rgba(16,185,129,0.12); padding:2px 6px; border-radius:3px;">SMAN 7 Banjarmasin</span>
         </div>
 
         <!-- Student Badge -->
@@ -1426,6 +1492,35 @@ window.selectAnswerTier = function(tier, value) {
   curAns.answeredAt = Date.now();
   saveProgressToStorage();
   renderAppView();
+
+  // Sync autosave to backend API
+  if (state.student.attemptId && state.assessment && state.assessment.questions) {
+    const curQ = state.assessment.questions[state.currentQuestionIndex];
+    if (curQ) {
+      updateAutosavePill('saving');
+      fetch(`/api/student/exam/${encodeURIComponent(state.student.attemptId)}/save-response`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question_id: curQ.id,
+          tier1: curAns.tier1,
+          tier2: curAns.tier2,
+          tier3: curAns.tier3,
+          flagged: curAns.flagged
+        })
+      })
+      .then(res => res.json())
+      .then(d => {
+        if (d && d.success) {
+          updateAutosavePill('saved', new Date().toLocaleTimeString('id-ID'));
+        }
+      })
+      .catch(err => {
+        console.warn('Autosave sync network warning:', err);
+        updateAutosavePill('offline');
+      });
+    }
+  }
 };
 
 window.toggleQuestionFlag = function(index) {
@@ -1547,11 +1642,26 @@ window.closeSubmitModal = function() {
   if (modal) modal.classList.remove('open');
 };
 
-window.executeFinalSubmit = function() {
+window.executeFinalSubmit = async function() {
   closeSubmitModal();
   state.isSubmitted = true;
   saveProgressToStorage();
-  notify('Jawaban berhasil dikumpulkan! Menganalisis profil pemahaman...');
+  notify('Jawaban berhasil dikumpulkan! Mesin diagnostik menganalisis profil pemahaman...');
+
+  if (state.student.attemptId) {
+    try {
+      const res = await fetch(`/api/student/exam/${encodeURIComponent(state.student.attemptId)}/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const data = await res.json();
+      if (data && data.success) {
+        state.backendEvaluation = data.data;
+      }
+    } catch (err) {
+      console.warn('Backend evaluation network notice:', err);
+    }
+  }
 
   setTimeout(() => {
     state.currentView = 'results';
@@ -1562,7 +1672,7 @@ window.executeFinalSubmit = function() {
 
 /* --- Quick Demo Fillers for Testing --- */
 window.fillRealisticSampleAnswers = function() {
-  // Isi dengan profil bervariasi materi Transformasi Geometri:
+  // Isi dengan profil contoh realistis:
   // Q1: Paham (T1: C benar, T2: B benar, T3: yakin)
   // Q2: Miskonsepsi (T1: B salah, T2: B salah, T3: yakin - Miskonsepsi refleksi y = -x)
   // Q3: Paham (T1: B benar, T2: B benar, T3: yakin - Rotasi +90 derajat)
@@ -1676,13 +1786,13 @@ function renderResultsView(container) {
 
   if (evalData.miskonsepsiCount > 0) {
     diagnosticSummaryTitle = `Ditemukan ${evalData.miskonsepsiCount} Butir Miskonsepsi yang Perlu Diluruskan`;
-    diagnosticSummaryText = `Anda memiliki keyakinan tinggi atas beberapa konsep yang secara ilmiah keliru (terutama pada topik Hukum Newton dan Aksi-Reaksi). Simak ulasan konseptual di bawah ini untuk merekonstruksi pemahaman Anda.`;
+    diagnosticSummaryText = `Anda memiliki keyakinan tinggi atas beberapa konsep matematika yang secara konseptual keliru. Simak ulasan konseptual di bawah ini untuk merekonstruksi pemahaman Anda.`;
   } else if (evalData.pahamPct >= 80) {
     diagnosticSummaryTitle = 'Pemahaman Konseptual Sangat Kuat (Mastery)';
-    diagnosticSummaryText = 'Selamat! Kombinasi jawaban pilihan, alasan ilmiah, dan tingkat keyakinan Anda menunjukkan penguasaan materi yang matang tanpa miskonsepsi mendasar.';
+    diagnosticSummaryText = 'Selamat! Kombinasi jawaban pilihan, alasan ilmiah, dan tingkat keyakinan Anda menunjukkan penguasaan materi matematika yang matang tanpa miskonsepsi mendasar.';
   } else {
     diagnosticSummaryTitle = 'Perlu Pendalaman Konsep Dasar Terarah';
-    diagnosticSummaryText = 'Sebagian konsep masih dijawab dengan tingkat keyakinan rendah atau ragu-ragu. Dianjurkan melakukan diskusi terfokus bersama guru pengampu.';
+    diagnosticSummaryText = 'Sebagian konsep matematika masih dijawab dengan tingkat keyakinan rendah atau ragu-ragu. Dianjurkan melakukan diskusi terfokus bersama guru pengampu.';
   }
 
   container.innerHTML = `
@@ -1718,12 +1828,21 @@ function renderResultsView(container) {
     </header>
 
     <main class="results-view-wrap">
+      <!-- Kop Resmi Laporan Diagnostik -->
+      <div style="background:var(--bg-surface); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:16px 20px; margin-bottom:18px; text-align:center; border-top:3px solid var(--primary); box-shadow:var(--shadow-sm);">
+        <div style="font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; color:var(--text-dim);">Pemerintah Provinsi Kalimantan Selatan &bull; Dinas Pendidikan dan Kebudayaan</div>
+        <div style="font-size:1.15rem; font-weight:800; color:var(--text-main); margin-top:2px;">SMA NEGERI 7 BANJARMASIN</div>
+        <div style="font-size:0.82rem; color:var(--primary); font-weight:600; margin-top:3px;">
+          Sistem Informasi Asesmen Diagnostik Tiga Tingkat (SiDag) &bull; Kerjasama FKIP Universitas Lambung Mangkurat
+        </div>
+      </div>
+
       <!-- Banner Card -->
       <div class="results-banner-card">
         <span class="results-banner-tag">&check; Asesmen Telah Disubmit</span>
         <h1 class="results-banner-title">Laporan Profil Pemahaman Konsep Siswa</h1>
         <p class="results-banner-sub">
-          Hasil evaluasi diagnostik instrumen tiga tingkat (three-tier) untuk memetakan pemahaman dan mendeteksi miskonsepsi ilmiah secara akurat.
+          Hasil evaluasi diagnostik instrumen tiga tingkat (three-tier) untuk memetakan pemahaman dan mendeteksi miskonsepsi konsep Matematika secara akurat.
         </p>
 
         <!-- Student & Assessment Info Strip -->
@@ -1734,11 +1853,15 @@ function renderResultsView(container) {
           </div>
           <div>
             <div class="meta-item-label">Kelas / Rombel</div>
-            <div class="meta-item-value">${std.class || 'XI IPA 2'} • No. ${std.roll || '-'}</div>
+            <div class="meta-item-value">${std.class || 'XI MIPA 2'} • No. ${std.roll || '-'}</div>
           </div>
           <div>
-            <div class="meta-item-label">Asesmen / Topik</div>
-            <div class="meta-item-value">${asm.title}</div>
+            <div class="meta-item-label">Sekolah</div>
+            <div class="meta-item-value highlight" style="color:var(--status-paham);">${asm.school || 'SMAN 7 Banjarmasin'}</div>
+          </div>
+          <div>
+            <div class="meta-item-label">Instansi Pengembang</div>
+            <div class="meta-item-value" style="font-size:0.78rem;">${asm.developerInstitution || 'FKIP ULM'}</div>
           </div>
           <div>
             <div class="meta-item-label">Tanggal Pengerjaan</div>
@@ -1992,16 +2115,85 @@ window.restartStudentSession = function() {
 // ============================================================================
 // 6. HELPER: RENDERING FORMULA MATEMATIKA (KATEX)
 // ============================================================================
-function renderMathFormulas() {
+function renderMathFormulas(targetEl) {
+  const container = targetEl || document.body;
   if (typeof renderMathInElement === 'function') {
-    renderMathInElement(document.body, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false }
-      ],
-      throwOnError: false
-    });
+    try {
+      renderMathInElement(container, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        throwOnError: false
+      });
+    } catch (e) {
+      console.warn('KaTeX render error on student exam:', e);
+    }
+  } else {
+    // Retry polling if KaTeX CDN script is still downloading
+    if (!window._studentKatexRetry) window._studentKatexRetry = 0;
+    if (window._studentKatexRetry < 30) {
+      window._studentKatexRetry++;
+      setTimeout(() => renderMathFormulas(container), 120);
+    } else {
+      // Fallback unicode formatter for offline environments
+      fallbackStudentRenderMath(container);
+    }
   }
+}
+
+// Re-render when window load event fires
+window.addEventListener('load', () => {
+  renderMathFormulas();
+});
+
+// Fallback Math Formatter if KaTeX CDN is blocked or offline
+function fallbackStudentRenderMath(rootEl) {
+  if (!rootEl) rootEl = document.body;
+  const walker = document.createTreeWalker(rootEl, NodeFilter.SHOW_TEXT, null, false);
+  const nodes = [];
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    if (node.parentElement && ['SCRIPT', 'STYLE', 'TEXTAREA', 'INPUT'].includes(node.parentElement.tagName)) continue;
+    if (node.nodeValue && node.nodeValue.includes('$')) {
+      nodes.push(node);
+    }
+  }
+  nodes.forEach(node => {
+    const orig = node.nodeValue;
+    const formatted = orig.replace(/\$([^$]+)\$/g, (m, c) => {
+      let clean = c
+        .replace(/\\vec\{([^}]+)\}/g, '$1⃗')
+        .replace(/\\begin\{pmatrix\}([\s\S]*?)\\end\{pmatrix\}/g, (m, inner) => {
+          const rows = inner.trim().split(/\\\\/).map(r => r.trim().split('&').map(cell => cell.trim()));
+          return `[${rows.map(r => r.join(' ')).join('; ')}]`;
+        })
+        .replace(/\\pm/g, '±')
+        .replace(/\\times/g, '×')
+        .replace(/\\div/g, '÷')
+        .replace(/\\cdot/g, '·')
+        .replace(/\\neq/g, '≠')
+        .replace(/\\approx/g, '≈')
+        .replace(/\\le/g, '≤')
+        .replace(/\\ge/g, '≥')
+        .replace(/\\circ/g, '°')
+        .replace(/\\alpha/g, 'α')
+        .replace(/\\beta/g, 'β')
+        .replace(/\\theta/g, 'θ')
+        .replace(/\\pi/g, 'π')
+        .replace(/\^2/g, '²')
+        .replace(/\^3/g, '³')
+        .replace(/_0/g, '₀')
+        .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1 / $2)')
+        .replace(/\\sqrt\{([^}]+)\}/g, '√($1)');
+      return clean;
+    });
+    if (formatted !== orig) {
+      node.nodeValue = formatted;
+    }
+  });
 }
 
 // ============================================================================

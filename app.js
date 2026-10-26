@@ -1,7 +1,7 @@
 /**
- * SiDag - Client-Side Logic
+ * SiDag - Client-Side Logic & Integration
  * Sistem Informasi Asesmen Diagnostik Tiga Tingkat (Three-Tier)
- * Alur Siswa Token-First & Akses Administrator (Pembuat Website)
+ * Alur Siswa Token-First & Akses Portal Guru/Administrator via RESTful API
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -71,13 +71,6 @@ function initMobileNav() {
 }
 
 /* --- Student Token-First Gateway Engine --- */
-const VALID_EXAM_TOKENS = {
-  'DIAGNO-2026': 'Asesmen Diagnostik Matematika — Transformasi Geometri (Fase F / Kelas XI)',
-  'TRANS-GEO': 'Asesmen Diagnostik Matematika — Komposisi Matriks & Transformasi (XI)',
-  'MAT-XI': 'Asesmen Diagnostik Matematika — Transformasi Geometri Lanjutan (XI)',
-  'MAT-X': 'Asesmen Diagnostik Matematika — Fungsi & Persamaan Aljabar (X)'
-};
-
 function initStudentTokenGateway() {
   const tokenVerifyForm = document.getElementById('tokenVerifyForm');
   const tokenInput = document.getElementById('heroTokenInput');
@@ -93,14 +86,15 @@ function initStudentTokenGateway() {
   // Sample token chips quick click
   sampleChips.forEach(chip => {
     chip.addEventListener('click', () => {
+      const rawText = chip.innerText.trim();
       if (tokenInput) {
-        tokenInput.value = chip.innerText.trim();
-        verifyStudentToken(chip.innerText.trim());
+        tokenInput.value = rawText;
+        verifyStudentToken(rawText);
       }
     });
   });
 
-  // Step 1: Submit token verification
+  // Step 1: Submit token verification to Backend API (/api/student/verify-token)
   if (tokenVerifyForm) {
     tokenVerifyForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -109,32 +103,53 @@ function initStudentTokenGateway() {
     });
   }
 
-  function verifyStudentToken(token) {
+  async function verifyStudentToken(token) {
     if (!token) {
       notify('Ketikkan token asesmen terlebih dahulu.');
       return;
     }
 
-    // Check validity
-    const examTitle = VALID_EXAM_TOKENS[token] || (token.length >= 4 ? `Asesmen Terjadwal (Token: ${token})` : null);
+    try {
+      const res = await fetch('/api/student/verify-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      });
 
-    if (examTitle) {
-      // Success: Reveal Step 2 (Student Information)
-      if (verifiedTokenDisplay) verifiedTokenDisplay.textContent = token;
-      if (verifiedExamTitle) verifiedExamTitle.textContent = examTitle;
+      const result = await res.json();
 
-      if (tokenVerifyForm) tokenVerifyForm.style.display = 'none';
-      if (studentInfoSection) studentInfoSection.style.display = 'block';
+      if (result && result.success) {
+        const info = result.data;
+        if (verifiedTokenDisplay) verifiedTokenDisplay.textContent = info.token;
+        if (verifiedExamTitle) verifiedExamTitle.textContent = `${info.title} (${info.school || 'SMAN 7 Banjarmasin'})`;
 
-      if (gatewayTitle) gatewayTitle.textContent = 'Lengkapi Identitas Siswa';
-      if (gatewayDesc) gatewayDesc.textContent = 'Token berhasil diverifikasi. Lengkapi nama dan kelas untuk memulai lembar soal.';
+        if (tokenVerifyForm) tokenVerifyForm.style.display = 'none';
+        if (studentInfoSection) studentInfoSection.style.display = 'block';
 
-      notify(`Token '${token}' valid! Silakan isi identitas Anda.`);
-      document.getElementById('examStudentName')?.focus();
-    } else {
-      notify('Token tidak ditemukan atau kedaluwarsa. Gunakan contoh DIAGNO-2026.');
+        if (gatewayTitle) gatewayTitle.textContent = 'Lengkapi Identitas Siswa';
+        if (gatewayDesc) gatewayDesc.textContent = `Token valid (${info.token}). Waktu: ${info.duration_minutes || 30} menit. Lengkapi nama dan kelas untuk memulai lembar soal.`;
+
+        notify(result.message || `Token '${info.token}' valid! Silakan isi identitas Anda.`);
+        document.getElementById('examStudentName')?.focus();
+      } else {
+        notify(result.message || 'Token asesmen tidak valid atau asesmen telah ditutup.');
+      }
+    } catch (err) {
+      console.warn('API error during token verification, fallback to validation:', err);
+      // Fallback in case of server offline
+      if (token.length >= 4) {
+        if (verifiedTokenDisplay) verifiedTokenDisplay.textContent = token;
+        if (verifiedExamTitle) verifiedExamTitle.textContent = `Asesmen Diagnostik Matematika (Token: ${token})`;
+        if (tokenVerifyForm) tokenVerifyForm.style.display = 'none';
+        if (studentInfoSection) studentInfoSection.style.display = 'block';
+        notify(`Token '${token}' terverifikasi secara lokal.`);
+      } else {
+        notify('Ketikkan minimal 4 karakter token.');
+      }
     }
   }
+
+  window.verifyStudentToken = verifyStudentToken;
 
   // Back / Change Token button
   if (btnChangeToken) {
@@ -152,17 +167,56 @@ function initStudentTokenGateway() {
     });
   }
 
-  // Step 2: Start Exam form submission
+  // Step 2: Start Exam form submission to Backend API (/api/student/start-exam)
   if (studentStartExamForm) {
-    studentStartExamForm.addEventListener('submit', (e) => {
+    studentStartExamForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const studentName = document.getElementById('examStudentName')?.value.trim();
       const studentClass = document.getElementById('examStudentClass')?.value.trim();
-      const studentRoll = document.getElementById('examStudentRoll')?.value.trim() || '';
+      const studentRoll = document.getElementById('examStudentRoll')?.value.trim() || '-';
       const activeToken = verifiedTokenDisplay ? verifiedTokenDisplay.textContent.trim() : 'DIAGNO-2026';
 
-      if (studentName && studentClass) {
-        notify(`Menyiapkan lembar ujian untuk ${studentName} (${studentClass})...`);
+      if (!studentName || !studentClass) {
+        notify('Nama dan kelas wajib diisi!');
+        return;
+      }
+
+      notify(`Membuat sesi asesmen untuk ${studentName}...`);
+
+      try {
+        const res = await fetch('/api/student/start-exam', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            token: activeToken,
+            name: studentName,
+            class: studentClass,
+            roll: studentRoll
+          })
+        });
+
+        const result = await res.json();
+        if (result && result.success && result.data) {
+          const sessionData = {
+            attemptId: result.data.attempt_id,
+            token: activeToken,
+            name: studentName,
+            class: studentClass,
+            roll: studentRoll,
+            assessment: result.data.assessment,
+            questions: result.data.questions
+          };
+          sessionStorage.setItem('sidag_active_session', JSON.stringify(sessionData));
+
+          setTimeout(() => {
+            window.location.href = `student-exam.html?token=${encodeURIComponent(activeToken)}&attemptId=${encodeURIComponent(result.data.attempt_id)}&view=briefing`;
+          }, 300);
+          return;
+        } else {
+          notify(result.message || 'Gagal memulai ujian.');
+        }
+      } catch (err) {
+        console.warn('Network error starting exam, starting locally:', err);
         const sessionData = {
           token: activeToken,
           name: studentName,
@@ -170,15 +224,13 @@ function initStudentTokenGateway() {
           roll: studentRoll
         };
         sessionStorage.setItem('sidag_active_session', JSON.stringify(sessionData));
-        setTimeout(() => {
-          window.location.href = `student-exam.html?token=${encodeURIComponent(activeToken)}&name=${encodeURIComponent(studentName)}&class=${encodeURIComponent(studentClass)}&roll=${encodeURIComponent(studentRoll)}`;
-        }, 300);
+        window.location.href = `student-exam.html?token=${encodeURIComponent(activeToken)}&name=${encodeURIComponent(studentName)}&class=${encodeURIComponent(studentClass)}&view=briefing`;
       }
     });
   }
 }
 
-/* --- Modals (Teacher Portal & Admin Portal) --- */
+/* --- Modals (Teacher Portal & Admin Portal Authentication) --- */
 function initModals() {
   // Teacher Portal Modal
   const tModal = document.getElementById('teacherModal');
@@ -200,34 +252,88 @@ function initModals() {
     tClose.addEventListener('click', () => tModal.classList.remove('open'));
   }
 
+  let authMode = 'register';
   tTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       tTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      const mode = tab.getAttribute('data-mode');
-      if (mode === 'login') {
+      authMode = tab.getAttribute('data-mode');
+      if (authMode === 'login') {
         if (tNameGroup) tNameGroup.style.display = 'none';
-        if (tSubmit) tSubmit.textContent = 'Masuk ke Portal Guru';
+        if (tSubmit) tSubmit.textContent = 'Masuk ke Portal Guru &rarr;';
       } else {
         if (tNameGroup) tNameGroup.style.display = 'flex';
-        if (tSubmit) tSubmit.textContent = 'Buat Akun Guru';
+        if (tSubmit) tSubmit.textContent = 'Buat Akun Guru &rarr;';
       }
     });
   });
 
   if (tForm) {
-    tForm.addEventListener('submit', (e) => {
+    tForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const email = document.getElementById('tEmail')?.value;
-      notify(`Autentikasi Guru berhasil untuk: ${email}. Mengalihkan ke Dasbor Guru...`);
-      tModal.classList.remove('open');
-      setTimeout(() => {
-        window.location.href = 'teacher-dashboard.html';
-      }, 700);
+      const email = document.getElementById('tEmail')?.value.trim();
+      const pass = document.getElementById('tPass')?.value;
+      const name = document.getElementById('tName')?.value.trim();
+
+      if (authMode === 'register') {
+        try {
+          const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: name || 'Guru Matematika',
+              email,
+              password: pass,
+              subject: 'Matematika'
+            })
+          });
+          const result = await res.json();
+          if (result && result.success) {
+            notify(result.message);
+            // Switch to login tab
+            tTabs.forEach(t => {
+              if (t.getAttribute('data-mode') === 'login') t.click();
+            });
+            return;
+          } else {
+            notify(result.message || 'Pendaftaran akun gagal.');
+            return;
+          }
+        } catch (err) {
+          console.warn('Register error:', err);
+        }
+      }
+
+      // Login Flow
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pass, role: 'guru' })
+        });
+        const result = await res.json();
+
+        if (result && result.success) {
+          sessionStorage.setItem('sidag_teacher_token', result.token);
+          sessionStorage.setItem('sidag_teacher_user', JSON.stringify(result.user));
+          notify(result.message || `Login berhasil! Mengalihkan ke Dasbor Guru...`);
+          tModal.classList.remove('open');
+          setTimeout(() => {
+            window.location.href = 'teacher-dashboard.html';
+          }, 500);
+        } else {
+          notify(result.message || 'Email atau kata sandi tidak cocok.');
+        }
+      } catch (err) {
+        console.warn('Login network error:', err);
+        notify('Berhasil masuk ke mode demonstrasi guru.');
+        tModal.classList.remove('open');
+        setTimeout(() => { window.location.href = 'teacher-dashboard.html'; }, 500);
+      }
     });
   }
 
-  // Administrator Portal Modal (Pembuat Website & Pengelola Sistem)
+  // Administrator Portal Modal
   const aModal = document.getElementById('adminModal');
   const aBtns = document.querySelectorAll('.open-admin-modal');
   const aClose = document.getElementById('closeAdminModal');
@@ -246,14 +352,36 @@ function initModals() {
   }
 
   if (aForm) {
-    aForm.addEventListener('submit', (e) => {
+    aForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const adminEmail = document.getElementById('adminEmailField')?.value;
-      notify(`Autentikasi Administrator berhasil (${adminEmail}). Mengalihkan ke Dasbor Admin...`);
-      aModal.classList.remove('open');
-      setTimeout(() => {
-        window.location.href = 'admin-dashboard.html';
-      }, 700);
+      const adminEmail = document.getElementById('adminEmailField')?.value.trim();
+      const adminPass = document.getElementById('adminPassField')?.value;
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: adminEmail, password: adminPass, role: 'admin' })
+        });
+        const result = await res.json();
+
+        if (result && result.success) {
+          sessionStorage.setItem('sidag_admin_token', result.token);
+          sessionStorage.setItem('sidag_admin_user', JSON.stringify(result.user));
+          notify(result.message || `Autentikasi Administrator berhasil! Mengalihkan...`);
+          aModal.classList.remove('open');
+          setTimeout(() => {
+            window.location.href = 'admin-dashboard.html';
+          }, 500);
+        } else {
+          notify(result.message || 'Akses ditolak. Email atau kata sandi admin tidak cocok.');
+        }
+      } catch (err) {
+        console.warn('Admin login network error:', err);
+        notify('Berhasil masuk ke mode demonstrasi administrator.');
+        aModal.classList.remove('open');
+        setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 500);
+      }
     });
   }
 
@@ -278,15 +406,31 @@ function initFaq() {
 /* --- KaTeX Mathematical Formula Auto-Renderer --- */
 function initKaTeX() {
   if (typeof renderMathInElement === 'function') {
-    renderMathInElement(document.body, {
-      delimiters: [
-        { left: '$$', right: '$$', display: true },
-        { left: '$', right: '$', display: false }
-      ],
-      throwOnError: false
-    });
+    try {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        throwOnError: false
+      });
+    } catch (e) {
+      console.warn('KaTeX init error in app.js:', e);
+    }
+  } else {
+    if (!window._appKatexRetry) window._appKatexRetry = 0;
+    if (window._appKatexRetry < 25) {
+      window._appKatexRetry++;
+      setTimeout(initKaTeX, 120);
+    }
   }
 }
+
+window.addEventListener('load', () => {
+  initKaTeX();
+});
 
 /* --- Toast Notification System --- */
 let toastTimer;

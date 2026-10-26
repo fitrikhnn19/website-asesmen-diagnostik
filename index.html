@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SiDag — Asesmen Diagnostik Tiga Tingkat Matematika (Transformasi Geometri)</title>
-  <meta name="title" content="SiDag — Asesmen Diagnostik Tiga Tingkat Matematika (Transformasi Geometri)">
-  <meta name="description" content="Aplikasi web asesmen diagnostik tiga tingkat (three-tier) khusus mata pelajaran Matematika untuk memetakan pemahaman dan miskonsepsi siswa secara akurat. Demo aktif: Transformasi Geometri.">
-  <meta name="keywords" content="SiDag, asesmen diagnostik matematika, transformasi geometri, translasi, refleksi, rotasi, dilatasi, three tier, miskonsepsi, analisis butir soal">
-  <meta name="author" content="SiDag">
+  <title>SiDag — Asesmen Diagnostik Tiga Tingkat Matematika</title>
+  <meta name="title" content="SiDag — Asesmen Diagnostik Tiga Tingkat Matematika">
+  <meta name="description" content="Aplikasi web asesmen diagnostik tiga tingkat (three-tier) khusus mata pelajaran Matematika untuk memetakan pemahaman dan miskonsepsi siswa secara akurat dan objektif.">
+  <meta name="keywords" content="SiDag, asesmen diagnostik matematika, three tier, miskonsepsi, analisis butir soal, kurikulum merdeka, FKIP ULM, SMAN 7 Banjarmasin">
+  <meta name="author" content="Fakultas Keguruan dan Ilmu Pendidikan, Universitas Lambung Mangkurat & SMAN 7 Banjarmasin">
   <meta name="robots" content="index, follow">
 
   <!-- Favicon -->
@@ -22,7 +22,7 @@
   <!-- KaTeX for Math Formula Rendering (Digunakan pada bagian analisis butir & rumus) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="if(typeof initKaTeX==='function')initKaTeX();"></script>
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
@@ -32,7 +32,7 @@
   <!-- Header / Navigation Formal -->
   <header class="navbar" id="navbar">
     <div class="container nav-wrap">
-      <a href="#" class="brand-logo" aria-label="SiDag Beranda">
+      <a href="index.html" class="brand-logo" aria-label="SiDag Beranda">
         <div class="brand-badge-icon">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
@@ -51,6 +51,7 @@
         <a href="#analisis-butir" class="nav-link">Analisis Butir Soal</a>
         <a href="#fitur" class="nav-link">Fitur</a>
         <a href="#alur" class="nav-link">Alur Kerja</a>
+        <a href="#institusi" class="nav-link">Instansi Mitra</a>
         <a href="#faq" class="nav-link">FAQ</a>
       </nav>
 
@@ -105,6 +106,7 @@
     <a href="#analisis-butir">Analisis Butir Soal</a>
     <a href="#fitur">Fitur</a>
     <a href="#alur">Alur Kerja</a>
+    <a href="#institusi">Instansi Mitra</a>
     <a href="#faq">FAQ</a>
     <div class="mobile-cta-row">
       <a href="student-exam.html" class="btn btn-outline btn-sm">Portal Siswa</a>
@@ -120,6 +122,11 @@
     <section class="hero-section">
       <div class="container hero-container">
         
+        <div class="institution-collab-pill">
+          <span class="inst-tag">Pengembang &amp; Mitra</span>
+          <span class="inst-text">Fakultas Keguruan dan Ilmu Pendidikan, Universitas Lambung Mangkurat &bull; <strong>SMAN 7 Banjarmasin</strong></span>
+        </div>
+
         <div class="formal-pill">
           <span>Aplikasi Web Asesmen Diagnostik Tiga Tingkat (Three-Tier) Matematika</span>
         </div>
@@ -129,7 +136,7 @@
         </h1>
 
         <p class="hero-subtitle">
-          Membantu guru Matematika mengidentifikasi akar miskonsepsi siswa melalui instrumen soal tiga tingkat. Mengelompokkan hasil secara otomatis ke dalam profil <strong>Paham</strong>, <strong>Miskonsepsi</strong>, dan <strong>Tidak Paham</strong>. Demo materi aktif: <strong>Transformasi Geometri (Translasi, Refleksi, Rotasi, Dilatasi)</strong>.
+          Membantu guru Matematika mengidentifikasi akar pemahaman konsep siswa melalui instrumen soal tiga tingkat. Mengelompokkan hasil secara otomatis ke dalam profil <strong>Paham</strong>, <strong>Miskonsepsi</strong>, dan <strong>Tidak Paham</strong>, dilengkapi analisis kualitas butir soal.
         </p>
 
         <!-- Gateway Asesmen Siswa (Token-First Flow) -->
@@ -152,8 +159,8 @@
             <div class="token-chips-bar">
               <span class="token-chips-label">Pilihan token aktif:</span>
               <button type="button" class="sample-token-chip">DIAGNO-2026</button>
-              <button type="button" class="sample-token-chip">TRANS-GEO</button>
               <button type="button" class="sample-token-chip">MAT-XI</button>
+              <button type="button" class="sample-token-chip">MAT-X</button>
             </div>
           </form>
 
@@ -163,7 +170,7 @@
               <div class="verified-left">
                 <span class="verified-badge">&check; Token Terverifikasi</span>
                 <span class="verified-token-code" id="verifiedTokenDisplay">DIAGNO-2026</span>
-                <span class="verified-exam-title" id="verifiedExamTitle">Asesmen Diagnostik Matematika &mdash; Transformasi Geometri (Fase F)</span>
+                <span class="verified-exam-title" id="verifiedExamTitle">Asesmen Diagnostik Matematika &mdash; Kelas XI</span>
               </div>
               <button type="button" class="btn-cancel-token" id="btnChangeToken" title="Ganti token asesmen">&times; Ganti</button>
             </div>
@@ -391,9 +398,9 @@
 
         <div class="formal-grid-3">
           <div class="feature-card">
-            <h3 class="feature-title">Penulisan KaTeX & Diagram Cartesius</h3>
+            <h3 class="feature-title">Penulisan KaTeX & Visualisasi Diagram</h3>
             <p class="feature-desc">
-              Mendukung notasi matematika KaTeX LaTeX baku (matriks transformasi, koordinat titik, vektor aljabar), serta diagram bidang koordinat Cartesius beresolusi tinggi.
+              Mendukung notasi matematika KaTeX LaTeX baku (pecahan, matriks, eksponen, integral, aljabar), serta penyisipan diagram dan grafik beresolusi tinggi.
             </p>
           </div>
 
@@ -526,11 +533,11 @@
 
           <div class="faq-item">
             <button type="button" class="faq-question">
-              <span>Apakah SiDag mendukung rumus matematika rumit dan diagram koordinat Cartesius?</span>
+              <span>Apakah SiDag mendukung rumus matematika yang rumit?</span>
               <span class="faq-arrow">+</span>
             </button>
             <div class="faq-answer">
-              Ya, SiDag mendukung format penulisan rumus KaTeX LaTeX baku untuk matriks transformasi geometri, koordinat titik, vektor translasi, integral, aljabar, serta diagram bidang geometri resolusi tinggi.
+              Ya, SiDag mendukung format penulisan rumus KaTeX LaTeX baku untuk persamaan aljabar, pecahan, integral, matriks, trigonometri, serta diagram grafik dan bidang koordinat.
             </div>
           </div>
 
@@ -545,6 +552,65 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         Section: Instansi Pengembang Web & Sekolah Mitra Implementasi
+         ================================================================== -->
+    <section class="section institution-section" id="institusi">
+      <div class="container">
+        <div class="section-header-formal">
+          <span class="section-tag-formal">Kolaborasi Riset &amp; Pendidikan</span>
+          <h2 class="section-title-formal">Instansi Pengembang &amp; Sekolah Mitra Asesmen</h2>
+          <p class="section-desc-formal">
+            Aplikasi Web SiDag dikembangkan sebagai inovasi evaluasi diagnostik pembelajaran Matematika berbasis riset kolaboratif antara perguruan tinggi dan sekolah mitra.
+          </p>
+        </div>
+
+        <div class="institution-cards-grid">
+          <!-- Card 1: FKIP ULM (Instansi Pembuat Web) -->
+          <div class="institution-card">
+            <div class="institution-icon-box fkip">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </div>
+            <div class="institution-badge">Instansi Pembuat &amp; Pengembang Web</div>
+            <h3 class="institution-name">Fakultas Keguruan dan Ilmu Pendidikan</h3>
+            <h4 class="institution-sub">Universitas Lambung Mangkurat (ULM)</h4>
+            <p class="institution-desc">
+              Pusat pengembangan riset inovasi pendidikan matematika, rekayasa instrumen diagnostik <em>three-tier</em>, formulasi algoritma deteksi miskonsepsi, dan arsitektur sistem informasi evaluasi pembelajaran.
+            </p>
+            <div class="institution-meta-list">
+              <span><strong>Fakultas:</strong> Keguruan dan Ilmu Pendidikan (FKIP)</span>
+              <span><strong>Perguruan Tinggi:</strong> Universitas Lambung Mangkurat, Banjarmasin</span>
+              <span><strong>Peran Sistem:</strong> Desain Instrumen, Validitas Psikometrik, &amp; Arsitektur Web</span>
+            </div>
+          </div>
+
+          <!-- Card 2: SMAN 7 Banjarmasin (Sekolah Mitra) -->
+          <div class="institution-card">
+            <div class="institution-icon-box school">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+            </div>
+            <div class="institution-badge school">Sekolah Mitra Asesmen &amp; Implementasi</div>
+            <h3 class="institution-name">SMA Negeri 7 Banjarmasin</h3>
+            <h4 class="institution-sub">Pemerintah Provinsi Kalimantan Selatan</h4>
+            <p class="institution-desc">
+              Satuan pendidikan mitra pelaksanaan implementasi asesmen diagnostik diagnostik tiga tingkat, pemetaan profil konsepsi siswa dalam mata pelajaran Matematika, serta tindak lanjut program bimbingan remedial.
+            </p>
+            <div class="institution-meta-list">
+              <span><strong>Sekolah:</strong> SMAN 7 Banjarmasin</span>
+              <span><strong>Wilayah:</strong> Kota Banjarmasin, Kalimantan Selatan</span>
+              <span><strong>Peran Sistem:</strong> Pilot Project, Uji Coba Lapangan, &amp; Implementasi Kelas</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -577,6 +643,9 @@
     <div class="container footer-wrap">
       <div class="footer-brand">
         <strong>SiDag</strong> &mdash; Sistem Informasi Asesmen Diagnostik Tiga Tingkat
+        <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">
+          Fakultas Keguruan dan Ilmu Pendidikan, Universitas Lambung Mangkurat &bull; <strong>SMAN 7 Banjarmasin</strong>
+        </div>
       </div>
       <div class="footer-links-row">
         <a href="student-exam.html"><strong>Lembar Asesmen Siswa</strong></a> &bull;
@@ -585,7 +654,7 @@
         <a href="#" class="open-admin-modal">Portal Administrator</a>
       </div>
       <div class="footer-notes">
-        &copy; 2026 SiDag. Dirancang sesuai Panduan Asesmen Diagnostik Kemendikbudristek.
+        &copy; 2026 SiDag. Dirancang bersama FKIP ULM &amp; SMAN 7 Banjarmasin sesuai Panduan Asesmen Diagnostik Kemendikbudristek.
       </div>
     </div>
   </footer>

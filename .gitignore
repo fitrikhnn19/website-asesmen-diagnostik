@@ -1,12 +1,15 @@
 # Dependencies
 node_modules/
-package-lock.json
 
 # Environment and logs
 .env
 .env.local
 *.log
 npm-debug.log*
+
+# SQLite temporary WAL and SHM
+*.db-shm
+*.db-wal
 
 # OS metadata
 .DS_Store

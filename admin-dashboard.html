@@ -18,6 +18,7 @@
   <!-- KaTeX for formula rendering -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
   <!-- Core & Dashboard Stylesheets -->
   <link rel="stylesheet" href="styles.css">
@@ -40,7 +41,7 @@
           </div>
           <div class="brand-text-block">
             <span class="brand-title">SiDag</span>
-            <span class="brand-sub">Portal Admin</span>
+            <span class="brand-sub">Portal Admin &bull; SMAN 7 Banjarmasin</span>
           </div>
         </a>
         <span class="portal-role-pill admin">Super Admin</span>
@@ -146,7 +147,7 @@
           
           <div class="dash-breadcrumb">
             <h1 class="dash-breadcrumb-title" id="adminBreadcrumb">Ikhtisar Sistem Administrator</h1>
-            <span class="dash-breadcrumb-sub">SiDag v2.4 &bull; Status Server: Operasional Normal (99.98% Uptime)</span>
+            <span class="dash-breadcrumb-sub">SiDag v2.4 &bull; SMAN 7 Banjarmasin &bull; Riset FKIP Universitas Lambung Mangkurat</span>
           </div>
         </div>
 
@@ -195,10 +196,15 @@
           <div class="dash-card" style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.1) 0%, rgba(30, 41, 59, 0.5) 100%); border-color: rgba(217, 119, 6, 0.3);">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
               <div>
-                <span class="portal-role-pill admin" style="margin-bottom: 8px;">Kendali Penuh Sistem & Keamanan</span>
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap;">
+                  <span class="portal-role-pill admin">Kendali Penuh Sistem & Keamanan</span>
+                  <span style="font-size:0.75rem; font-weight:700; color:var(--primary); background:rgba(79,70,229,0.12); padding:3px 8px; border-radius:4px;">
+                    Pengembang: FKIP ULM &bull; Sekolah: SMAN 7 Banjarmasin
+                  </span>
+                </div>
                 <h2 style="font-size: 1.4rem; margin-top: 4px;">Pusat Kontrol Administrator SiDag</h2>
                 <p style="font-size: 0.9rem; max-width: 720px; margin-top: 4px;">
-                  Mengelola seluruh akun guru, hak akses, validitas token asesmen, pemantauan kejadian kecurangan, dan integritas basis data asesmen diagnostik.
+                  Mengelola seluruh akun guru Matematika <strong>SMAN 7 Banjarmasin</strong>, hak akses, validitas token asesmen, pemantauan kejadian kecurangan, dan integritas basis data asesmen diagnostik three-tier.
                 </p>
               </div>
               <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -348,7 +354,6 @@
                 </div>
               </div>
             </div>
-
           </div>
 
         </section>
@@ -389,11 +394,11 @@
                 </select>
 
                 <select class="input-control" id="filterTeacherSubject" style="padding-top:7px; padding-bottom:7px;">
-                  <option value="all">Semua Mata Pelajaran</option>
-                  <option value="Fisika">Fisika</option>
-                  <option value="Matematika">Matematika</option>
-                  <option value="Kimia">Kimia</option>
-                  <option value="Biologi">Biologi</option>
+                  <option value="all">Semua Pengajar Matematika</option>
+                  <option value="Matematika Kelas X">Matematika Kelas X</option>
+                  <option value="Matematika Kelas XI">Matematika Kelas XI</option>
+                  <option value="Matematika Kelas XII">Matematika Kelas XII</option>
+                  <option value="Matematika Tingkat Lanjut">Matematika Tingkat Lanjut</option>
                 </select>
               </div>
 
@@ -435,12 +440,21 @@
           <div class="dash-card">
             <div class="dash-card-header">
               <div class="dash-card-title-group">
-                <h2 class="dash-card-title">Data Master Kelas & Siswa</h2>
+                <h2 class="dash-card-title">Data Master Kelas & Siswa (CRUD)</h2>
                 <span class="dash-card-subtitle">Pengorganisasian kelas, jumlah siswa, dan guru pengampu</span>
+              </div>
+              <div class="dash-card-actions">
+                <button type="button" class="btn btn-primary btn-sm" id="btnOpenAddMasterClassModal">
+                  + Tambah Rombel Baru
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="btnOpenAddMasterStudentModal">
+                  + Tambah Siswa Baru
+                </button>
               </div>
             </div>
 
-            <div class="dash-table-wrap">
+            <h4 style="font-size:0.95rem; margin-bottom:8px; color:var(--text-main);">Daftar Rombel / Kelas Aktif</h4>
+            <div class="dash-table-wrap" style="margin-bottom:24px;">
               <table class="dash-table">
                 <thead>
                   <tr>
@@ -449,47 +463,29 @@
                     <th>Tingkat</th>
                     <th>Guru Pengampu Utama</th>
                     <th>Jumlah Siswa</th>
-                    <th>Asesmen Aktif</th>
-                    <th>Status</th>
+                    <th>Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="masterClassesTableBody">
+                  <!-- Populated via admin.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="font-size:0.95rem; margin-bottom:8px; color:var(--text-main);">Daftar Siswa Terdaftar</h4>
+            <div class="dash-table-wrap">
+              <table class="dash-table">
+                <thead>
                   <tr>
-                    <td><strong style="font-family: var(--font-mono);">CLS-XI-IPA-1</strong></td>
-                    <td>Kelas XI IPA 1</td>
-                    <td>Fase F (Kelas XI)</td>
-                    <td>Dra. Siti Rahmawati, M.Pd.</td>
-                    <td>35 Siswa</td>
-                    <td><span class="status-badge paham">1 Aktif</span></td>
-                    <td><span class="status-badge active-status">&bull; Aktif</span></td>
+                    <th>NIS / ID</th>
+                    <th>Nama Siswa</th>
+                    <th>Kelas</th>
+                    <th>Email Siswa</th>
+                    <th>Aksi</th>
                   </tr>
-                  <tr>
-                    <td><strong style="font-family: var(--font-mono);">CLS-XI-IPA-2</strong></td>
-                    <td>Kelas XI IPA 2</td>
-                    <td>Fase F (Kelas XI)</td>
-                    <td>Dra. Siti Rahmawati, M.Pd.</td>
-                    <td>36 Siswa</td>
-                    <td><span class="status-badge paham">1 Aktif (DIAGNO-2026)</span></td>
-                    <td><span class="status-badge active-status">&bull; Aktif</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong style="font-family: var(--font-mono);">CLS-X-A</strong></td>
-                    <td>Kelas X-A</td>
-                    <td>Fase E (Kelas X)</td>
-                    <td>Bambang Hermanto, S.Pd.</td>
-                    <td>36 Siswa</td>
-                    <td><span class="status-badge paham">1 Aktif</span></td>
-                    <td><span class="status-badge active-status">&bull; Aktif</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong style="font-family: var(--font-mono);">CLS-XII-MIPA-1</strong></td>
-                    <td>Kelas XII MIPA 1</td>
-                    <td>Fase F (Kelas XII)</td>
-                    <td>Dr. Hendra Gunawan, M.Si.</td>
-                    <td>34 Siswa</td>
-                    <td><span class="status-badge draft-status">0 Aktif</span></td>
-                    <td><span class="status-badge active-status">&bull; Aktif</span></td>
-                  </tr>
+                </thead>
+                <tbody id="masterStudentsTableBody">
+                  <!-- Populated via admin.js -->
                 </tbody>
               </table>
             </div>
@@ -512,6 +508,9 @@
               <div class="dash-card-actions">
                 <button type="button" class="btn btn-outline btn-sm" onclick="exportAdminProctoringLogs()">
                   Ekspor Log Integritas (CSV)
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="clearProctoringLogs()">
+                  Kosongkan Log
                 </button>
               </div>
             </div>
@@ -549,6 +548,11 @@
               <div class="dash-card-title-group">
                 <h2 class="dash-card-title">Log Audit Aktivitas Sistem (System Audit Trail)</h2>
                 <span class="dash-card-subtitle">Pencatatan setiap operasi penambahan, perubahan, dan autentikasi pengguna secara kronologis</span>
+              </div>
+              <div class="dash-card-actions">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="clearAuditLogs()">
+                  Kosongkan Log Audit
+                </button>
               </div>
             </div>
 
@@ -662,18 +666,17 @@
 
         <div class="input-group-formal">
           <label class="input-label" for="addTEmail">Alamat Email Guru</label>
-          <input type="email" class="input-control" id="addTEmail" placeholder="guru@sekolah.sch.id" required>
+          <input type="email" class="input-control" id="addTEmail" placeholder="guru@sman7banjarmasin.sch.id" required>
         </div>
 
         <div class="form-row-2">
           <div class="input-group-formal">
-            <label class="input-label" for="addTSubject">Mata Pelajaran</label>
+            <label class="input-label" for="addTSubject">Mata Pelajaran &amp; Jenjang</label>
             <select class="input-control" id="addTSubject" required>
-              <option value="Fisika">Fisika</option>
-              <option value="Matematika">Matematika</option>
-              <option value="Kimia">Kimia</option>
-              <option value="Biologi">Biologi</option>
-              <option value="Informatika">Informatika</option>
+              <option value="Matematika Kelas X">Matematika Kelas X</option>
+              <option value="Matematika Kelas XI">Matematika Kelas XI</option>
+              <option value="Matematika Kelas XII">Matematika Kelas XII</option>
+              <option value="Matematika Tingkat Lanjut">Matematika Tingkat Lanjut</option>
             </select>
           </div>
 
@@ -727,12 +730,12 @@
 
         <div class="form-row-2">
           <div class="input-group-formal">
-            <label class="input-label" for="editTSubject">Mata Pelajaran</label>
+            <label class="input-label" for="editTSubject">Mata Pelajaran &amp; Jenjang</label>
             <select class="input-control" id="editTSubject">
-              <option value="Fisika">Fisika</option>
-              <option value="Matematika">Matematika</option>
-              <option value="Kimia">Kimia</option>
-              <option value="Biologi">Biologi</option>
+              <option value="Matematika Kelas X">Matematika Kelas X</option>
+              <option value="Matematika Kelas XI">Matematika Kelas XI</option>
+              <option value="Matematika Kelas XII">Matematika Kelas XII</option>
+              <option value="Matematika Tingkat Lanjut">Matematika Tingkat Lanjut</option>
             </select>
           </div>
 
@@ -782,6 +785,76 @@
         <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
           <button type="button" class="btn btn-secondary btn-sm" id="btnCancelResetPass">Batal</button>
           <button type="submit" class="btn btn-primary btn-sm">Terapkan Sandi Baru &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Tambah Master Kelas -->
+  <div class="modal-backdrop" id="addMasterClassModal" role="dialog" aria-modal="true">
+    <div class="modal-formal-card">
+      <button type="button" class="modal-close-btn" id="closeAddMasterClassModal" aria-label="Tutup">&times;</button>
+      <div class="admin-badge-formal"><span>Master Data Rombel</span></div>
+      <h3 class="modal-card-title">Tambah Kelas Baru</h3>
+      <p class="modal-card-sub">Daftarkan rombongan belajar baru ke dalam sistem.</p>
+      <form id="addMasterClassForm">
+        <div class="input-group-formal">
+          <label class="input-label" for="addMClassName">Nama Kelas / Rombel</label>
+          <input type="text" class="input-control" id="addMClassName" placeholder="Contoh: Kelas XI MIPA 5" required>
+        </div>
+        <div class="form-row-2">
+          <div class="input-group-formal">
+            <label class="input-label" for="addMClassGrade">Tingkat / Fase</label>
+            <select class="input-control" id="addMClassGrade">
+              <option value="Kelas X">Fase E (Kelas X)</option>
+              <option value="Kelas XI" selected>Fase F (Kelas XI)</option>
+              <option value="Kelas XII">Fase F (Kelas XII)</option>
+            </select>
+          </div>
+          <div class="input-group-formal">
+            <label class="input-label" for="addMClassHomeroom">Wali Kelas</label>
+            <input type="text" class="input-control" id="addMClassHomeroom" placeholder="Nama Guru Wali Kelas">
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCancelAddMasterClass">Batal</button>
+          <button type="submit" class="btn btn-primary btn-sm">Simpan Rombel &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Tambah Master Siswa -->
+  <div class="modal-backdrop" id="addMasterStudentModal" role="dialog" aria-modal="true">
+    <div class="modal-formal-card">
+      <button type="button" class="modal-close-btn" id="closeAddMasterStudentModal" aria-label="Tutup">&times;</button>
+      <div class="admin-badge-formal"><span>Master Data Siswa</span></div>
+      <h3 class="modal-card-title">Tambah Siswa Baru</h3>
+      <p class="modal-card-sub">Daftarkan peserta didik baru ke basis data sekolah.</p>
+      <form id="addMasterStudentForm">
+        <div class="input-group-formal">
+          <label class="input-label" for="addMStudentName">Nama Lengkap Siswa</label>
+          <input type="text" class="input-control" id="addMStudentName" placeholder="Contoh: Muhammad Farhan" required>
+        </div>
+        <div class="form-row-2">
+          <div class="input-group-formal">
+            <label class="input-label" for="addMStudentClass">Kelas / Rombel</label>
+            <select class="input-control" id="addMStudentClass">
+              <option value="XI MIPA 1">XI MIPA 1</option>
+              <option value="XI MIPA 2" selected>XI MIPA 2</option>
+              <option value="XI MIPA 3">XI MIPA 3</option>
+              <option value="X-A">X-A</option>
+              <option value="XII MIPA 1">XII MIPA 1</option>
+            </select>
+          </div>
+          <div class="input-group-formal">
+            <label class="input-label" for="addMStudentRoll">No. Absen / NIS</label>
+            <input type="text" class="input-control" id="addMStudentRoll" placeholder="Contoh: 15 / 10293">
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:14px;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btnCancelAddMasterStudent">Batal</button>
+          <button type="submit" class="btn btn-primary btn-sm">Simpan Siswa &rarr;</button>
         </div>
       </form>
     </div>

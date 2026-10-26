@@ -1,0 +1,36 @@
+{
+  "name": "website-asesmen-diagnostik",
+  "version": "1.0.0",
+  "description": "Website platform asesmen diagnostik tiga tingkat (*Three-Tier Diagnostic Assessment*) khusus mata pelajaran **Matematika** untuk memetakan pemahaman dan miskonsepsi siswa secara akurat dan komprehensif.",
+  "main": "admin.js",
+  "scripts": {
+    "start": "node serve.js",
+    "build": "node scripts/verify-docker-env.js",
+    "test": "node test_backend_api.js",
+    "test:env": "node scripts/verify-docker-env.js",
+    "healthcheck": "node scripts/healthcheck.js",
+    "docker:build": "docker build -t website-asesmen-diagnostik:latest .",
+    "docker:run": "docker run -d --name sidag-app -p 3000:3000 -v sidag_data:/app/data --env-file .env website-asesmen-diagnostik:latest",
+    "docker:stop": "docker stop sidag-app && docker rm sidag-app",
+    "docker:compose": "docker compose up -d --build",
+    "db:seed": "node scripts/seed-sqlite.js",
+    "db:studio": "drizzle-kit studio"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fitrikhnn19/website-asesmen-diagnostik.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fitrikhnn19/website-asesmen-diagnostik/issues"
+  },
+  "homepage": "https://github.com/fitrikhnn19/website-asesmen-diagnostik#readme",
+  "dependencies": {
+    "@libsql/client": "^0.18.0",
+    "drizzle-kit": "^0.31.11",
+    "drizzle-orm": "^0.45.4"
+  }
+}

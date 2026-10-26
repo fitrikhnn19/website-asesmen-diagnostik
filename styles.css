@@ -1170,3 +1170,157 @@ button {
     display: flex;
   }
 }
+
+/* Institutional Attribution & Collaboration Styles */
+.institution-collab-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.institution-collab-pill .inst-tag {
+  background: linear-gradient(135deg, var(--primary), #6366f1);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.institution-collab-pill .inst-text {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.institution-collab-pill .inst-text strong {
+  color: var(--text-main);
+}
+
+.institution-section {
+  background: var(--bg-page);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 56px 0;
+}
+
+.institution-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.institution-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  position: relative;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.institution-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.institution-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.institution-icon-box.fkip {
+  background: rgba(79, 70, 229, 0.12);
+  color: var(--primary);
+  border: 1px solid rgba(79, 70, 229, 0.25);
+}
+
+.institution-icon-box.school {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--status-paham);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.institution-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(79, 70, 229, 0.1);
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.institution-badge.school {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--status-paham);
+}
+
+.institution-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.institution-sub {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+
+.institution-badge.school ~ .institution-sub {
+  color: var(--status-paham);
+}
+
+.institution-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.institution-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-main);
+}
+
+.institution-meta-list span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+

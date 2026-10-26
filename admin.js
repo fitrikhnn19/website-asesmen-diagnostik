@@ -1,44 +1,56 @@
 /**
  * SiDag - Administrator Dashboard Controller
- * Full Control: Teacher Accounts Management (CRUD, Activate/Deactivate, Reset Password),
- * Global Anti-Cheat Integrity, System Audit Trail, and Server Health Monitoring.
+ * Full Control: Teacher Accounts Management (CRUD, Activate/Deactivate, Reset Password, Delete),
+ * Global Anti-Cheat Integrity, System Audit Trail, Master Data (Classes & Students), and Server Health Monitoring.
+ * Integrated with RESTful backend endpoints (/api/admin/*).
  */
 
-// Global Admin State
+// Global In-Memory Cache (synchronized with Backend API)
 const ADMIN_STATE = {
-  teachers: [
-    { id: 'T01', name: 'Dra. Siti Rahmawati, M.Pd.', nip: '19750312 200003 2 004', email: 'siti.rahmawati@sman1.sch.id', subject: 'Fisika', classes: 'XI IPA 1, XI IPA 2', assessmentsCount: 4, status: 'aktif', joined: '10 Jan 2026' },
-    { id: 'T02', name: 'Bambang Hermanto, S.Pd.', nip: '19810415 200604 1 012', email: 'bambang.hermanto@sman1.sch.id', subject: 'Matematika', classes: 'X-A, X-B', assessmentsCount: 6, status: 'aktif', joined: '12 Jan 2026' },
-    { id: 'T03', name: 'Dr. Hendra Gunawan, M.Si.', nip: '19690822 199512 1 001', email: 'hendra.gunawan@sman1.sch.id', subject: 'Kimia', classes: 'XII MIPA 1, XII MIPA 2', assessmentsCount: 3, status: 'aktif', joined: '15 Jan 2026' },
-    { id: 'T04', name: 'Nurul Hidayati, S.Si., M.Pd.', nip: '19840210 200801 2 009', email: 'nurul.hidayati@sman1.sch.id', subject: 'Biologi', classes: 'XI IPA 3, XI IPA 4', assessmentsCount: 5, status: 'aktif', joined: '18 Jan 2026' },
-    { id: 'T05', name: 'Agus Santoso, M.Pd.', nip: '19790614 200501 1 007', email: 'agus.santoso@sman1.sch.id', subject: 'Fisika', classes: 'X-C, X-D', assessmentsCount: 2, status: 'aktif', joined: '22 Jan 2026' },
-    { id: 'T06', name: 'Dewi Sartika, S.Pd.', nip: '19881105 201402 2 003', email: 'dewi.sartika@sman1.sch.id', subject: 'Matematika', classes: 'XI IPS 1', assessmentsCount: 1, status: 'nonaktif', joined: '02 Feb 2026' },
-    { id: 'T07', name: 'Rahmat Kurniawan, S.Kom.', nip: '19920518 201903 1 005', email: 'rahmat.kurniawan@sman1.sch.id', subject: 'Informatika', classes: 'X-A, X-B, X-C', assessmentsCount: 3, status: 'aktif', joined: '05 Feb 2026' },
-    { id: 'T08', name: 'Endang Purwanti, M.Pd.', nip: '19730919 199802 2 002', email: 'endang.purwanti@sman1.sch.id', subject: 'Kimia', classes: 'XI IPA 1', assessmentsCount: 0, status: 'nonaktif', joined: '12 Feb 2026' }
-  ],
-  auditLogs: [
-    { time: '23 Okt 2026, 21:15', actor: 'Dra. Siti Rahmawati, M.Pd.', role: 'Guru', action: 'Mengirim email rekap asesmen XI IPA 2', ip: '192.168.1.45', status: 'Sukses' },
-    { time: '23 Okt 2026, 20:30', actor: 'Administrator SiDag', role: 'Admin', action: 'Login ke Portal Administrator', ip: '192.168.1.2', status: 'Sukses' },
-    { time: '23 Okt 2026, 14:10', actor: 'Bambang Hermanto, S.Pd.', role: 'Guru', action: 'Menerbitkan asesmen Matematika MAT-X', ip: '192.168.1.52', status: 'Sukses' },
-    { time: '22 Okt 2026, 16:45', actor: 'Administrator SiDag', role: 'Admin', action: 'Menonaktifkan akun guru: Dewi Sartika, S.Pd.', ip: '192.168.1.2', status: 'Sukses' },
-    { time: '22 Okt 2026, 11:20', actor: 'Budi Pratama (Siswa)', role: 'Siswa', action: 'Terdeteksi 3x pindah tab pada asesmen DIAGNO-2026', ip: '192.168.1.108', status: 'Tercatat' }
-  ],
-  globalProctoring: [
-    { time: '23 Okt 2026, 10:42', student: 'Budi Pratama', class: 'XI IPA 2', teacher: 'Dra. Siti Rahmawati, M.Pd.', violation: 'Pindah Tab Browser (Keluar jendela)', severity: 'berat', action: 'Peringatan ke-3 & Notifikasi Pengawas' },
-    { time: '23 Okt 2026, 10:25', student: 'Eko Prasetyo', class: 'XI IPA 2', teacher: 'Dra. Siti Rahmawati, M.Pd.', violation: 'Keluar dari Mode Fullscreen', severity: 'ringan', action: 'Layar Terkunci & Kembali Otomatis' },
-    { time: '23 Okt 2026, 09:14', student: 'Rangga Wijaya', class: 'X-A', teacher: 'Bambang Hermanto, S.Pd.', violation: 'Membuka DevTools / Inspect Element', severity: 'berat', action: 'Sesi Ujian Ditangguhkan Sementara' },
-    { time: '23 Okt 2026, 08:50', student: 'Farhan Maulana', class: 'XII MIPA 1', teacher: 'Dr. Hendra Gunawan, M.Si.', violation: 'Upaya Copy-Paste Teks Soal', severity: 'ringan', action: 'Blokir Clipboard Otomatis' }
-  ]
+  teachers: [],
+  auditLogs: [],
+  globalProctoring: [],
+  masterClasses: [],
+  masterStudents: []
 };
 
-// Initialization
-document.addEventListener('DOMContentLoaded', () => {
+// API Helper
+async function apiRequest(endpoint, method = 'GET', body = null) {
+  const options = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + (sessionStorage.getItem('sidag_admin_token') || 'sidag-admin-token')
+    }
+  };
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+
+  try {
+    const res = await fetch(endpoint, options);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error(`API Error on ${method} ${endpoint}:`, err);
+    return { success: false, message: 'Gagal terhubung ke server SiDag API.' };
+  }
+}
+
+// Initialization on DOM Ready
+document.addEventListener('DOMContentLoaded', async () => {
   initAdminTheme();
   initAdminNav();
-  initTeachersManagement();
-  initSystemAuditLogs();
-  initGlobalProctoring();
   initAdminModals();
+
+  // Load all data from API asynchronously
+  await Promise.all([
+    loadAdminOverview(),
+    loadTeachersData(),
+    loadSystemAuditLogs(),
+    loadGlobalProctoring(),
+    loadMasterData()
+  ]);
 });
 
 /* --- Theme Management --- */
@@ -77,11 +89,14 @@ function initAdminNav() {
 
   navItems.forEach(item => {
     item.addEventListener('click', (e) => {
-      e.preventDefault();
+      const href = item.getAttribute('href');
       const viewId = item.getAttribute('data-view');
-      adminSwitchView(viewId);
-      if (window.innerWidth <= 768 && sidebar) {
-        sidebar.classList.remove('mobile-open');
+      if (viewId) {
+        e.preventDefault();
+        adminSwitchView(viewId);
+        if (window.innerWidth <= 768 && sidebar) {
+          sidebar.classList.remove('mobile-open');
+        }
       }
     });
   });
@@ -126,138 +141,175 @@ window.adminSwitchView = function(viewId) {
   if (breadcrumb && titles[viewId]) {
     breadcrumb.textContent = titles[viewId];
   }
+
+  // Refresh view specific data
+  if (viewId === 'admin-view-overview') loadAdminOverview();
+  if (viewId === 'admin-view-teachers') loadTeachersData();
+  if (viewId === 'admin-view-master') loadMasterData();
+  if (viewId === 'admin-view-proctoring') loadGlobalProctoring();
+  if (viewId === 'admin-view-audit') loadSystemAuditLogs();
 };
 
-/* --- Teacher Accounts Management (CRUD & Status) --- */
-function initTeachersManagement() {
-  const tbody = document.getElementById('teachersTableBody');
-  const overviewTbody = document.getElementById('overviewTeachersTbody');
+/* --- 1. OVERVIEW & KPI METRICS --- */
+async function loadAdminOverview() {
+  const res = await apiRequest('/api/admin/overview');
+  if (res && res.success && res.data) {
+    const d = res.data;
+    const kpiTeachers = document.getElementById('kpiTotalTeachers');
+    if (kpiTeachers) {
+      kpiTeachers.textContent = `${d.teachers.total} Guru`;
+    }
+
+    const sidebarTeachers = document.getElementById('sidebarTeachersCount');
+    if (sidebarTeachers) {
+      sidebarTeachers.textContent = d.teachers.total;
+    }
+  }
+}
+
+/* --- 2. TEACHERS MANAGEMENT (CRUD) --- */
+async function loadTeachersData() {
   const searchInput = document.getElementById('searchTeacherInput');
   const filterStatus = document.getElementById('filterTeacherStatus');
   const filterSubject = document.getElementById('filterTeacherSubject');
+
+  const q = searchInput ? encodeURIComponent(searchInput.value.trim()) : '';
+  const status = filterStatus ? filterStatus.value : 'all';
+  const subj = filterSubject ? encodeURIComponent(filterSubject.value) : 'all';
+
+  const res = await apiRequest(`/api/admin/teachers?search=${q}&status=${status}&subject=${subj}`);
+  if (res && res.success && Array.isArray(res.data)) {
+    ADMIN_STATE.teachers = res.data;
+    renderTeachersTable();
+    renderOverviewTeachers();
+  }
+}
+
+function renderTeachersTable() {
+  const tbody = document.getElementById('teachersTableBody');
   const badgeCount = document.getElementById('teachersCountBadge');
   const kpiTeachers = document.getElementById('kpiTotalTeachers');
   const sidebarBadge = document.getElementById('sidebarTeachersCount');
 
-  renderTeachersTable();
-  renderOverviewTeachers();
+  if (!tbody) return;
 
-  if (searchInput) searchInput.addEventListener('input', renderTeachersTable);
-  if (filterStatus) filterStatus.addEventListener('change', renderTeachersTable);
-  if (filterSubject) filterSubject.addEventListener('change', renderTeachersTable);
+  const teachers = ADMIN_STATE.teachers;
 
-  function renderTeachersTable() {
-    if (!tbody) return;
-    const q = (searchInput ? searchInput.value : '').toLowerCase().trim();
-    const status = filterStatus ? filterStatus.value : 'all';
-    const subj = filterSubject ? filterSubject.value : 'all';
+  if (badgeCount) badgeCount.textContent = `Menampilkan ${teachers.length} akun`;
+  if (kpiTeachers) kpiTeachers.textContent = `${teachers.length} Guru`;
+  if (sidebarBadge) sidebarBadge.textContent = teachers.length;
 
-    const filtered = ADMIN_STATE.teachers.filter(t => {
-      const matchQ = t.name.toLowerCase().includes(q) || t.email.toLowerCase().includes(q) || t.nip.includes(q);
-      const matchStatus = status === 'all' || t.status === status;
-      const matchSubj = subj === 'all' || t.subject === subj;
-      return matchQ && matchStatus && matchSubj;
-    });
-
-    if (badgeCount) badgeCount.textContent = `Menampilkan ${filtered.length} dari ${ADMIN_STATE.teachers.length} akun`;
-    if (kpiTeachers) kpiTeachers.textContent = `${ADMIN_STATE.teachers.length} Guru`;
-    if (sidebarBadge) sidebarBadge.textContent = ADMIN_STATE.teachers.length;
-
-    if (filtered.length === 0) {
-      tbody.innerHTML = `
-        <tr>
-          <td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);">
-            Tidak ditemukan akun guru yang cocok dengan kata kunci pencarian.
-          </td>
-        </tr>
-      `;
-      return;
-    }
-
-    tbody.innerHTML = filtered.map((t, idx) => {
-      const isAktif = t.status === 'aktif';
-      return `
-        <tr>
-          <td>${idx + 1}</td>
-          <td>
-            <strong>${t.name}</strong>
-            <div style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">NIP: ${t.nip}</div>
-          </td>
-          <td>${t.email}</td>
-          <td><span class="status-badge paham" style="font-size:0.75rem;">${t.subject}</span></td>
-          <td style="font-size:0.8rem;">${t.classes}</td>
-          <td style="text-align:center;"><strong>${t.assessmentsCount}</strong></td>
-          <td>
-            <span class="status-badge ${isAktif ? 'active-status' : 'inactive-status'}">
-              &bull; ${isAktif ? 'Aktif' : 'Nonaktif'}
-            </span>
-          </td>
-          <td>
-            <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button type="button" class="btn btn-outline btn-sm" onclick="openEditTeacherModal('${t.id}')">
-                Ubah
-              </button>
-              <button type="button" class="btn ${isAktif ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleTeacherStatus('${t.id}')">
-                ${isAktif ? 'Nonaktifkan' : 'Aktifkan'}
-              </button>
-              <button type="button" class="btn btn-text btn-sm" title="Reset Kata Sandi" onclick="openResetPasswordModal('${t.id}')" style="padding:4px 8px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
-              </button>
-            </div>
-          </td>
-        </tr>
-      `;
-    }).join('');
+  if (teachers.length === 0) {
+    tbody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align:center; padding:32px; color:var(--text-muted);">
+          Tidak ditemukan akun guru yang cocok dengan kata kunci pencarian.
+        </td>
+      </tr>
+    `;
+    return;
   }
 
-  function renderOverviewTeachers() {
-    if (!overviewTbody) return;
-    overviewTbody.innerHTML = ADMIN_STATE.teachers.slice(0, 4).map(t => `
+  tbody.innerHTML = teachers.map((t, idx) => {
+    const isAktif = t.status === 'aktif';
+    return `
       <tr>
-        <td><strong>${t.name}</strong></td>
-        <td><span class="status-badge paham" style="font-size:0.72rem;">${t.subject}</span></td>
-        <td style="font-size:0.8rem; color:var(--text-muted);">${t.email}</td>
+        <td>${idx + 1}</td>
         <td>
-          <span class="status-badge ${t.status === 'aktif' ? 'active-status' : 'inactive-status'}">
-            &bull; ${t.status === 'aktif' ? 'Aktif' : 'Nonaktif'}
+          <strong>${escapeHtml(t.name)}</strong>
+          <div style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono);">NIP: ${escapeHtml(t.nip || '-')}</div>
+        </td>
+        <td>${escapeHtml(t.email)}</td>
+        <td><span class="status-badge paham" style="font-size:0.75rem;">${escapeHtml(t.subject || 'Matematika')}</span></td>
+        <td style="font-size:0.8rem;">${escapeHtml(t.classes || 'Belum Ditugaskan')}</td>
+        <td style="text-align:center;"><strong>${t.assessmentsCount || 0}</strong></td>
+        <td>
+          <span class="status-badge ${isAktif ? 'active-status' : 'inactive-status'}">
+            &bull; ${isAktif ? 'Aktif' : 'Nonaktif'}
           </span>
         </td>
         <td>
-          <button type="button" class="btn btn-outline btn-sm" onclick="adminSwitchView('admin-view-teachers')">Detail</button>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-outline btn-sm" onclick="openEditTeacherModal('${t.id}')">
+              Ubah
+            </button>
+            <button type="button" class="btn ${isAktif ? 'btn-secondary' : 'btn-primary'} btn-sm" onclick="toggleTeacherStatus('${t.id}')">
+              ${isAktif ? 'Nonaktifkan' : 'Aktifkan'}
+            </button>
+            <button type="button" class="btn btn-text btn-sm" title="Reset Kata Sandi" onclick="openResetPasswordModal('${t.id}')" style="padding:4px 8px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </button>
+            <button type="button" class="btn btn-text btn-sm" title="Hapus Akun Guru" onclick="confirmDeleteTeacher('${t.id}')" style="padding:4px 8px; color:var(--status-tidak-paham);">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
+          </div>
         </td>
       </tr>
-    `).join('');
-  }
+    `;
+  }).join('');
 }
 
-/* --- Toggle Teacher Status (Aktif / Nonaktif) --- */
-window.toggleTeacherStatus = function(teacherId) {
+function renderOverviewTeachers() {
+  const overviewTbody = document.getElementById('overviewTeachersTbody');
+  if (!overviewTbody) return;
+
+  overviewTbody.innerHTML = ADMIN_STATE.teachers.slice(0, 4).map(t => `
+    <tr>
+      <td><strong>${escapeHtml(t.name)}</strong></td>
+      <td><span class="status-badge paham" style="font-size:0.72rem;">${escapeHtml(t.subject || 'Matematika')}</span></td>
+      <td style="font-size:0.8rem; color:var(--text-muted);">${escapeHtml(t.email)}</td>
+      <td>
+        <span class="status-badge ${t.status === 'aktif' ? 'active-status' : 'inactive-status'}">
+          &bull; ${t.status === 'aktif' ? 'Aktif' : 'Nonaktif'}
+        </span>
+      </td>
+      <td>
+        <button type="button" class="btn btn-outline btn-sm" onclick="adminSwitchView('admin-view-teachers')">Detail</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// Search and filter listeners
+const sInput = document.getElementById('searchTeacherInput');
+const fStatus = document.getElementById('filterTeacherStatus');
+const fSubject = document.getElementById('filterTeacherSubject');
+if (sInput) sInput.addEventListener('input', () => loadTeachersData());
+if (fStatus) fStatus.addEventListener('change', () => loadTeachersData());
+if (fSubject) fSubject.addEventListener('change', () => loadTeachersData());
+
+/* --- Toggle Teacher Status --- */
+window.toggleTeacherStatus = async function(teacherId) {
+  const res = await apiRequest(`/api/admin/teachers/${teacherId}/status`, 'PATCH');
+  if (res && res.success) {
+    notify(res.message);
+    await loadTeachersData();
+    loadSystemAuditLogs();
+  } else {
+    notify(res ? res.message : 'Gagal memperbarui status guru.');
+  }
+};
+
+/* --- Delete Teacher --- */
+window.confirmDeleteTeacher = async function(teacherId) {
   const teacher = ADMIN_STATE.teachers.find(t => t.id === teacherId);
-  if (!teacher) return;
-
-  const prev = teacher.status;
-  teacher.status = prev === 'aktif' ? 'nonaktif' : 'aktif';
-
-  // Log in Audit Trail
-  ADMIN_STATE.auditLogs.unshift({
-    time: 'Baru saja',
-    actor: 'Administrator SiDag',
-    role: 'Admin',
-    action: `${teacher.status === 'aktif' ? 'Mengaktifkan' : 'Menonaktifkan'} akun guru: ${teacher.name}`,
-    ip: '192.168.1.2',
-    status: 'Sukses'
-  });
-
-  initTeachersManagement();
-  initSystemAuditLogs();
-
-  const msg = teacher.status === 'aktif' 
-    ? `Akun ${teacher.name} berhasil DIAKTIFKAN. Guru sekarang dapat login ke portal.`
-    : `Akun ${teacher.name} DINONAKTIFKAN. Guru tidak lagi dapat login ke sistem.`;
-  notify(msg);
+  const name = teacher ? teacher.name : 'guru ini';
+  if (confirm(`Apakah Anda yakin ingin menghapus akun pengajar '${name}' dari sistem? Tindakan ini tidak dapat dibatalkan.`)) {
+    const res = await apiRequest(`/api/admin/teachers/${teacherId}`, 'DELETE');
+    if (res && res.success) {
+      notify(res.message);
+      await loadTeachersData();
+      loadSystemAuditLogs();
+    } else {
+      notify(res ? res.message : 'Gagal menghapus akun guru.');
+    }
+  }
 };
 
 /* --- Edit Teacher Modal --- */
@@ -298,49 +350,78 @@ window.openResetPasswordModal = function(teacherId) {
   if (modal) modal.classList.add('open');
 };
 
-/* --- System Audit Trail --- */
-function initSystemAuditLogs() {
+/* --- 3. SYSTEM AUDIT TRAIL --- */
+async function loadSystemAuditLogs() {
   const tbody = document.getElementById('systemAuditTbody');
   if (!tbody) return;
 
-  tbody.innerHTML = ADMIN_STATE.auditLogs.map(l => `
-    <tr>
-      <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">${l.time}</td>
-      <td><strong>${l.actor}</strong></td>
-      <td><span class="portal-role-pill ${l.role === 'Admin' ? 'admin' : 'teacher'}">${l.role}</span></td>
-      <td style="font-size:0.84rem;">${l.action}</td>
-      <td style="font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted);">${l.ip}</td>
-      <td><span class="status-badge active-status">&check; ${l.status}</span></td>
-    </tr>
-  `).join('');
+  const res = await apiRequest('/api/admin/audit-logs');
+  if (res && res.success && Array.isArray(res.data)) {
+    ADMIN_STATE.auditLogs = res.data;
+    tbody.innerHTML = res.data.map(l => `
+      <tr>
+        <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">${escapeHtml(l.time_formatted || l.time)}</td>
+        <td><strong>${escapeHtml(l.actor)}</strong></td>
+        <td><span class="portal-role-pill ${l.role === 'Admin' ? 'admin' : 'teacher'}">${escapeHtml(l.role)}</span></td>
+        <td style="font-size:0.84rem;">${escapeHtml(l.action)}</td>
+        <td style="font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted);">${escapeHtml(l.ip || '127.0.0.1')}</td>
+        <td><span class="status-badge active-status">&check; ${escapeHtml(l.status || 'Sukses')}</span></td>
+      </tr>
+    `).join('');
+  }
 }
 
-/* --- Global Proctoring Surveillance --- */
-function initGlobalProctoring() {
+window.clearAuditLogs = async function() {
+  if (confirm('Apakah Anda yakin ingin mengosongkan seluruh rekaman log audit sistem?')) {
+    const res = await apiRequest('/api/admin/audit-logs', 'DELETE');
+    if (res && res.success) {
+      notify(res.message);
+      loadSystemAuditLogs();
+    }
+  }
+};
+
+/* --- 4. GLOBAL PROCTORING --- */
+async function loadGlobalProctoring() {
   const tbody = document.getElementById('adminProctoringTbody');
   if (!tbody) return;
 
-  tbody.innerHTML = ADMIN_STATE.globalProctoring.map(p => `
-    <tr>
-      <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">${p.time}</td>
-      <td><strong>${p.student}</strong></td>
-      <td>${p.class}</td>
-      <td style="font-size:0.82rem; color:var(--text-muted);">${p.teacher}</td>
-      <td>${p.violation}</td>
-      <td>
-        <span class="cheat-badge-severity ${p.severity}">
-          ${p.severity}
-        </span>
-      </td>
-      <td style="font-size:0.8rem; color:var(--text-muted);">${p.action}</td>
-    </tr>
-  `).join('');
+  const res = await apiRequest('/api/admin/proctoring');
+  if (res && res.success && Array.isArray(res.data)) {
+    ADMIN_STATE.globalProctoring = res.data;
+    tbody.innerHTML = res.data.map(p => `
+      <tr>
+        <td style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-dim);">${escapeHtml(p.occurred_at || p.time || 'Baru saja')}</td>
+        <td><strong>${escapeHtml(p.student_name || p.student)}</strong></td>
+        <td>${escapeHtml(p.class_name || p.class)}</td>
+        <td style="font-size:0.82rem; color:var(--text-muted);">${escapeHtml(p.teacher_name || p.teacher || 'Bambang Hermanto')}</td>
+        <td>${escapeHtml(p.violation_text || p.violation)}</td>
+        <td>
+          <span class="cheat-badge-severity ${p.severity}">
+            ${p.severity}
+          </span>
+        </td>
+        <td style="font-size:0.8rem; color:var(--text-muted);">${escapeHtml(p.action_taken || p.action || 'Tercatat')}</td>
+      </tr>
+    `).join('');
+  }
 }
 
+window.clearProctoringLogs = async function() {
+  if (confirm('Kosongkan seluruh riwayat rekaman anti-cheat global?')) {
+    const res = await apiRequest('/api/admin/proctoring', 'DELETE');
+    if (res && res.success) {
+      notify(res.message);
+      loadGlobalProctoring();
+    }
+  }
+};
+
 window.exportAdminProctoringLogs = function() {
+  const logs = ADMIN_STATE.globalProctoring;
   const csvContent = "data:text/csv;charset=utf-8,"
     + "Waktu,Siswa,Kelas,Guru Pengawas,Pelanggaran,Keparahan,Tindakan\n"
-    + ADMIN_STATE.globalProctoring.map(p => `"${p.time}","${p.student}","${p.class}","${p.teacher}","${p.violation}","${p.severity}","${p.action}"`).join("\n");
+    + logs.map(p => `"${p.occurred_at || p.time || ''}","${p.student_name || p.student}","${p.class_name || p.class}","${p.teacher_name || p.teacher}","${p.violation_text || p.violation}","${p.severity}","${p.action_taken || p.action}"`).join("\n");
 
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
@@ -350,6 +431,68 @@ window.exportAdminProctoringLogs = function() {
   link.click();
   document.body.removeChild(link);
   notify('Log Integritas Global berhasil diekspor ke CSV.');
+};
+
+/* --- 5. MASTER DATA (CLASSES & STUDENTS CRUD) --- */
+async function loadMasterData() {
+  const classesTbody = document.getElementById('masterClassesTableBody');
+  const studentsTbody = document.getElementById('masterStudentsTableBody');
+
+  const [classesRes, studentsRes] = await Promise.all([
+    apiRequest('/api/admin/master/classes'),
+    apiRequest('/api/admin/master/students')
+  ]);
+
+  if (classesRes && classesRes.success && classesTbody) {
+    ADMIN_STATE.masterClasses = classesRes.data;
+    classesTbody.innerHTML = classesRes.data.map(cls => `
+      <tr>
+        <td><strong style="font-family:var(--font-mono);">${escapeHtml(cls.id)}</strong></td>
+        <td><strong>${escapeHtml(cls.name)}</strong></td>
+        <td>${escapeHtml(cls.grade)}</td>
+        <td>${escapeHtml(cls.homeroom || '-')}</td>
+        <td><span class="status-badge paham">${cls.student_count || 0} Siswa</span></td>
+        <td>
+          <button type="button" class="btn btn-text btn-sm" onclick="deleteMasterClass('${cls.id}')" style="color:var(--status-tidak-paham);">Hapus</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  if (studentsRes && studentsRes.success && studentsTbody) {
+    ADMIN_STATE.masterStudents = studentsRes.data;
+    studentsTbody.innerHTML = studentsRes.data.map(s => `
+      <tr>
+        <td><code style="font-family:var(--font-mono);">${escapeHtml(s.id)}</code></td>
+        <td><strong>${escapeHtml(s.name)}</strong></td>
+        <td><span class="status-badge paham">${escapeHtml(s.class || 'XI MIPA 2')}</span></td>
+        <td style="font-size:0.82rem; color:var(--text-muted);">${escapeHtml(s.email || '-')}</td>
+        <td>
+          <button type="button" class="btn btn-text btn-sm" onclick="deleteMasterStudent('${s.id}')" style="color:var(--status-tidak-paham);">Hapus</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+}
+
+window.deleteMasterClass = async function(classId) {
+  if (confirm(`Hapus rombel master '${classId}'?`)) {
+    const res = await apiRequest(`/api/admin/master/classes/${classId}`, 'DELETE');
+    if (res && res.success) {
+      notify(res.message);
+      loadMasterData();
+    }
+  }
+};
+
+window.deleteMasterStudent = async function(studentId) {
+  if (confirm(`Hapus siswa master '${studentId}'?`)) {
+    const res = await apiRequest(`/api/admin/master/students/${studentId}`, 'DELETE');
+    if (res && res.success) {
+      notify(res.message);
+      loadMasterData();
+    }
+  }
 };
 
 /* --- Modals and Submissions --- */
@@ -374,7 +517,7 @@ function initAdminModals() {
   });
 
   if (addForm) {
-    addForm.addEventListener('submit', (e) => {
+    addForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('addTName')?.value.trim();
       const nip = document.getElementById('addTNIP')?.value.trim();
@@ -382,36 +525,27 @@ function initAdminModals() {
       const subj = document.getElementById('addTSubject')?.value;
       const status = document.getElementById('addTStatus')?.value;
 
-      // Add to State
-      const newTeacher = {
-        id: 'T' + String(ADMIN_STATE.teachers.length + 1).padStart(2, '0'),
-        name: name,
-        nip: nip,
-        email: email,
+      const payload = {
+        name,
+        nip,
+        email,
         subject: subj,
         classes: 'Belum Ditugaskan',
-        assessmentsCount: 0,
-        status: status,
-        joined: 'Hari ini'
+        status: status || 'aktif',
+        password: 'guru123'
       };
 
-      ADMIN_STATE.teachers.unshift(newTeacher);
-
-      // Audit log
-      ADMIN_STATE.auditLogs.unshift({
-        time: 'Baru saja',
-        actor: 'Administrator SiDag',
-        role: 'Admin',
-        action: `Menambahkan akun guru baru: ${name} (${email})`,
-        ip: '192.168.1.2',
-        status: 'Sukses'
-      });
-
-      initTeachersManagement();
-      initSystemAuditLogs();
-      addModal.classList.remove('open');
-      addForm.reset();
-      notify(`Akun guru untuk ${name} berhasil ditambahkan!`);
+      const res = await apiRequest('/api/admin/teachers', 'POST', payload);
+      if (res && res.success) {
+        notify(res.message);
+        addModal?.classList.remove('open');
+        addForm.reset();
+        await loadTeachersData();
+        loadSystemAuditLogs();
+        loadAdminOverview();
+      } else {
+        notify(res ? res.message : 'Gagal menambahkan akun guru.');
+      }
     });
   }
 
@@ -426,7 +560,7 @@ function initAdminModals() {
   });
 
   if (editForm) {
-    editForm.addEventListener('submit', (e) => {
+    editForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const id = document.getElementById('editTeacherId')?.value;
       const name = document.getElementById('editTName')?.value.trim();
@@ -434,26 +568,15 @@ function initAdminModals() {
       const subj = document.getElementById('editTSubject')?.value;
       const status = document.getElementById('editTStatus')?.value;
 
-      const teacher = ADMIN_STATE.teachers.find(t => t.id === id);
-      if (teacher) {
-        teacher.name = name;
-        teacher.email = email;
-        teacher.subject = subj;
-        teacher.status = status;
-
-        ADMIN_STATE.auditLogs.unshift({
-          time: 'Baru saja',
-          actor: 'Administrator SiDag',
-          role: 'Admin',
-          action: `Memperbarui profil akun guru: ${name}`,
-          ip: '192.168.1.2',
-          status: 'Sukses'
-        });
-
-        initTeachersManagement();
-        initSystemAuditLogs();
+      const payload = { name, email, subject: subj, status };
+      const res = await apiRequest(`/api/admin/teachers/${id}`, 'PUT', payload);
+      if (res && res.success) {
+        notify(res.message);
         editModal?.classList.remove('open');
-        notify(`Data akun guru ${name} berhasil diperbarui!`);
+        await loadTeachersData();
+        loadSystemAuditLogs();
+      } else {
+        notify(res ? res.message : 'Gagal memperbarui data guru.');
       }
     });
   }
@@ -469,25 +592,82 @@ function initAdminModals() {
   });
 
   if (resetForm) {
-    resetForm.addEventListener('submit', (e) => {
+    resetForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const id = document.getElementById('resetPassTeacherId')?.value;
-      const teacher = ADMIN_STATE.teachers.find(t => t.id === id);
       const newPass = document.getElementById('newTempPassField')?.value;
 
-      if (teacher) {
-        ADMIN_STATE.auditLogs.unshift({
-          time: 'Baru saja',
-          actor: 'Administrator SiDag',
-          role: 'Admin',
-          action: `Reset kata sandi akun guru: ${teacher.name}`,
-          ip: '192.168.1.2',
-          status: 'Sukses'
-        });
-
-        initSystemAuditLogs();
+      const res = await apiRequest(`/api/admin/teachers/${id}/reset-password`, 'POST', { new_password: newPass });
+      if (res && res.success) {
+        notify(res.message);
         resetModal?.classList.remove('open');
-        notify(`Kata sandi untuk ${teacher.name} berhasil diubah! Email pemberitahuan telah dikirimkan.`);
+        loadSystemAuditLogs();
+      } else {
+        notify(res ? res.message : 'Gagal mereset kata sandi.');
+      }
+    });
+  }
+
+  // Master Class Modal
+  const mClassModal = document.getElementById('addMasterClassModal');
+  const btnOpenMClass = document.getElementById('btnOpenAddMasterClassModal');
+  const closeMClass = document.getElementById('closeAddMasterClassModal');
+  const cancelMClass = document.getElementById('btnCancelAddMasterClass');
+  const mClassForm = document.getElementById('addMasterClassForm');
+
+  if (btnOpenMClass && mClassModal) {
+    btnOpenMClass.addEventListener('click', () => mClassModal.classList.add('open'));
+  }
+  [closeMClass, cancelMClass].forEach(btn => {
+    btn?.addEventListener('click', () => mClassModal?.classList.remove('open'));
+  });
+
+  if (mClassForm) {
+    mClassForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('addMClassName')?.value.trim();
+      const grade = document.getElementById('addMClassGrade')?.value;
+      const homeroom = document.getElementById('addMClassHomeroom')?.value.trim();
+
+      const res = await apiRequest('/api/admin/master/classes', 'POST', { name, grade, homeroom });
+      if (res && res.success) {
+        notify(res.message);
+        mClassModal?.classList.remove('open');
+        mClassForm.reset();
+        loadMasterData();
+        loadSystemAuditLogs();
+      }
+    });
+  }
+
+  // Master Student Modal
+  const mStudentModal = document.getElementById('addMasterStudentModal');
+  const btnOpenMStudent = document.getElementById('btnOpenAddMasterStudentModal');
+  const closeMStudent = document.getElementById('closeAddMasterStudentModal');
+  const cancelMStudent = document.getElementById('btnCancelAddMasterStudent');
+  const mStudentForm = document.getElementById('addMasterStudentForm');
+
+  if (btnOpenMStudent && mStudentModal) {
+    btnOpenMStudent.addEventListener('click', () => mStudentModal.classList.add('open'));
+  }
+  [closeMStudent, cancelMStudent].forEach(btn => {
+    btn?.addEventListener('click', () => mStudentModal?.classList.remove('open'));
+  });
+
+  if (mStudentForm) {
+    mStudentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('addMStudentName')?.value.trim();
+      const className = document.getElementById('addMStudentClass')?.value;
+      const roll = document.getElementById('addMStudentRoll')?.value.trim();
+
+      const res = await apiRequest('/api/admin/master/students', 'POST', { name, class: className, roll });
+      if (res && res.success) {
+        notify(res.message);
+        mStudentModal?.classList.remove('open');
+        mStudentForm.reset();
+        loadMasterData();
+        loadSystemAuditLogs();
       }
     });
   }
@@ -497,7 +677,19 @@ function initAdminModals() {
     if (e.target === addModal) addModal.classList.remove('open');
     if (e.target === editModal) editModal.classList.remove('open');
     if (e.target === resetModal) resetModal.classList.remove('open');
+    if (e.target === mClassModal) mClassModal.classList.remove('open');
+    if (e.target === mStudentModal) mStudentModal.classList.remove('open');
   });
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 /* --- Toast Bar Notification --- */

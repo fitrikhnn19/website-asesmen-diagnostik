@@ -1,0 +1,39 @@
+# Version Control & Git
+.git
+.gitignore
+.gitattributes
+.github
+
+# Dependencies (Installed inside Docker image)
+node_modules/
+
+# Secrets & Environment Files (Pass dynamically at runtime)
+.env
+.env.*
+!.env.example
+
+# Development & System Temporary Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.DS_Store
+Thumbs.db
+desktop.ini
+tmp/
+*.tmp
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+.gemini/
+*.sublime-project
+*.sublime-workspace
+
+# Documentation & Spec Files (Excluded from runtime container image)
+PRD.md
+API.md
+README.md
+DEPLOYMENT.md
+features/

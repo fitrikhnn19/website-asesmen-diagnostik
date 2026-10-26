@@ -514,24 +514,36 @@
 
 .proctoring-notice-list {
   list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 }
 
 .proctoring-notice-list li {
-  font-size: 0.84rem;
+  position: relative;
+  padding-left: 20px;
+  font-size: 0.88rem;
   color: var(--text-muted);
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  line-height: 1.4;
+  line-height: 1.6;
+  text-align: left;
 }
 
 .proctoring-notice-list li::before {
   content: '•';
+  position: absolute;
+  left: 4px;
+  top: -1px;
   color: var(--status-miskonsepsi);
   font-weight: 800;
+  font-size: 1.15rem;
+  line-height: 1.6;
+}
+
+.proctoring-notice-list li strong {
+  color: var(--text-main);
+  font-weight: 600;
 }
 
 .honor-agreement-label {
